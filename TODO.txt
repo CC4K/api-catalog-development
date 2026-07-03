@@ -7,7 +7,7 @@
 -> on ne gardera que la dernière révision (cfr api.yaml)
 -> l'administration du catalogue ce fera sur la même machine qu'avec les autres services
 -> logs : erreurs de django + succès de l'importation + login d'un admin et potentiels écritures par un admin
--> stockage des yaml directement dans des dossiers, fichiers nommés après {nom}-{version} mais pas révision ?
+-> stockage des "api.yaml" et "swagger.json" directement dans des dossiers, fichiers nommés après {nom}-{version} mais pas révision ?
 -> .env avec les variables d'environnement (à créer manuellement)
 -> SQLite is ok to use
 
@@ -17,7 +17,7 @@
 
 ## Remake des mock-up :
 -> bouton dans header avec les documents (avec le même look que la page de documents du dev portal)
--> plus de filters, tags c'est assez !!
+-> plus besoin de filters, tags c'est assez !!
 -> remake dans Aseprite avec une taille fixe/consistente ?
 
 
