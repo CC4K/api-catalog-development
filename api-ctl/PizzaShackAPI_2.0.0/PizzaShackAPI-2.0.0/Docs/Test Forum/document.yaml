@@ -1,0 +1,10 @@
+type: document
+version: v4.7.0
+data:
+  documentId: 981c0ac3-f085-4637-9609-42d801117c17
+  name: Test Forum
+  type: PUBLIC_FORUM
+  summary: "(c'est définitvement, absolument un forum crois-moi)"
+  sourceType: URL
+  sourceUrl: https://www.meteo.be/fr/belgique
+  visibility: API_LEVEL
