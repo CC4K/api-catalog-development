@@ -1,0 +1,9 @@
+type: document
+version: v4.7.0
+data:
+  documentId: 232c304b-6994-4167-87c7-2587b3ee5407
+  name: Test How To Inline
+  type: HOWTO
+  summary: "blablabli, blablablou"
+  sourceType: INLINE
+  visibility: API_LEVEL

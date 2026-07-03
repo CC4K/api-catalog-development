@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Redoc CE</title>
+    <!-- needed for adaptive design -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
+    -->
+
+    <!--
+    Redoc CE doesn't change outer page styles
+    -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="margin-top:50px">
+    <!-- works with both yaml and json, MUST be openapi version 3.0 or 3.1
+    for adding an offset for the page header use scrollYOffset/scroll-y-offset-->
+    <!--
+    list of test yamls :
+    ./db/PizzaShackAPI_2.0.0/PizzaShackAPI-2.0.0/Definitions/swagger.yaml
+    ./db/olivier.perdaens-TestEmployee-v1/TestEmployee-v1/APIs/Employees-v1/Definitions/swagger.yaml
+    ./db/olivier.perdaens-TestEmployee-v1/TestEmployee-v1/Definitions/swagger.yaml
+    -->
+    <redoc
+       spec-url='./db/PizzaShackAPI_2.0.0/PizzaShackAPI-2.0.0/Definitions/swagger.yaml'
+       required-props-first=true
+       theme='{
+        "spacing": {
+          "unit": 5,
+          "sectionHorizontal": 40,
+          "sectionVertical": 40
+        },
+        "breakpoints": {
+          "small": "50rem",
+          "medium": "85rem",
+          "large": "105rem"
+        },
+        "colors": {
+          "tonalOffset": 0.3
+        },
+        "typography": {
+          "fontSize": "14px",
+          "lineHeight": "1.5em",
+          "fontWeightRegular": "400",
+          "fontWeightBold": "600",
+          "fontWeightLight": "300",
+          "fontFamily": "Roboto, sans-serif",
+          "smoothing": "antialiased",
+          "optimizeSpeed": true,
+          "headings": {
+            "fontFamily": "Montserrat, sans-serif",
+            "fontWeight": "400",
+            "lineHeight": "1.6em"
+          },
+          "code": {
+            "fontSize": "13px",
+            "fontFamily": "Courier, monospace",
+            "color": "#e53935",
+            "backgroundColor": "rgba(38, 50, 56, 0.05)",
+            "wrap": false
+          },
+          "links": {
+            "textDecoration": "auto",
+            "hoverTextDecoration": "auto"
+          }
+        },
+        "sidebar": {
+          "width": "260px",
+          "backgroundColor": "lightblue",
+          "textColor": "#333333",
+          "groupItems": {
+            "textTransform": "uppercase"
+          },
+          "level1Items": {
+            "textTransform": "none"
+          },
+          "arrow": {
+            "size": "1.5em"
+          }
+        },
+        "logo": {
+          "gutter": "2px"
+        },
+        "rightPanel": {
+          "backgroundColor": "#263238",
+          "width": "40%",
+          "textColor": "#ffffff",
+          "servers": {
+            "overlay": {
+              "backgroundColor": "#fafafa",
+              "textColor": "#263238"
+            },
+            "url": {
+              "backgroundColor": "#fff"
+            }
+          }
+        },
+        "fab": {
+          "backgroundColor": "#263238",
+          "color": "#ffffff"
+        }
+      }'></redoc>
+    <script src="./redoc/redoc_2.5.3.standalone.js"> </script>
+    </div>
+  </body>
+</html>

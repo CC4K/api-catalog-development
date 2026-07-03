@@ -1,0 +1,9 @@
+type: document
+version: v4.7.0
+data:
+  documentId: fc66802e-a071-4856-897c-3b907f496709
+  name: Test How To Markdown
+  type: HOWTO
+  summary: "blablabli, blablablou"
+  sourceType: MARKDOWN
+  visibility: API_LEVEL

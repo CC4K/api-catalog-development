@@ -1,0 +1,106 @@
+type: api_product
+version: v4.6.0
+data:
+  id: 05fb9a08-2cb8-4690-9322-d9d52746f5a7
+  name: TestEmployee
+  displayName: TestEmployee
+  context: /test/employee
+  version: v1
+  provider: olivier.perdaens
+  hasThumbnail: false
+  state: CREATED
+  enableSchemaValidation: false
+  isDefaultVersion: true
+  isRevision: false
+  revisionId: 0
+  responseCachingEnabled: false
+  cacheTimeout: 300
+  visibility: PUBLIC
+  visibleRoles: []
+  visibleTenants: []
+  accessControl: NONE
+  accessControlRoles: []
+  transport:
+   - http
+   - https
+  tags: []
+  policies:
+   - Unlimited
+  authorizationHeader: Authorization
+  apiKeyHeader: ApiKey
+  securityScheme:
+   - oauth_basic_auth_api_key_mandatory
+   - oauth2
+  subscriptionAvailability: ALL_TENANTS
+  subscriptionAvailableTenants: []
+  additionalProperties: []
+  additionalPropertiesMap: {}
+  businessInformation: {}
+  corsConfiguration:
+    corsConfigurationEnabled: false
+    accessControlAllowOrigins:
+     - '*'
+    accessControlAllowCredentials: false
+    accessControlAllowHeaders:
+     - authorization
+     - Access-Control-Allow-Origin
+     - Content-Type
+     - SOAPAction
+     - apikey
+     - Internal-Key
+    accessControlAllowMethods:
+     - GET
+     - PUT
+     - POST
+     - DELETE
+     - PATCH
+     - OPTIONS
+  createdTime: "1781529025250"
+  gatewayVendor: wso2
+  apis:
+   -
+    name: Employees
+    apiId: 1c84e5af-f91b-4881-a25d-6353a7d7596c
+    version: v1
+    operations:
+     -
+      id: ""
+      target: "/{matric_fgs}/detail"
+      verb: GET
+      authType: Application & Application User
+      throttlingPolicy: Unlimited
+      scopes: []
+      usedProductIds: []
+      operationPolicies:
+        request: []
+        response: []
+        fault: []
+     -
+      id: ""
+      target: "/{matric_fgs}/photo"
+      verb: GET
+      authType: Application & Application User
+      throttlingPolicy: Unlimited
+      scopes: []
+      usedProductIds: []
+      operationPolicies:
+        request: []
+        response: []
+        fault: []
+     -
+      id: ""
+      target: "/{matric_fgs}"
+      verb: GET
+      authType: Application & Application User
+      throttlingPolicy: Unlimited
+      scopes: []
+      usedProductIds: []
+      operationPolicies:
+        request: []
+        response: []
+        fault: []
+  scopes: []
+  categories: []
+  audiences:
+   - all
+  egress: false

@@ -1,0 +1,90 @@
+# TODO personnel / notes / idées
+
+## Conception / ce qu'on sait :
+-> pour deletion manuelle / notice de dépreciation : dire dans la doc qu'il faut "supprimer avec commande rm" c'est ok
+-> API Legacy : juste un tag et les cacher
+-> APIs blacklistés : ne même pas les importer
+-> on ne gardera que la dernière révision (cfr api.yaml)
+-> l'administration du catalogue ce fera sur la même machine qu'avec les autres services
+-> logs : erreurs de django + succès de l'importation + login d'un admin et potentiels écritures par un admin
+-> stockage des yaml directement dans des dossiers, fichiers nommés après {nom}-{version} mais pas révision ?
+-> .env avec les variables d'environnement (à créer manuellement)
+-> SQLite is ok to use
+
+-> FastAPI pour l'appel à l'application depuis conteneur cron avec un curl ?
+
+
+
+## Remake des mock-up :
+-> bouton dans header avec les documents (avec le même look que la page de documents du dev portal)
+-> plus de filters, tags c'est assez !!
+-> remake dans Aseprite avec une taille fixe/consistente ?
+
+
+
+## TODO Semaine 3 :
+ ✘ Cahier des charges :
+	=> Diviser en tâches pour :
+		-> importeur et extracteur
+		-> page d'accueil
+		-> matomo, .env
+		-> ...
+	=> User stories (en tant qu'utilisateur, blablabla ; en tant qu'administrateur, blablabla)
+
+ ✘ tester l'utilisation de 'yq' et 'jq' en python/pip pour voir et chercher dans JSON et YAML (et même TOML qui pourrait être pas mal avec les titres et tt et tt c'est propre)
+
+
+ ✔ documents et icônes restent avec l'exportation via API-CTL
+
+
+
+
+
+
+
+
+
+
+
+
+## TODO implémentation :
+=> pour les anciennes APIs il faudra reconstruire les URL dans le swagger (dans servers>urls à vérifier)
+	Dans api.yaml :
+	```yaml
+		context: /employees
+		version: v1
+	```
+	-> URL de base à vérifier/reconstruire pour production ET sandbox = `https://gw.api.uclouvain.be/${context}/${version}`
+	(url de base préférablement configurable dans 1 fichier de config pour l'extracteur si on veut changer de gw.api à autre chose)
+
+
+
+
+
+
+
+
+
+#================================================================#
+## Contraintes bonus :
+-> respecter charte graphique / theme UCLouvain (bords arrondis, couleurs, polices et tt et tt)
+-> License MIT
+-> Matomo analytics
+
+## BONUS BONUS :
+-> si la doc est lourde est-ce qu'il est vrmt utile de régénérer des APIs inutilement (régénérer SEULEMENT si le numéro de version / révision ? à changé par exemple)
+détecter si il y a eu un chagement dans un api avant d'importer :
+	-> on importe 1 ce qu'il faut importer (seulement qd la révision à changé via apictl)
+
+	```bash
+	$ apictl get apis -e test
+	ID                                     NAME                VERSION             CONTEXT             STATUS              PROVIDER
+	13928432-2fb6-46a6-8b28-376c912bc742   hello               1.0.0               /hello              PUBLISHED           admin
+	54232014-8afe-4a64-bfb3-0b8aa71edf0c   PizzaShackAPI       1.0.0               /pizzashack         RETIRED             admin
+	fdbade72-9b70-4461-8166-ffae9ff2d241   PizzaShackAPI       2.0.0               /pizzashack         PUBLISHED           admin
+
+	$ apictl get api-revisions -n PizzaShackAPI -v 1.0.0 -e test (-r admin)
+	ID                                     REVISION            DESCRIPTION         GATEWAY_ENVS
+	5539aa3e-b893-4bf5-a30a-aa2493f01db9   1                   Initial Revision    [Default]
+	```
+

@@ -1,0 +1,16 @@
+# Python virtual environment
+venv/
+.venv/
+
+# VS Code
+.vscode/
+
+# LaTeX
+_minted-main/
+svg-inkscape/
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz

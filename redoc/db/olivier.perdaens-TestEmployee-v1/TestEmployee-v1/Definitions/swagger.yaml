@@ -1,0 +1,107 @@
+openapi: 3.0.1
+info:
+  title: TestEmployee
+  version: v1
+servers:
+ -
+  url: /
+security:
+ -
+  default: []
+paths:
+  /{matric_fgs}:
+    get:
+      tags:
+       - Employee
+      summary: identité
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+       -
+        name: email
+        in: query
+        description: recherche sur l'email (mettre '-' pour matricule_fgs)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+  /{matric_fgs}/photo:
+    get:
+      tags:
+       - Employee
+      summary: URL de la photo
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+  /{matric_fgs}/detail:
+    get:
+      tags:
+       - Employee
+      summary: information détaillée
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+components:
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://test.com
+          scopes: {}
+          x-scopes-bindings: {}

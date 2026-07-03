@@ -1,0 +1,88 @@
+{
+	"spacing": {
+		"unit": 5, // main spacing unit used in autocomputed theme values later
+		"sectionHorizontal": 40, // Horizontal section padding. COMPUTED: spacing.unit * 8
+		"sectionVertical": 40 // Horizontal section padding. COMPUTED: spacing.unit * 8
+	},
+	"breakpoints": { // breakpoints for switching three/two and mobile view layouts
+		"small": "50rem",
+		"medium": "85rem",
+		"large": "105rem"
+	},
+	"colors": {
+		"tonalOffset": 0.3 // default tonal offset used in computations
+	},
+	"typography": {
+		"fontSize": "14px",
+		"lineHeight": "1.5em",
+		"fontWeightRegular": "400",
+		"fontWeightBold": "600",
+		"fontWeightLight": "300",
+		"fontFamily": "Roboto, sans-serif",
+		"smoothing": "antialiased",
+		"optimizeSpeed": true,
+		"headings": {
+			"fontFamily": "Montserrat, sans-serif",
+			"fontWeight": "400",
+			"lineHeight": "1.6em"
+		},
+		"code": { // inline code styling
+			"fontSize": "13px",
+			"fontFamily": "Courier, monospace",
+			"color": "#e53935",
+			"backgroundColor": "rgba(38, 50, 56, 0.05)",
+			"wrap": false, // whether to break word for inline blocks (otherwise they can overflow)
+			"lineHeight": "", // COMPUTED: typography.lineHeight
+			"fontWeight": "" // COMPUTED: typography.fontWeightRegular
+		},
+		"links": {
+			"textDecoration": "auto",
+			"hoverTextDecoration": "auto",
+			"color": "", // COMPUTED: colors.primary.main
+			"visited": "", // COMPUTED: typography.links.color
+			"hover": "" // COMPUTED: lighten(0.2 typography.links.color)
+		}
+	},
+	"sidebar": {
+		"activeTextColor": "", // COMPUTED: theme.sidebar.textColor (if set by user) or theme.colors.primary.main
+		"width": "260px",
+		"backgroundColor": "#fafafa",
+		"textColor": "#333333",
+		"groupItems": { // Group headings
+			"activeBackgroundColor": "", // COMPUTED: theme.sidebar.backgroundColor
+			"activeTextColor": "", // COMPUTED: theme.sidebar.activeTextColor
+			"textTransform": "uppercase"
+		},
+		"level1Items": { // Level 1 items like tags or section 1st level items
+			"activeBackgroundColor": "", // COMPUTED: theme.sidebar.backgroundColor
+			"activeTextColor": "", // COMPUTED: theme.sidebar.activeTextColor
+			"textTransform": "none"
+		},
+		"arrow": { // sidebar arrow
+			"size": "1.5em"
+		}
+	},
+	"logo": {
+		"maxHeight": "", // COMPUTED: sidebar.width
+		"maxWidth": "", // COMPUTED: sidebar.width
+		"gutter": "2px" // logo image padding
+	},
+	"rightPanel": {
+		"backgroundColor": "#263238",
+		"width": "40%",
+		"textColor": "#ffffff",
+		"servers": {
+			"overlay": {
+				"backgroundColor": "#fafafa",
+				"textColor": "#263238"
+			},
+			"url": {
+				"backgroundColor": "#fff"
+			}
+		}
+	},
+	"fab": {
+		"backgroundColor": "#263238",
+		"color": "#ffffff"
+	}
+}
