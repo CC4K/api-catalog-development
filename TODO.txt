@@ -31,13 +31,12 @@
 		-> ...
 	=> User stories (en tant qu'utilisateur, blablabla ; en tant qu'administrateur, blablabla)
 
- ✘ tester l'utilisation de 'yq' et 'jq' en python/pip pour voir et chercher dans JSON et YAML (et même TOML qui pourrait être pas mal avec les titres et tt et tt c'est propre)
+ ✘ déjà réfléchir à une implémentation pour importeur et extracteur
 
+
+ ✔ tester l'utilisation de 'yq' et 'jq' en python/pip pour voir et chercher dans JSON et YAML (et même TOML qui pourrait être pas mal avec les titres et tt et tt c'est propre)
 
  ✔ documents et icônes restent avec l'exportation via API-CTL
-
-
-
 
 
 
