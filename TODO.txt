@@ -27,7 +27,45 @@
 
  ✘ déjà réfléchir à une implémentation pour importeur et extracteur
 
- ✔ user stories
+ ✔ user stories :
+	Titres des stories + de détails
+	Critères d'acceptation ok
+	Filtres séparé
+	Recherche séparé
+	Story compact et atomiques pour pouvoir être validé
+
+	Documentation de Redocs, documents liés, fichiers de descriptions de l'API, description de l'API... c'est quoi ??? => glossaire
+	✔ "d'une API" pas "des API"
+	✔ fichier pas pour stocker et comparer => pour consulter
+	les URL d'appel à l'API doivent être correct (remplacer les anciens)
+	✔ YAML mieux pour lisibilité (fix it before for readability)
+	✔ demande d'accès dans le DEV Portal (priorité basse)
+	✔ juste une blacklist pas changer visibilité
+
+	✔ Base de données => répertoire de fichiers + techniquement OSEF d'interface admin pour ça + consulter (bof) et NETTOYER en cas de blacklist (nettoyage automatique)
+
+	param de configuration : url pour interroger APIM, credentials pour APIM => 1 user story
+	délai de màj => pas forcément d'interface (encore une fois)
+
+	pouvoir forcer la remise à jour d'une api solo (et pas tt le catalogue)
+	matomo => config et tt et tt
+
+	logs => pas besoin d'interface (mais on peut)
+	pas tant consulter les logs que de logger tout cours
+	logs de "l'application" : c'est quoi l'application ? l'interface ? quel container : si on peut voir dans les logs de docker compose c OK
+	logs : pas besoin d'interface utilisateur
+
+	glossaire !!!
+	ambiguité => application c quoi ???
+
+	faire la pile dans le cahier des charges
+
+
+	Dupliquer Suppression pour aussi avoir consultation dans "Admin-BDD"
+
+
+
+
 
  ✔ tester l'utilisation de 'yq' et 'jq' en python/pip pour voir et chercher dans JSON et YAML (et même TOML qui pourrait être pas mal avec les titres et tt et tt c'est propre)
 
@@ -62,6 +100,7 @@
 #================================================================#
 ## Contraintes bonus :
 -> respecter charte graphique / theme UCLouvain (bords arrondis, couleurs, polices et tt et tt)
+-> différencier api et api product
 -> Licence MIT
 -> Matomo analytics
 
