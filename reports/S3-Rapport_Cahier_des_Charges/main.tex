@@ -1,0 +1,111 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{pifont}
+\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage[top=2cm, bottom=2.5cm, left=2cm, right=2cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{empheq}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{lmodern,textcomp}
+\usepackage{tcolorbox}
+\usepackage{karnaugh-map}
+\usepackage{kvmap}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{multicol}
+\usepackage{fancyhdr}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{verbatim}
+\usepackage{svg}
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+
+
+% Change itemize dash by bullet
+
+\renewcommand{\labelitemi}{$\bullet$}
+
+% Bulma CSS framework color, see : https://bulma.io/documentation/overview/colors/
+
+\definecolor{primary}{HTML}{00d1b2}
+\definecolor{link}{HTML}{3273dc}
+\definecolor{info}{HTML}{209cee}
+\definecolor{success}{HTML}{48c774}
+\definecolor{warning}{HTML}{ffdd57}
+\definecolor{danger}{HTML}{ff3860}
+
+
+% color for karnaugh :
+
+\definecolor{mygreen}{RGB}{0, 145, 36}
+\definecolor{kyellow}{RGB}{232, 225, 30}
+\definecolor{kred}{RGB}{250, 102, 102}
+
+% Command for easier color management in tcolorbox
+
+\newenvironment{titletbox}[2] % 1 = title, 2 = color
+  {\tcolorbox[noparskip,colback=#2!5!white,colframe=#2!75!black,arc=1mm,title=#1,halign title = center]}
+  {\endtcolorbox}
+
+\newenvironment{tbox}[1] % 1 = color
+  {\tcolorbox[noparskip,colback=#1!5!white,colframe=#1!75!black,arc=1mm]}
+  {\endtcolorbox}
+
+
+
+% hyperlinks setup 
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=cyan,
+  filecolor=magenta,      
+  urlcolor=blue,
+  pdfpagemode=FullScreen,
+}
+
+
+
+\begin{document}
+
+    \input{header.tex}
+
+    \clearpage
+    \pagenumbering{arabic}
+    
+    \input{corps.tex}
+
+\end{document}
