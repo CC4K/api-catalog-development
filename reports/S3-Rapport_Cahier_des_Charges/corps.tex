@@ -3,12 +3,12 @@
 %===================================================================%
 
 \subsection{Objectifs et Public Cible}
-Nous souhaitons créer un catalogue des APIs$^{\ref{api}}$ disponibles pour les consultants externes au SGSI ainsi que pour les développeurs internes permettant de connaître leurs intérêts pour certaines APIs.
+Nous souhaitons créer un catalogue des APIs$^{\ref{glossaire}}$ disponibles pour les consultants externes au SGSI ainsi que pour les développeurs internes permettant de connaître leurs intérêts pour certaines APIs.
 
 \subsection{Fonctionnalités attendues}
 Le produit final idéal doit présenter les capacités suivantes :
 \begin{itemize}
-    \item[$\rightarrow$] Présenter les APIs visuellement de manière similaire à l'interface d'API Manager$^{\ref{apim}}$ (nom, icône potentielle, version, temps de la dernière mise à jour, tags potentiels) et possédant une barre de recherche ainsi que des filtres de catégorie pour faciliter la navigation du marketplace.
+    \item[$\rightarrow$] Présenter les APIs visuellement de manière similaire à l'interface d'API Manager$^{\ref{glossaire}}$ (nom, icône potentielle, version, temps de la dernière mise à jour, tags potentiels) et possédant une barre de recherche ainsi que des filtres de catégorie pour faciliter la navigation du marketplace.
     \item[$\rightarrow$] Chaque API doit rediriger vers une page présentant les informations plus détaillés de l'API (swagger téléchargeable, numéro de révision, documentation, exemples de réponses, interface offrant la possibilité de demander l'accès à l'API).
     \item[$\rightarrow$] Être capable de se mettre à jour automatiquement de manière régulière ainsi que de pouvoir être mis à jour manuellement par ses administrateurs en cas de besoin.
     \item[$\rightarrow$] Offrir la possibilité de cacher certaines APIs pour certains utilisateurs selon leurs droits d'accès.
@@ -24,11 +24,20 @@ Le produit final idéal doit présenter les capacités suivantes :
     \item[$\bullet$] Ce projet se fera de manière itérative semaines par semaine tout au long du stage.
 \end{itemize}
 
-\subsection{Définitions, Acronymes et Abréviations}
+\subsection{Glossaire}\label{glossaire}
 \begin{itemize}
-    \item[$\bullet$] \textbf{API}\label{api} : Application Programming Interface
-    \item[$\bullet$] \textbf{API Manager}\label{apim} : Outil permettant de gérer les APIs
-    \item[$\bullet$] \textbf{API Controller}\label{apictl} : Outil en ligne de commande permettant de communiquer avec API Manager
+    \item[$\bullet$] \textbf{API} : Application Programming Interface
+    \item[$\bullet$] \textbf{API Manager} : Outil permettant de gérer les APIs
+    \item[$\bullet$] \textbf{API Controller} : Outil en ligne de commande permettant de communiquer avec API Manager
+    % TODO: GLOSSAIRE+++
+    % fichier de description des APIs
+    % description de l'API
+    % application
+    % 
+    % 
+    % 
+    % 
+    % 
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -44,6 +53,7 @@ Le produit final idéal doit présenter les capacités suivantes :
 \section{User Stories}
 %===================================================================%
 % TODO: User Stories here !
+% pdfseparate big.pdf page%d.pdf
 
 \subsection{Besoins des Utilisateurs}
 
@@ -69,7 +79,23 @@ Le produit final idéal doit présenter les capacités suivantes :
 % TODO: Mock-ups
 
 \subsection{Exigences Techniques}
-% Ne pas dépendre d'un service externe, Facile à maintenir, Doit utiliser des technologies connues au SGSI, (Très) bien documenté
+% (Très) bien documenté
+% Facile à maintenir
+% Ne pas dépendre d'un service externe
+
+% Doit utiliser des technologies connues au SGSI
+% \subsection{Technologies et Frameworks}
+% \begin{itemize}
+%     \item[$\bullet$] \textbf{Django} : le framework web sera probablement Django car il est déjà connu et utilisé dans le service et permet de lier facilement les URLs aux différentes vues qui seront générées automatiquement en utilisant la fonctionnalité de template de Django.
+%     \item[$\bullet$] \textbf{Cron} : le planificateur automatique utilisé sera cron car il est déjà connu et fiable. Il permettra de régénérer automatiquement le catalogue des APIs à intervalle régulier.
+%     \item[$\bullet$] \textbf{Python} : le langage permettra de créer facilement les programmes d'importation et d'extraction d'autant plus que le framework Django est déjà lui-même basé sur ce langage, cela facilitera la maintenance de l'application.
+%     \item[$\bullet$] \textbf{Docker} : nous isolerons dans des conteneurs docker les composants suivants :
+%         \begin{itemize}
+%             \item[$\circ$] le framework Django
+%             \item[$\circ$] le planificateur automatique cron
+%             \item[$\circ$] l'application d'importation et d'extraction
+%         \end{itemize}
+% \end{itemize}
 
 % \subsection{Stockage}
 % Les données stockés en YAML/JSON + les variables d'environnement en text ou TOML doivent être inacessibles aux utilisateurs
@@ -113,17 +139,5 @@ Le produit final idéal doit présenter les capacités suivantes :
 \section{Appendices}
 %===================================================================%
 
-\subsection{Technologies et Frameworks}
-\begin{itemize}
-    \item[$\bullet$] \textbf{Django} : le framework web sera probablement Django car il est déjà connu et utilisé dans le service et permet de lier facilement les URLs aux différentes vues qui seront générées automatiquement en utilisant la fonctionnalité de template de Django.
-    \item[$\bullet$] \textbf{Cron} : le planificateur automatique utilisé sera cron car il est déjà connu et fiable. Il permettra de régénérer automatiquement le catalogue des APIs à intervalle régulier.
-    \item[$\bullet$] \textbf{Python} : le langage permettra de créer facilement les programmes d'importation et d'extraction d'autant plus que le framework Django est déjà lui-même basé sur ce langage, cela facilitera la maintenance de l'application.
-    \item[$\bullet$] \textbf{Docker} : nous isolerons dans des conteneurs docker les composants suivants :
-        \begin{itemize}
-            \item[$\circ$] le framework Django
-            \item[$\circ$] le planificateur automatique cron
-            \item[$\circ$] l'application d'importation et d'extraction
-        \end{itemize}
-\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
