@@ -46,18 +46,28 @@
 	✔ pas tant consulter les logs que de logger tout cours
 	✔ logs : pas besoin d'interface utilisateur
 
-	les URL d'appel à l'API doivent être correct (remplacer les anciens)
-
-	Documentation de Redocs, documents liés, fichiers de descriptions de l'API, description de l'API... c'est quoi ??? => GLOSSAIRE
-	ambiguité => application c quoi ???
-	logs de "l'application" : c'est quoi l'application ? l'interface ? quel container : si on peut voir dans les logs de docker compose c OK
 
 
-	✘ l'importeur c'est aussi une story => import automatique
+
+	Implem : quand page rafraichi => garder les critères de recherche
+	BONUS : voir les nouveautés (pr le moment sur date de dernière màj)
+
+	pouvoir splitter les stories en technical stories plus tard avec des étapes + précises
+	les APIs blacklistés ne doivent pas apparaître (elles sont dispos sur APIM donc si ici c bon)
+	le catalogue doit refléter ce qui est dispo à tt les utlisateurs
+
+
+
+	✘ Visibilité + Blacklist : c'est un peu la même story
+		└> je garde la story blacklist ?
+
+	✘ Les server URLs corrigés, déjà en parler ?
+		└> c'est une story technique pour l'importeur lié aux user stories d'affichage et stockage non ?
+
+
 
 
 	faire la pile docker dans le cahier des charges
-
 	matomo => config et tt et tt
 
 
