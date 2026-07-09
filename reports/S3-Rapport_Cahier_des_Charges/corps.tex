@@ -30,7 +30,7 @@ Le produit final idéal doit présenter les capacités suivantes :
     \item[$\bullet$] \textbf{API Manager} : Outil permettant de gérer les APIs
     \item[$\bullet$] \textbf{API Controller} : Outil en ligne de commande permettant de communiquer avec API Manager
     % TODO: GLOSSAIRE+++
-    % APPLICATION : l'application complète [FULL-APP] composée de 3 conteneurs docker : BACK-END, FRONT-END et SCHEDULER
+    % APPLICATION : l'application complète [FULL-APP] au sens général du terme, composée de 3 conteneurs docker : BACK-END, FRONT-END et SCHEDULER
         % BACK-END : le back-end [BACK-END] de l'application qui contient l'extracteur, l'importeur et le répertoire de stockage des données
             % EXTRACTEUR : l'extracteur [BACK-END:extractor] de l'application qui s'occupe de récupérer les données des APIs depuis API Manager en utilisant l'API Controller, de les extraire de l'archive et de les passer à l'importeur
             % IMPORTEUR : l'importeur [BACK-END:importer] de l'application qui s'occupe de traiter et préparer les données pour le front-end et de les stocker dans le répertoire de stockage
@@ -60,13 +60,13 @@ Le produit final idéal doit présenter les capacités suivantes :
 
 \subsection{Besoins des Utilisateurs}
 
-===========
+=========== % TODO: update
 Titre : "Consultation : Consulter la liste des APIs disponibles"
 Story : En tant qu'utilisateur, je souhaite pouvoir consulter la liste des APIs disponibles afin de trouver celles qui m'intéressent rapidement.
 Priorité : Haute
 Critères d'acceptation :
-1. Le catalogue [FRONT-END:page1_catalog] doit pouvoir afficher toutes les APIs actuellement mises à disposition des utilisateurs dans l'ordre alphabétique.
-2. Pour chaque API, le catalogue doit afficher son nom, sa version, sa révision, la date de sa dernière mise à jour ainsi que son icône si disponible.
+1. Le page de catalogue [FRONT-END:page1_catalog] doit pouvoir afficher toutes les APIs actuellement mises à disposition des utilisateurs dans l'ordre alphabétique.
+2. Pour chaque API, le catalogue doit afficher son nom, sa version, sa révision, sa date de sa dernière mise à jour ainsi que son icône si disponible.
 Description :
 Cette user story s'occupe d'implémenter l'interface utilisateur de la page de catalogue [FRONT-END:page1_catalog].
 L'utilisateur doit pouvoir consulter la liste des APIs disponibles en un coup d'oeil.
@@ -116,14 +116,15 @@ Story : En tant qu'utilisateur, je souhaite pouvoir consulter la documentation d
 Priorité : Haute
 Critères d'acceptation :
 1. L'utilisateur doit pouvoir accéder à la page de documentation d'une API en cliquant sur son nom dans le catalogue [FRONT-END:page1_catalog].
-2. La page de documentation doit afficher toutes les informations disponibles sur l'API %telles qu'elles ont été traitées par l'importeur [BACK-END:importer].
+2. La page de documentation doit afficher toutes les informations disponibles sur l'API telles qu'elles sont stockées dans le répertoire de stockage des données [BACK-END:storage] après avoir été traitées par l'importeur [BACK-END:importer].
 3. La page de documentation doit offrir la possibilité à l'utilisateur de voir les documents et URLs supplémentaires à la documentation de l'API.
+4. Les "server URLs" présents dans la documentation de l'API doivent apparaître dans leur version corrigée par l'importeur [BACK-END:importer].
 Description :
 Cette user story s'occupe d'implémenter l'interface utilisateur de la page de documentation d'une API [FRONT-END:page2_api_doc].
 L'utilisateur doit pouvoir consulter toutes les informations disponibles sur l'API tel que le nom, version, révision, date de dernière mise à jour, icône, tags, description, documentation, contexte, exemples de réponses...
 L'affichage de la documentation se fera sous la même forme que Redocs Community Edition avec une liste de schémas, les arguments marqués comme requis ou non par le développeur, etc...
 Un onglet sur la page de documentation permettra à l'utilisateur de voir les documents et URLs supplémentaires à la documentation de l'API.
-%Les server URLs présents dans la documentation de l'API doivent être la version corrigé par l'importeur [BACK-END:importer].
+Les server URLs présents dans la documentation de l'API doivent apparaître dans leur version corrigée par l'importeur [BACK-END:importer].
 ===========
 
 ===========
@@ -152,27 +153,27 @@ Cette fonctionnalité permet aux utilisateurs de faire une demande d'accès à u
 
 
 \subsection{Besoins des Administrateurs}
-===========
-Titre : "Visibilité des APIs : Pouvoir masquer des APIs"
-Story : En tant qu'administrateur, je souhaite pouvoir masquer des APIs afin de contrôler le contenu du catalogue [FRONT-END:page1_catalog] disponible aux utilisateurs.
-Priorité : Haute
-Critères d'acceptation :
-1. Les administrateurs doivent pouvoir voir l'état de visibilité de chaque API dans la page du catalogue [FRONT-END:page1_catalog].
-2. Les administrateurs doivent pouvoir changer l'état de visibilité d'une API afin de la mettre à disposition (ou non) des utilisateurs dans le catalogue [FRONT-END:page1_catalog].
-Description :
-Cette fonctionnalité permet aux administrateurs de contrôler quelles APIs du catalogue [FRONT-END:page1_catalog] sont disponibles aux utilisateurs.
-===========
 
 % ===========
-% Titre : "Liste d'exclusion : Voir et modifier la liste des APIs exclues de l'application [FULL-APP]"
-% Story : En tant qu'administrateur, je souhaite pouvoir voir et modifier la liste des APIs exclues afin de contrôler le contenu qui sera importé [BACK-END:importer] lors de la prochaine mise à jour de l'application [FULL-APP].
+% Titre : "Visibilité des APIs : Pouvoir masquer des APIs"
+% Story : En tant qu'administrateur, je souhaite pouvoir masquer des APIs afin de contrôler le contenu du catalogue [FRONT-END:page1_catalog] disponible aux utilisateurs.
 % Priorité : Haute
 % Critères d'acceptation :
-% 1. Les administrateurs doivent pouvoir consulter la liste des APIs exclues.
-% 2. Les administrateurs doivent pouvoir modifier la liste des APIs exclues.
+% 1. Les administrateurs doivent pouvoir voir l'état de visibilité de chaque API dans la page du catalogue [FRONT-END:page1_catalog].
+% 2. Les administrateurs doivent pouvoir changer l'état de visibilité d'une API afin de la mettre à disposition (ou non) des utilisateurs dans le catalogue [FRONT-END:page1_catalog].
 % Description :
-% Cette fonctionnalité permet aux administrateurs de voir et modifier la liste des APIs actuellement exclues de l'application [FULL-APP] afin qu'elles soient ignorées lors de la prochaine importation par l'importeur [BACK-END:importer].
+% Cette fonctionnalité permet aux administrateurs de contrôler quelles APIs du catalogue [FRONT-END:page1_catalog] sont disponibles aux utilisateurs.
 % ===========
+
+=========== % autre terme : "liste noire" ?
+Titre : "Liste d'exclusion : Voir et modifier la liste des APIs exclues de l'importation [BACK-END:importer]"
+Story : En tant qu'administrateur, je souhaite pouvoir voir et modifier la liste des APIs exclues afin de contrôler le contenu qui sera importé [BACK-END:importer] lors de la prochaine mise à jour des données.
+Priorité : Haute
+Critères d'acceptation :
+1. Les administrateurs doivent pouvoir consulter et modifier la liste des APIs exclues.
+Description :
+Cette fonctionnalité permet aux administrateurs de voir et modifier la liste des APIs qui doivent actuellement être exclues par l'importeur [BACK-END:importer] afin qu'elles soient ignorées lors de la prochaine mise à jour des données.
+===========
 
 ===========
 Titre : "Consultation du stockage : Consulter les données des APIs stockées dans le répertoire de stockage des données [BACK-END:stockage]"
@@ -206,7 +207,7 @@ Cette fonctionnalité permet aux administrateurs de configurer les paramètres d
 
 ===========
 Titre : "Mise à jour automatique : Mettre à jour automatiquement les données dans le répertoire de stockage des données [BACK-END:stockage]"
-Story : En tant qu'administrateur, je souhaite que les données dans le répertoire de stockage des données [BACK-END:stockage] se mettent à jour automatiquement afin de ne pas avoir à le faire manuellement.
+Story : En tant qu'administrateur, je souhaite que les données dans le répertoire de stockage des données [BACK-END:stockage] se mettent à jour automatiquement à intervalle régulier afin de ne pas avoir à le faire manuellement.
 Priorité : Haute
 Critères d'acceptation :
 1. Le répertoire de stockage des APIs [BACK-END:stockage] doit se mettre à jour automatiquement à intervalle régulier.
