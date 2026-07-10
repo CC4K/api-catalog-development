@@ -21,8 +21,9 @@
 	les APIs blacklistés ne doivent pas apparaître (elles sont dispos sur APIM donc si ici c bon)
 
 
-
-
+	cahier des charges
+	découper en user story technique (importeur/extracteur mtnt)
+	Moscow : https://community.atlassian.com/forums/App-Central-articles/Understanding-the-MoSCoW-prioritization-How-to-implement-it-into/ba-p/2463999
 
 
 

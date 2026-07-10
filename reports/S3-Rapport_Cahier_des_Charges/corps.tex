@@ -1,3 +1,5 @@
+% TABLE DES MATIERES
+
 %===================================================================%
 \section{Introduction}
 %===================================================================%
@@ -34,13 +36,13 @@ Le produit final idéal doit présenter les capacités suivantes :
         % BACK-END : le back-end [BACK-END] de l'application qui contient l'extracteur, l'importeur et le répertoire de stockage des données
             % EXTRACTEUR : l'extracteur [BACK-END:extractor] de l'application qui s'occupe de récupérer les données des APIs depuis API Manager en utilisant l'API Controller, de les extraire de l'archive et de les passer à l'importeur
             % IMPORTEUR : l'importeur [BACK-END:importer] de l'application qui s'occupe de traiter et préparer les données pour le front-end et de les stocker dans le répertoire de stockage
-            % RÉPERTOIRE DE STOCKAGE DES DONNÉES : le répertoire de stockage des données [BACK-END:storage] de l'application qui contient les données d'API traitées par l'importeur (fichier de description (api.yaml), documentation (swagger.yaml) et documents attachés (plain_text)) et prêtes à être utilisées par le front-end ainsi que toutes les données utiles pour faire fonctionner l'application (variables d'environnement, logs, blacklist, etc...)
+            % RÉPERTOIRE DE STOCKAGE DES DONNÉES : le répertoire de stockage des données [BACK-END:storage] de l'application qui contient les données d'API traitées par l'importeur (fichier de description=>META DONNE (api.yaml), documentation=>DESCRIPTION (swagger.yaml) et documents attachés (plain_text)) et prêtes à être utilisées par le front-end ainsi que toutes les données utiles pour faire fonctionner l'application (variables d'environnement, logs, blacklist, etc...)
                 % DONNÉES D'API : fichier de description (api.yaml), documentation (swagger.yaml) et documents attachés (plain_text)
         % FRONT-END : le front-end [FRONT-END] de l'application qui contient l'interface utilisateur
             % CATALOGUE DES APIS : la page de catalogue [FRONT-END:page1_catalog] de l'application qui affiche la liste des APIs disponibles à l'utilisateur
             % DOCUMENTATION D'UNE API : la page de documentation d'une API [FRONT-END:page2_api_doc]
         % SCHEDULER : le scheduler [SCHEDULER] de l'application qui s'occupe de régénérer automatiquement le catalogue des APIs à intervalle régulier
-    % 
+    % Traduction vocab developpeur <=> utilisateur 
 \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -263,6 +265,7 @@ Cette fonctionnalité permet aux administrateurs de vérifier la traçabilité d
 % (Très) bien documenté
 % Facile à maintenir
 % Ne pas dépendre d'un service externe
+% Matomo analytics : institutionnel en local
 
 % Doit utiliser des technologies connues au SGSI
 % \subsection{Technologies et Frameworks}
@@ -285,7 +288,6 @@ Cette fonctionnalité permet aux administrateurs de vérifier la traçabilité d
 % Le code doit suivre la licence open source MIT (ou GPLv3)
 
 \subsection{Autres Exigences}
-% Matomo analytics ?
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                   %
@@ -299,12 +301,14 @@ Cette fonctionnalité permet aux administrateurs de vérifier la traçabilité d
 %===================================================================%
 \section{Processus de Développement}
 %===================================================================%
-% S4 : importeur + extracteur
-% S5 : implémentation dans les conteneurs docker
+
+% à chaque étape pouvoir montrer qqch au client
+% S4 : implémentation dans les conteneurs docker + cron setup
+% S5~: importeur + extracteur (URL)
 % S6 : interface page d'accueil fonctionnelle (dirige vers les pages d'APIs)
-% S7 : cron setup + variables d'environnement
-% S8 : ? testings ?
-% S9 : ? faire joli ?
+% S7 : variables d'environnement
+% S8 : (matomo)
+% S9 : faire joli + doc
 % S10 : démo
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

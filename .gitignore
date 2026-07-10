@@ -5,6 +5,9 @@ venv/
 # VS Code
 .vscode/
 
+# Drawio
+*.bkp
+
 # LaTeX
 _minted-main/
 svg-inkscape/
