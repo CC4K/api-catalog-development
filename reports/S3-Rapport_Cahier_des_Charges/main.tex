@@ -69,7 +69,7 @@
 \definecolor{danger}{HTML}{ff3860}
 
 
-% color for karnaugh :
+% Color for karnaugh
 
 \definecolor{mygreen}{RGB}{0, 145, 36}
 \definecolor{kyellow}{RGB}{232, 225, 30}
@@ -78,23 +78,23 @@
 % Command for easier color management in tcolorbox
 
 \newenvironment{titletbox}[2] % 1 = title, 2 = color
-  {\tcolorbox[noparskip,colback=#2!5!white,colframe=#2!75!black,arc=1mm,title=#1,halign title = center]}
-  {\endtcolorbox}
+	{\tcolorbox[noparskip,colback=#2!5!white,colframe=#2!75!black,arc=1mm,title=#1,halign title = center]}
+	{\endtcolorbox}
 
 \newenvironment{tbox}[1] % 1 = color
-  {\tcolorbox[noparskip,colback=#1!5!white,colframe=#1!75!black,arc=1mm]}
-  {\endtcolorbox}
+	{\tcolorbox[noparskip,colback=#1!5!white,colframe=#1!75!black,arc=1mm]}
+	{\endtcolorbox}
 
 
 
-% hyperlinks setup 
+% Hyperlinks setup
 
 \hypersetup{
-  colorlinks=true,
-  linkcolor=cyan,
-  filecolor=magenta,      
-  urlcolor=blue,
-  pdfpagemode=FullScreen,
+	% colorlinks=true, % better without the blue and with the coloured boxes no ??
+	linkcolor=cyan,
+	filecolor=magenta,
+	urlcolor=blue,
+	pdfpagemode=FullScreen,
 }
 
 
@@ -106,6 +106,6 @@
     \clearpage
     \pagenumbering{arabic}
     
-    % \input{corps.tex}
+    \input{corps.tex}
 
 \end{document}

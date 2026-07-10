@@ -5,45 +5,28 @@
 %===================================================================%
 
 \subsection{Objectifs et Public Cible}
-Nous souhaitons créer un catalogue des APIs$^{\ref{glossaire}}$ disponibles pour les consultants externes au SGSI ainsi que pour les développeurs internes permettant de connaître leurs intérêts pour certaines APIs.
-
-\subsection{Fonctionnalités attendues}
-Le produit final idéal doit présenter les capacités suivantes :
-\begin{itemize}
-    \item[$\rightarrow$] Présenter les APIs visuellement de manière similaire à l'interface d'API Manager$^{\ref{glossaire}}$ (nom, icône potentielle, version, temps de la dernière mise à jour, tags potentiels) et possédant une barre de recherche ainsi que des filtres de catégorie pour faciliter la navigation du marketplace.
-    \item[$\rightarrow$] Chaque API doit rediriger vers une page présentant les informations plus détaillés de l'API (swagger téléchargeable, numéro de révision, documentation, exemples de réponses, interface offrant la possibilité de demander l'accès à l'API).
-    \item[$\rightarrow$] Être capable de se mettre à jour automatiquement de manière régulière ainsi que de pouvoir être mis à jour manuellement par ses administrateurs en cas de besoin.
-    \item[$\rightarrow$] Offrir la possibilité de cacher certaines APIs pour certains utilisateurs selon leurs droits d'accès.
-    \item[$\rightarrow$] Offrir la possibilité aux administrateurs de blacklister/exclure certaines APIs. % avant l'importation !
-    \item[$\rightarrow$] Permettre la suppression manuelle de certaines APIs.
-    % suivre les connexions + modifications admins
-\end{itemize}
+Nous souhaitons créer un catalogue des \hyperref[api]{API}s disponibles pour les consultants externes au SGSI ainsi que pour les développeurs internes permettant de connaître leurs intérêts pour certaines APIs.
 
 \subsection{Contraintes}
 \begin{itemize}
     \item[$\bullet$] Le catalogue doit rester en lecture seule pour les utilisateurs finaux qui ne peuvent pas tester les APIs.
     \item[$\bullet$] L'application doit être documentée tant au niveau de son architecture et organisation qu'au niveau du code et de son utilisation.
-    \item[$\bullet$] Ce projet se fera de manière itérative semaines par semaine tout au long du stage.
+    \item[$\bullet$] Ce projet se fera de manière itérative semaines par semaine tout au long du stage (méthode Agile).
 \end{itemize}
 
-\subsection{Glossaire}\label{glossaire}
-\begin{itemize}
-    \item[$\bullet$] \textbf{API} : Application Programming Interface
-    \item[$\bullet$] \textbf{API Manager} : Outil permettant de gérer les APIs
-    \item[$\bullet$] \textbf{API Controller} : Outil en ligne de commande permettant de communiquer avec API Manager
-    % TODO: GLOSSAIRE+++
-    % APPLICATION : l'application complète [FULL-APP] au sens général du terme, composée de 3 conteneurs docker : BACK-END, FRONT-END et SCHEDULER
-        % BACK-END : le back-end [BACK-END] de l'application qui contient l'extracteur, l'importeur et le répertoire de stockage des données
-            % EXTRACTEUR : l'extracteur [BACK-END:extractor] de l'application qui s'occupe de récupérer les données des APIs depuis API Manager en utilisant l'API Controller, de les extraire de l'archive et de les passer à l'importeur
-            % IMPORTEUR : l'importeur [BACK-END:importer] de l'application qui s'occupe de traiter et préparer les données pour le front-end et de les stocker dans le répertoire de stockage
-            % RÉPERTOIRE DE STOCKAGE DES DONNÉES : le répertoire de stockage des données [BACK-END:storage] de l'application qui contient les données d'API traitées par l'importeur (fichier de description=>META DONNE (api.yaml), documentation=>DESCRIPTION (swagger.yaml) et documents attachés (plain_text)) et prêtes à être utilisées par le front-end ainsi que toutes les données utiles pour faire fonctionner l'application (variables d'environnement, logs, blacklist, etc...)
-                % DONNÉES D'API : fichier de description (api.yaml), documentation (swagger.yaml) et documents attachés (plain_text)
-        % FRONT-END : le front-end [FRONT-END] de l'application qui contient l'interface utilisateur
-            % CATALOGUE DES APIS : la page de catalogue [FRONT-END:page1_catalog] de l'application qui affiche la liste des APIs disponibles à l'utilisateur
-            % DOCUMENTATION D'UNE API : la page de documentation d'une API [FRONT-END:page2_api_doc]
-        % SCHEDULER : le scheduler [SCHEDULER] de l'application qui s'occupe de régénérer automatiquement le catalogue des APIs à intervalle régulier
-    % Traduction vocab developpeur <=> utilisateur 
-\end{itemize}
+% Obsolète ? : on a les exigences en bas mtnt ↴
+
+% \subsection{Fonctionnalités attendues}
+% Le produit final idéal doit présenter les capacités suivantes :
+% \begin{itemize}
+%     \item[$\rightarrow$] Présenter les APIs visuellement de manière similaire à l'interface d'\hyperref[glossaire]{API Manager} (nom, icône potentielle, version, temps de la dernière mise à jour, tags potentiels) et possédant une barre de recherche ainsi que des filtres de catégorie pour faciliter la navigation du marketplace.
+%     \item[$\rightarrow$] Chaque API doit rediriger vers une page présentant les informations plus détaillés de l'API (swagger téléchargeable, numéro de révision, documentation, exemples de réponses, interface offrant la possibilité de demander l'accès à l'API).
+%     \item[$\rightarrow$] Être capable de se mettre à jour automatiquement de manière régulière ainsi que de pouvoir être mis à jour manuellement par ses administrateurs en cas de besoin.
+%     \item[$\rightarrow$] Offrir la possibilité de cacher certaines APIs pour certains utilisateurs selon leurs droits d'accès.
+%     \item[$\rightarrow$] Offrir la possibilité aux administrateurs de blacklister/exclure certaines APIs.
+%     \item[$\rightarrow$] Permettre la suppression manuelle de certaines APIs.
+%     % +++
+% \end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                   %
@@ -55,194 +38,8 @@ Le produit final idéal doit présenter les capacités suivantes :
 %                                                                   %
 %                                                                   %
 %===================================================================%
-\section{User Stories}
-%===================================================================%
-% TODO: User Stories here !
-% pdfseparate big.pdf page%d.pdf
-
-\subsection{Besoins des Utilisateurs}
-
-=========== % TODO: update
-Titre : "Consultation : Consulter la liste des APIs disponibles"
-Story : En tant qu'utilisateur, je souhaite pouvoir consulter la liste des APIs disponibles afin de trouver celles qui m'intéressent rapidement.
-Priorité : Haute
-Critères d'acceptation :
-1. Le page de catalogue [FRONT-END:page1_catalog] doit pouvoir afficher toutes les APIs actuellement mises à disposition des utilisateurs dans l'ordre alphabétique.
-2. Pour chaque API, le catalogue doit afficher son nom, sa version, sa révision, sa date de sa dernière mise à jour ainsi que son icône si disponible.
-Description :
-Cette user story s'occupe d'implémenter l'interface utilisateur de la page de catalogue [FRONT-END:page1_catalog].
-L'utilisateur doit pouvoir consulter la liste des APIs disponibles en un coup d'oeil.
-L'utilisateur doit pouvoir cliquer sur une API pour accéder à sa page de documentation.
-===========
-
-===========
-Titre : "Recherche : Rechercher dans la liste des APIs disponibles"
-Story : En tant qu'utilisateur, je souhaite pouvoir rechercher dans la liste des APIs disponibles afin de trouver celles qui m'intéressent rapidement.
-Priorité : Moyenne
-Critères d'acceptation :
-1. Le catalogue [FRONT-END:page1_catalog] doit être muni d'une barre de recherche permettant d'explorer les APIs par nom.
-Description :
-Cette user story s'occupe d'implémenter la barre de recherche dans l'interface utilisateur de la page de catalogue [FRONT-END:page1_catalog].
-L'utilisateur doit pouvoir rechercher une API par son nom et voir les résultats s'afficher dynamiquement.
-La barre de recherche se trouvera dans l'en-tête de la page de catalogue [FRONT-END:page1_catalog].
-===========
-
-===========
-Titre : "Filtrage : Filtrer la liste des APIs disponibles"
-Story : En tant qu'utilisateur, je souhaite pouvoir filtrer la liste des APIs disponibles afin de trouver celles qui m'intéressent rapidement.
-Priorité : Basse
-Critères d'acceptation :
-1. Le catalogue [FRONT-END:page1_catalog] doit être muni d'une liste de tags permettant de filtrer les APIs.
-Description :
-Cette user story s'occupe d'implémenter la liste de tags dans l'interface utilisateur de la page de catalogue [FRONT-END:page1_catalog].
-L'utilisateur doit pouvoir filtrer les APIs par tag et voir les résultats s'afficher dynamiquement.
-La liste de tags se trouvera sur le côté gauche de la page de catalogue [FRONT-END:page1_catalog].
-===========
-
-===========
-Titre : "Triage : Trier la liste des APIs disponibles"
-Story : En tant qu'utilisateur, je souhaite pouvoir trier la liste des APIs disponibles afin de trouver celles qui m'intéressent rapidement.
-Priorité : Moyenne
-Critères d'acceptation :
-1. Le catalogue [FRONT-END:page1_catalog] doit offrir la possibilité à l'utilisateur de trier les APIs par leur nom et leur date de dernière mise à jour.
-2. L'utilisateur doit pouvoir choisir l'ordre de tri (ascendant ou descendant).
-3. Le tri par défaut doit se faire par ordre alphabétique sur le nom des APIs.
-Description :
-Cette user story s'occupe d'implémenter la fonctionnalité de tri dans l'interface utilisateur de la page de catalogue [FRONT-END:page1_catalog].
-Le bouton de tri se trouvera au-dessus de la liste des APIs et permettra à l'utilisateur de choisir le critère de tri ainsi que l'ordre de tri (ascendant/descendant).
-===========
-
-===========
-Titre : "Documentation : Consulter la documentation d'une API"
-Story : En tant qu'utilisateur, je souhaite pouvoir consulter la documentation d'une API ainsi que ses documents liés afin de déterminer si elle m'intéresse.
-Priorité : Haute
-Critères d'acceptation :
-1. L'utilisateur doit pouvoir accéder à la page de documentation d'une API en cliquant sur son nom dans le catalogue [FRONT-END:page1_catalog].
-2. La page de documentation doit afficher toutes les informations disponibles sur l'API telles qu'elles sont stockées dans le répertoire de stockage des données [BACK-END:storage] après avoir été traitées par l'importeur [BACK-END:importer].
-3. La page de documentation doit offrir la possibilité à l'utilisateur de voir les documents et URLs supplémentaires à la documentation de l'API.
-4. Les "server URLs" présents dans la documentation de l'API doivent apparaître dans leur version corrigée par l'importeur [BACK-END:importer].
-Description :
-Cette user story s'occupe d'implémenter l'interface utilisateur de la page de documentation d'une API [FRONT-END:page2_api_doc].
-L'utilisateur doit pouvoir consulter toutes les informations disponibles sur l'API tel que le nom, version, révision, date de dernière mise à jour, icône, tags, description, documentation, contexte, exemples de réponses...
-L'affichage de la documentation se fera sous la même forme que Redocs Community Edition avec une liste de schémas, les arguments marqués comme requis ou non par le développeur, etc...
-Un onglet sur la page de documentation permettra à l'utilisateur de voir les documents et URLs supplémentaires à la documentation de l'API.
-Les server URLs présents dans la documentation de l'API doivent apparaître dans leur version corrigée par l'importeur [BACK-END:importer].
-===========
-
-===========
-Titre : "Téléchargement : Télécharger la documentation d'une API"
-Story : En tant qu'utilisateur, je souhaite pouvoir télécharger le fichier de documentation d'une API afin de pouvoir consulter sa documentation en dehors de l'application [FULL-APP].
-Priorité : Haute
-Critères d'acceptation :
-1. L'utilisateur doit pouvoir télécharger le fichier de documentation d'une API aisément depuis la page de documentation de l'API [FRONT-END:page2_api_doc].
-2. Le fichier de documentation téléchargé doit contenir tout les détails déjà présent sur la page de documentation de l'API [FRONT-END:page2_api_doc].
-3. Le fichier de documentation téléchargé doit être au format standard de description d'API OpenAPI.
-Description :
-Cette user story s'occupe d'implémenter la fonctionnalité de téléchargement du fichier de documentation d'une API dans l'interface utilisateur de la page de documentation d'une API [FRONT-END:page2_api_doc].
-Cette fonctionnalité est déjà gérée par Redocs Community Edition qui utilise ce même fichier afin d'afficher la page de documentation de l'API [FRONT-END:page2_api_doc].
-===========
-
-===========
-Titre : "Demande d'accès à une API : Faire une demande d'accès à une API"
-Story : En tant qu'utilisateur, je souhaite pouvoir faire une demande d'accès aux administrateurs de la plateforme afin de gagner accès à une API qui m'intéresse.
-Priorité : Basse
-Critères d'acceptation :
-1. L'utilisateur doit pouvoir faire une demande d'accès à une API depuis la page de catalogue [FRONT-END:page1_catalog] et/ou depuis la page de documentation de l'API [FRONT-END:page2_api_doc].
-2. La demande d'accès doit pouvoir être reçue par les administrateurs de la plateforme afin d'être traitée et acceptée/refusée.
-Description :
-Cette fonctionnalité permet aux utilisateurs de faire une demande d'accès à une API directement depuis l'interface utilisateur [FRONT-END] plutôt que de devoir contacter manuellement les administrateurs.
-===========
-
-
-\subsection{Besoins des Administrateurs}
-
-% ===========
-% Titre : "Visibilité des APIs : Pouvoir masquer des APIs"
-% Story : En tant qu'administrateur, je souhaite pouvoir masquer des APIs afin de contrôler le contenu du catalogue [FRONT-END:page1_catalog] disponible aux utilisateurs.
-% Priorité : Haute
-% Critères d'acceptation :
-% 1. Les administrateurs doivent pouvoir voir l'état de visibilité de chaque API dans la page du catalogue [FRONT-END:page1_catalog].
-% 2. Les administrateurs doivent pouvoir changer l'état de visibilité d'une API afin de la mettre à disposition (ou non) des utilisateurs dans le catalogue [FRONT-END:page1_catalog].
-% Description :
-% Cette fonctionnalité permet aux administrateurs de contrôler quelles APIs du catalogue [FRONT-END:page1_catalog] sont disponibles aux utilisateurs.
-% ===========
-
-=========== % autre terme : "liste noire" ?
-Titre : "Liste d'exclusion : Voir et modifier la liste des APIs exclues de l'importation [BACK-END:importer]"
-Story : En tant qu'administrateur, je souhaite pouvoir voir et modifier la liste des APIs exclues afin de contrôler le contenu qui sera importé [BACK-END:importer] lors de la prochaine mise à jour des données.
-Priorité : Haute
-Critères d'acceptation :
-1. Les administrateurs doivent pouvoir consulter et modifier la liste des APIs exclues.
-Description :
-Cette fonctionnalité permet aux administrateurs de voir et modifier la liste des APIs qui doivent actuellement être exclues par l'importeur [BACK-END:importer] afin qu'elles soient ignorées lors de la prochaine mise à jour des données.
-===========
-
-===========
-Titre : "Consultation du stockage : Consulter les données des APIs stockées dans le répertoire de stockage des données [BACK-END:stockage]"
-Story : En tant qu'administrateur, je souhaite pouvoir consulter les données des APIs stockées dans le répertoire de stockage des données [BACK-END:stockage] afin de pouvoir vérifier l'exactitude des informations affichées dans le catalogue des APIs [FRONT-END:page1_catalog] et/ou diagnostiquer le bon fonctionnement de l'application [FULL-APP].
-Priorité : Moyenne
-Critères d'acceptation :
-1. Les administrateurs doivent pouvoir consulter les données des APIs stockées dans le répertoire de stockage des données [BACK-END:stockage].
-Description :
-Cette fonctionnalité permet aux administrateurs de consulter les données des APIs stockées dans le répertoire de stockage des données [BACK-END:stockage] afin de déterminer si l'application [FULL-APP] fonctionne correctement et si les informations affichées dans le catalogue des APIs [FRONT-END:page1_catalog] sont exactes/encore à jour.
-===========
-
-===========
-Titre : "Suppression : Supprimer un répertoire d'API dans le répertoire de stockage des données [BACK-END:stockage]"
-Story : En tant qu'administrateur, je souhaite pouvoir supprimer un répertoire d'API dans le répertoire de stockage des données [BACK-END:stockage] afin de pouvoir retirer du catalogue des APIs [FRONT-END:page1_catalog] une API devenue obsolète.
-Priorité : Moyenne
-Critères d'acceptation :
-1. Les administrateurs doivent pouvoir supprimer un répertoire d'API dans le répertoire de stockage des données [BACK-END:stockage].
-Description :
-Cette fonctionnalité permet aux administrateurs de supprimer un répertoire d'API dans le répertoire de stockage des données [BACK-END:stockage] afin de retirer du catalogue des APIs [FRONT-END:page1_catalog] une API devenue obsolète.
-===========
-
-===========
-Titre : "Paramétrage : Configurer les paramètres de l'application [FULL-APP]"
-Story : En tant qu'administrateur, je souhaite pouvoir configurer les paramètres de l'application [FULL-APP] afin de pouvoir modifier des éléments tels que les identifiants, les intervalles de mise à jour automatique, etc...
-Priorité : Haute
-Critères d'acceptation :
-1. Les administrateurs doivent pouvoir configurer les paramètres de l'application [FULL-APP].
-Description :
-Cette fonctionnalité permet aux administrateurs de configurer les paramètres de l'application [FULL-APP] afin de modifier des éléments tels que leurs identifiants pour pouvoir communiquer avec API Manager, les intervalles de mise à jour automatique, etc...
-===========
-
-===========
-Titre : "Mise à jour automatique : Mettre à jour automatiquement les données dans le répertoire de stockage des données [BACK-END:stockage]"
-Story : En tant qu'administrateur, je souhaite que les données dans le répertoire de stockage des données [BACK-END:stockage] se mettent à jour automatiquement à intervalle régulier afin de ne pas avoir à le faire manuellement.
-Priorité : Haute
-Critères d'acceptation :
-1. Le répertoire de stockage des APIs [BACK-END:stockage] doit se mettre à jour automatiquement à intervalle régulier.
-Description :
-Cette fonctionnalité permet aux administrateurs de ne pas avoir à mettre à jour manuellement le répertoire de stockage des APIs [BACK-END:stockage] en permettant à l'application [FULL-APP] de le faire automatiquement à intervalle régulier via un scheduler [SCHEDULER:cron].
-===========
-
-===========
-Titre : "Mise à jour manuelle : Forcer la mise à jour des données d'une API dans le répertoire de stockage des données [BACK-END:stockage]"
-Story : En tant qu'administrateur, je souhaite pouvoir forcer la régénération des données d'une API dans le répertoire de stockage des données [BACK-END:stockage] afin de rafraîchir ses données sans devoir attendre la prochaine mise à jour automatique.
-Priorité : Haute
-Critères d'acceptation :
-1. Les administrateurs doivent pouvoir forcer la mise à jour des données d'une API dans le répertoire de stockage des données [BACK-END:stockage].
-Description :
-Cette fonctionnalité permet aux administrateurs mettre à jour manuellement les données d'une API dans le répertoire de stockage des données [BACK-END:stockage] afin de pouvoir mettre à jour les données concernant une API données manuellement sans devoir attendre le déclenchement automatique de la mise à jour automatique.
-===========
-
-===========
-Titre : "Logs : Enregistrer les logs des conteneurs de l'application [FULL-APP]"
-Story : En tant qu'administrateur, je souhaite pouvoir voir les logs de chacun des conteneurs (FRONT-END, BACK-END, SCHEDULER) de l'application [FULL-APP] afin de vérifier les connections et modifications des administrateurs et les erreurs potentielles du programme.
-Priorité : Haute
-Critères d'acceptation :
-1. Les administrateurs doivent pouvoir consulter les logs montrant les erreurs du programme, les connections des administrateurs ainsi que les modifications qu'ils ont effectués.
-2. Les logs doivent être descriptifs et pouvoir montrer aux administrateurs l'origine de chaque message présent dans les logs (quel conteneur).
-Description :
-Cette fonctionnalité permet aux administrateurs de vérifier la traçabilité des actions effectués par les administrateurs ainsi que des erreurs commises par les conteneurs de l'application [FULL-APP].
-===========
-
-% =========== %Technical Story ???
-% Titre : "Importeur : Importer les APIs depuis API Manager" + les fixer
-
-
-
+% User Stories :
+% \input{stories.tex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                   %
 %                                                                   %
@@ -257,17 +54,94 @@ Cette fonctionnalité permet aux administrateurs de vérifier la traçabilité d
 %===================================================================%
 
 \subsection{Exigences Fonctionnelles}
-% Pouvoir voir les logs, Pouvoir voir ttes les APIs et les chercher, Charte Graphique UCL...
-% TODO: Schéma d'architecture
+% MoSCoW method (Must have, Should have, Could have, Won't have)
+
+\begin{itemize}
+    \item Must have : % "must have this", c'est-à-dire "doit être fait" (vital).
+    \begin{itemize}
+        \item La page de catalogue doit pouvoir afficher toutes les APIs actuellement mises à disposition des utilisateurs dans l'ordre alphabétique.
+        \item Le tri par défaut doit se faire par ordre alphabétique sur le nom des APIs.
+        \item Pour chaque API, la page de catalogue doit afficher son nom, sa version, sa révision, sa date de sa dernière mise à jour ainsi que son icône (ou un texte de remplacement si indisponible).
+        \item Le catalogue doit être muni d'une barre de recherche permettant d'explorer les APIs par nom.
+        \item L'utilisateur doit pouvoir accéder à la page de documentation d'une API en cliquant sur son nom dans le catalogue.
+        \item La page de documentation doit afficher toutes les informations disponibles sur l'API telles qu'elles sont définies dans l'API Manager.
+        \item La page de documentation doit offrir la possibilité à l'utilisateur de voir les documents et URLs supplémentaires à la documentation de l'API.
+        \item Les "server URLs" présents dans la documentation de l'API doivent apparaître dans leur version correcte.
+        \item L'utilisateur doit pouvoir télécharger le fichier de description d'une API aisément depuis la page de documentation de l'API.
+        \item Le fichier de description téléchargé doit contenir tout les détails déjà présent sur la page de documentation de l'API.
+        \item Le fichier de description téléchargé doit être au format standard de description d'API OpenAPI.
+        \item Les administrateurs doivent pouvoir exclure des APIs.
+        \item Les administrateurs doivent pouvoir consulter les données des APIs stockées dans le répertoire de stockage des données.
+        \item Les administrateurs doivent pouvoir supprimer un répertoire d'API dans le répertoire de stockage des données.
+        \item Les administrateurs doivent pouvoir configurer les paramètres de l'application.
+        \item Le données concernant les APIs doivent se mettrent à jour automatiquement à intervalle régulier.
+        \item Les administrateurs doivent pouvoir forcer la mise à jour des données d'une API.
+        \item Les administrateurs doivent pouvoir consulter les logs montrant les erreurs du programme, les connections des administrateurs ainsi que les modifications qu'ils ont effectués.
+        \item Les logs doivent être descriptifs et pouvoir montrer aux administrateurs l'origine de chaque message présent dans les logs (back-end, front-end, scheduler).
+    \end{itemize}
+
+    \item Should have : % "should have this if at all possible", c'est-à-dire devrait être fait dans la mesure du possible (essentiel).
+    \begin{itemize}
+        \item Le catalogue doit être muni d'une liste de tags permettant de filtrer les APIs.
+        \item Le catalogue doit offrir la possibilité à l'utilisateur de trier les APIs par leur nom et leur date de dernière mise à jour.
+    \end{itemize}
+
+    \item Could have : % "could have this if it does not affect anything else", pourrait être fait dans la mesure où cela n'a pas d'impact sur les autres tâches (confort).
+    \begin{itemize}
+        \item Les administrateurs doivent pouvoir faire remonter les statistiques d'utilisation de l'application via Matomo.
+    \end{itemize}
+
+    \item Won't have : % "won't have this time but would like in the future", ne sera pas fait cette fois mais sera fait plus tard (luxe).
+    \begin{itemize}
+        \item L'utilisateur doit pouvoir faire une demande d'accès à une API depuis la page de catalogue et/ou depuis la page de documentation de l'API.
+        \item La demande d'accès doit pouvoir être reçue par les administrateurs de la plateforme afin d'être traitée et acceptée/refusée.
+    \end{itemize}
+\end{itemize}
+
+
+
+\subsection{Exigences Techniques} % Technologies, formats, conventions, etc...
+
+\begin{itemize}
+    \item Must have : % "must have this", c'est-à-dire "doit être fait" (vital).
+    \begin{itemize}
+        \item L'application doit être maintenable.
+        \item L'application doit être très bien documentée tant au niveau de son architecture et organisation qu'au niveau du code et de son utilisation.
+        \item L'application doit être isolée dans des conteneurs docker.
+        \item L'application doit être capable de se mettre à jour automatiquement à intervalle régulier sans aucune intervention.
+        \item L'application doit stocker les fichiers de méta-données et de documentation des APIs sous format YAML.
+        \item L'application doit stocker les variables d'environnement sous format texte ou TOML. % TODO: on verra ? juste text pour le moment ? + doit rester inaccessible aux utilisateurs finaux
+        \item L'application doit suivre la licence open source MIT. % ou GPLv3
+    \end{itemize}
+
+    \item Should have : % "should have this if at all possible", c'est-à-dire devrait être fait dans la mesure du possible (essentiel).
+    \begin{itemize}
+        \item L'application doit utiliser des technologies connues au SGSI.
+        \begin{itemize}
+            \item L'application doit utiliser le framework Django pour l'interface web.
+            \item L'application doit utiliser le langage Python pour la logique en back-end.
+            \item L'application doit utiliser le scheduler cron pour la planification automatique.
+        \end{itemize}
+        \item L'application ne doit pas dépendre d'un service externe au SGSI.
+    \end{itemize}
+
+    \item Could have : % "could have this if it does not affect anything else", pourrait être fait dans la mesure où cela n'a pas d'impact sur les autres tâches (confort).
+    \begin{itemize}
+        \item L'application doit respecter la charte graphique de l'UCLouvain.
+        \item L'application doit pouvoir faire remonter des statistiques d'utilisation via Matomo en local.
+    \end{itemize}
+
+    \item Won't have : % "won't have this time but would like in the future", ne sera pas fait cette fois mais sera fait plus tard (luxe).
+    \begin{itemize}
+        \item ...
+    \end{itemize}
+\end{itemize}
+
 % TODO: Mock-ups
+% TODO: Schéma d'architecture
 
-\subsection{Exigences Techniques}
-% (Très) bien documenté
-% Facile à maintenir
-% Ne pas dépendre d'un service externe
-% Matomo analytics : institutionnel en local
 
-% Doit utiliser des technologies connues au SGSI
+
 % \subsection{Technologies et Frameworks}
 % \begin{itemize}
 %     \item[$\bullet$] \textbf{Django} : le framework web sera probablement Django car il est déjà connu et utilisé dans le service et permet de lier facilement les URLs aux différentes vues qui seront générées automatiquement en utilisant la fonctionnalité de template de Django.
@@ -281,13 +155,8 @@ Cette fonctionnalité permet aux administrateurs de vérifier la traçabilité d
 %         \end{itemize}
 % \end{itemize}
 
-% \subsection{Stockage}
-% Les données stockés en YAML/JSON + les variables d'environnement en text ou TOML doivent être inacessibles aux utilisateurs
 
-% \subsection{Licence}
-% Le code doit suivre la licence open source MIT (ou GPLv3)
-
-\subsection{Autres Exigences}
+% \subsection{Autres Exigences}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                   %
@@ -302,14 +171,16 @@ Cette fonctionnalité permet aux administrateurs de vérifier la traçabilité d
 \section{Processus de Développement}
 %===================================================================%
 
-% à chaque étape pouvoir montrer qqch au client
-% S4 : implémentation dans les conteneurs docker + cron setup
-% S5~: importeur + extracteur (URL)
-% S6 : interface page d'accueil fonctionnelle (dirige vers les pages d'APIs)
-% S7 : variables d'environnement
-% S8 : (matomo)
-% S9 : faire joli + doc
-% S10 : démo
+% TODO: qu'est-ce qu'on veut de fonctionnel à montrer au client :
+\begin{itemize}
+    \item[S4] : implémentation dans les conteneurs docker + cron setup
+    \item[S5] : importeur + extracteur (URL)
+    \item[S6] : interface page d'accueil fonctionnelle (dirige vers les pages d'APIs)
+    \item[S7] : variables d'environnement
+    \item[S8] : (matomo)
+    \item[S9] : faire joli + doc
+    \item[S10] : démo
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                   %
@@ -321,8 +192,32 @@ Cette fonctionnalité permet aux administrateurs de vérifier la traçabilité d
 %                                                                   %
 %                                                                   %
 %===================================================================%
-\section{Appendices}
+\newpage
+\section{Glossaire}\label{glossaire}
 %===================================================================%
-
+\begin{itemize}
+    \item[$\bullet$] \textbf{API}\label{api} : Application Programming Interface ou Interface de Programmation d'Application est un ensemble normalisé de classes, de méthodes, de fonctions et de constantes qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels.
+    \item[$\bullet$] \textbf{API Manager}\label{apim} : Outil de gestion des APIs permettant de les créer, de les publier, de les sécuriser et de les surveiller.
+    \item[$\bullet$] \textbf{API Controller}\label{apictl} : Outil en ligne de commande permettant de communiquer avec API Manager
+    \item[$\bullet$] \textbf{Application}\label{FULL-APP} : l'application complète au sens général du terme, composée de 3 conteneurs docker : "back-end", "front-end" et "scheduler"
+    \begin{itemize}
+        \item[$\square$] \textbf{Back-end}\label{BACK-END} : le back-end de l'application qui contient l'extracteur, l'importeur et le répertoire de stockage des données
+        \begin{itemize}
+            \item[$\circ$] \textbf{Extracteur}\label{BACK-END:extractor} : l'extracteur de l'application qui s'occupe de récupérer les données des APIs depuis API Manager en utilisant l'API Controller, de les extraire de l'archive et de les passer à l'importeur
+            \item[$\circ$] \textbf{Importeur}\label{BACK-END:importer} : l'importeur de l'application qui s'occupe de traiter et préparer les données pour le front-end et de les stocker dans le répertoire de stockage
+            \item[$\circ$] \textbf{Répertoire de stockage des données}\label{BACK-END:storage} : le répertoire de stockage des données de l'application qui contient les données d'API traitées par l'importeur et prêtes à être utilisées par le front-end ainsi que toutes les données utiles pour faire fonctionner l'application
+            \begin{itemize}
+                \item[$\triangleright$] \textbf{Données d'API} : fichier de méta-données (api.yaml), fichier de documentation (swagger.yaml) et documents attachés (plain text)
+                \item[$\triangleright$] \textbf{Configurations} : variables d'environnement, logs, blacklist, etc...
+            \end{itemize}
+        \end{itemize}
+        \item[$\square$] \textbf{Front-end}\label{FRONT-END} : le front-end de l'application qui contient l'interface utilisateur
+        \begin{itemize}
+            \item[$\circ$] \textbf{Page de catalogue des APIs}\label{FRONT-END:page1_catalog} : la page de catalogue de l'application qui affiche la liste des APIs disponibles à l'utilisateur
+            \item[$\circ$] \textbf{Page de documentation d'une API}\label{FRONT-END:page2_api_doc} : la page de documentation d'une API de l'application qui affiche les informations détaillées d'une API à l'utilisateur
+        \end{itemize}
+        \item[$\square$] \textbf{Scheduler}\label{SCHEDULER} : le scheduler de l'application qui s'occupe de régénérer automatiquement le catalogue des APIs à intervalle régulier
+    \end{itemize}
+\end{itemize}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

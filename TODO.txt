@@ -3,29 +3,20 @@
 --------------------------------------------------------------------
 
 ## TODO Semaine 3 :
- ✘ Cahier des charges
-	-> pile docker
+✔ fixer les user stories
+✘ Cahier des charges : Mock-ups & Schéma d'architecture WHERE ?
+✘ Traduction vocab developpeur <=> utilisateur
 
- ✘ User stories :
-	✔ param de configuration : url pour interroger APIM, credentials pour APIM => 1 user story
-	✔ délai de màj => pas forcément d'interface (encore une fois)
-	✔ pouvoir forcer la remise à jour d'une api solo (et pas tt le catalogue)
-	✔ pas tant consulter les logs que de logger tout cours
-	✔ logs : pas besoin d'interface utilisateur
-
-	-> stories compacts et atomiques pour pouvoir être validé
+-> pouvoir splitter les stories en technical stories plus tard avec des étapes + précises
 
 
-	pouvoir splitter les stories en technical stories plus tard avec des étapes + précises
 
-	les APIs blacklistés ne doivent pas apparaître (elles sont dispos sur APIM donc si ici c bon)
+## TODO Semaine 4 :
+1. Vérification du cahier des charges
+2. Technical Stories pour l'implémentation des conteneurs docker
+3. Implémenter les conteneurs
 
-
-	cahier des charges
-	découper en user story technique (importeur/extracteur mtnt)
-	Moscow : https://community.atlassian.com/forums/App-Central-articles/Understanding-the-MoSCoW-prioritization-How-to-implement-it-into/ba-p/2463999
-
-
+Rappel : bien faire une branche de developpement sur catalog-app !
 
 
 
