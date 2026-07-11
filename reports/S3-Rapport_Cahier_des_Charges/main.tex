@@ -27,6 +27,13 @@
 \usepackage{svg}
 
 
+\usepackage[percent]{overpic} % add hyperlink at coordinates of a figure
+\usepackage[nopostdot,sort=def,style=long,nonumberlist,toc]{glossaries}
+\makeglossaries
+\renewcommand*{\glspostdescription}{\medskip} % add space after each item
+\input{glossary.tex}
+
+
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -101,11 +108,19 @@
 
 \begin{document}
 
+    \pagenumbering{Roman}
     \input{header.tex}
 
     \clearpage
+    \tableofcontents
+   
+    \clearpage
     \pagenumbering{arabic}
-    
     \input{corps.tex}
+
+    \clearpage
+    \glsaddall
+    \printglossaries
+    % \printglossary[style=long,nonumberlist]
 
 \end{document}

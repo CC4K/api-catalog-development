@@ -4,7 +4,6 @@
 
 ## TODO Semaine 3 :
 ✔ fixer les user stories
-✘ Cahier des charges : Mock-ups & Schéma d'architecture WHERE ?
 ✘ Traduction vocab developpeur <=> utilisateur
 
 -> pouvoir splitter les stories en technical stories plus tard avec des étapes + précises
@@ -12,7 +11,7 @@
 
 
 ## TODO Semaine 4 :
-1. Vérification du cahier des charges
+1. Vérification du cahier des charges (TOML, Glossaire, MoSCoW...)
 2. Technical Stories pour l'implémentation des conteneurs docker
 3. Implémenter les conteneurs
 

@@ -1,0 +1,89 @@
+\newglossaryentry{api}
+{
+    name=API,
+    description={Une Application Programming Interface est un ensemble normalisé de classes, de méthodes, de fonctions et de constantes qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels}
+}
+\newglossaryentry{apim}
+{
+    name=API Manager,
+    description={Outil de gestion des APIs permettant de les créer, de les publier, de les sécuriser et de les surveiller}
+}
+\newglossaryentry{apictl}
+{
+    name=API Controller,
+    description={Outil en ligne de commande permettant de communiquer avec API Manager}
+}
+
+\newglossaryentry{application}
+{
+    name=Application,
+    description={L'application complète au sens général du terme, composée de 3 conteneurs docker : "back-end", "front-end" et "scheduler"}
+}
+
+\newglossaryentry{back-end}
+{
+    name=Back-end,
+    description={Le back-end de l'application qui contient l'extracteur, l'importeur et le répertoire de stockage des données}
+}
+\newglossaryentry{extractor}
+{
+    name=Extracteur,
+    description={L'extracteur de l'application qui s'occupe de récupérer les données des APIs depuis API Manager en utilisant l'API Controller, de les extraire de l'archive et de les passer à l'importeur}
+}
+\newglossaryentry{importer}
+{
+    name=Importeur,
+    description={L'importeur de l'application qui s'occupe de traiter et préparer les données pour le front-end et de les stocker dans le répertoire de stockage}
+}
+\newglossaryentry{storage}
+{
+    name=Répertoire de stockage des données,
+    description={Le répertoire de stockage des données de l'application qui contient les données d'API traitées par l'importeur et prêtes à être utilisées par le front-end ainsi que toutes les données utiles au bon fonctionnement de l'application}
+}
+\newglossaryentry{api_data}
+{
+    name=Données d'API,
+    description={Les fichiers de méta-données, de documentation ainsi que les documents attachés}
+}
+\newglossaryentry{api_description}
+{
+    name=Fichier de description d'API,
+    description={Le fichier de description (api.yaml) qui contient les informations de base d'une API telles que son nom, sa version, sa description, son développeur...}
+}
+\newglossaryentry{api_doc}
+{
+    name=Fichier de documentation d'API,
+    description={Le fichier de documentation (swagger.yaml) qui contient les informations détaillées d'une API telles que ses endpoints, ses paramètres, ses réponses...}
+}
+\newglossaryentry{api_attachments}
+{
+    name=Documents attachés d'API,
+    description={Les documents attachés à la documentation d'une API qui contiennent des informations supplémentaires sur une API}
+}
+\newglossaryentry{configurations}
+{
+    name=Fichiers de configurations,
+    description={Les variables d'environnement, fichiers de logs, blacklist, etc...}
+}
+
+\newglossaryentry{front-end}
+{
+    name=Front-end,
+    description={Le front-end de l'application qui s'occupe de l'interface utilisateur et de l'affichage des données}
+}
+
+\newglossaryentry{scheduler}
+{
+    name=Scheduler,
+    description={Le scheduler de l'application qui s'occupe de régénérer automatiquement le catalogue des APIs à intervalle régulier}
+}
+\newglossaryentry{page1_catalog}
+{
+    name=Page de catalogue des APIs,
+    description={La page de catalogue des APIs de l'application qui affiche la liste des APIs disponibles à l'utilisateur}
+}
+\newglossaryentry{page2_api_doc}
+{
+    name=Page de documentation d'une API,
+    description={La page de documentation d'une API de l'application qui affiche les informations détaillées d'une API à l'utilisateur}
+}

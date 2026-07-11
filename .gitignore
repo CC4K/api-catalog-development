@@ -17,3 +17,15 @@ svg-inkscape/
 *.log
 *.out
 *.synctex.gz
+*.glg
+*.glo
+*.gls*
+*.ist
+*.toc
+
+# main.glg
+# main.glo
+# main.gls
+# main.glsdefs
+# main.ist
+# main.toc
