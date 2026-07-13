@@ -12,11 +12,9 @@
 
 ## TODO Semaine 4 :
 1. Vérification du cahier des charges (TOML, Glossaire, MoSCoW...)
-2. Technical Stories pour l'implémentation des conteneurs docker
-3. Implémenter les conteneurs
+2. Pile docker avec importeur => volume partagé avec front end qui liste catalogue <===
 
-Rappel : bien faire une branche de developpement sur catalog-app !
-
+Rappel : bien faire une branche de developpement sur catalog-app ! + Utiliser Issues et Milestons dans Gitlab
 
 
 

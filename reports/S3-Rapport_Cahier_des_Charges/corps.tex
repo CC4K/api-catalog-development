@@ -1,32 +1,7 @@
-% TABLE DES MATIERES
-
 %===================================================================%
-\section{Introduction}
+\section{Objectifs et Public Cible}
 %===================================================================%
-
-\subsection{Objectifs et Public Cible}
-Nous souhaitons créer un catalogue des \glspl{api} disponibles pour les consultants externes au SGSI ainsi que pour les développeurs internes permettant de connaître leurs intérêts pour certaines APIs.
-
-\subsection{Contraintes}
-\begin{itemize}
-    \item[$\bullet$] Le catalogue doit rester en lecture seule pour les utilisateurs finaux qui ne peuvent pas tester les APIs.
-    \item[$\bullet$] L'application doit être documentée tant au niveau de son architecture et organisation qu'au niveau du code et de son utilisation.
-    \item[$\bullet$] Ce projet se fera de manière itérative semaines par semaine tout au long du stage (méthode Agile).
-\end{itemize}
-
-% Obsolète ? : on a les exigences en bas mtnt ↴
-
-% \subsection{Fonctionnalités attendues}
-% Le produit final idéal doit présenter les capacités suivantes :
-% \begin{itemize}
-%     \item[$\rightarrow$] Présenter les APIs visuellement de manière similaire à l'interface d'\hyperref[glossaire]{API Manager} (nom, icône potentielle, version, temps de la dernière mise à jour, tags potentiels) et possédant une barre de recherche ainsi que des filtres de catégorie pour faciliter la navigation du marketplace.
-%     \item[$\rightarrow$] Chaque API doit rediriger vers une page présentant les informations plus détaillés de l'API (swagger téléchargeable, numéro de révision, documentation, exemples de réponses, interface offrant la possibilité de demander l'accès à l'API).
-%     \item[$\rightarrow$] Être capable de se mettre à jour automatiquement de manière régulière ainsi que de pouvoir être mis à jour manuellement par ses administrateurs en cas de besoin.
-%     \item[$\rightarrow$] Offrir la possibilité de cacher certaines APIs pour certains utilisateurs selon leurs droits d'accès.
-%     \item[$\rightarrow$] Offrir la possibilité aux administrateurs de blacklister/exclure certaines APIs.
-%     \item[$\rightarrow$] Permettre la suppression manuelle de certaines APIs.
-%     % +++
-% \end{itemize}
+Nous souhaitons créer un catalogue des apis disponibles pour les consultants externes au SGSI ainsi que pour les développeurs internes.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                   %
@@ -57,113 +32,89 @@ Nous souhaitons créer un catalogue des \glspl{api} disponibles pour les consult
 % MoSCoW method (Must have, Should have, Could have, Won't have)
 
 \begin{itemize}
-    \item[$\bullet$] Must have : % "must have this", c'est-à-dire "doit être fait" (vital).
+    \item[$\bullet$] Must have :
     \begin{itemize}
         \item[$\circ$] La \glslink{page1_catalog}{page de catalogue} doit pouvoir afficher toutes les APIs actuellement mises à disposition des utilisateurs dans l'ordre alphabétique.
         \item[$\circ$] Le tri par défaut doit se faire par ordre alphabétique sur le nom des APIs.
-        \item[$\circ$] Pour chaque API, la page de catalogue doit afficher son nom, sa version, sa révision, sa date de sa dernière mise à jour ainsi que son icône (ou un texte de remplacement si indisponible).
-        \item[$\circ$] Le catalogue doit être muni d'une barre de recherche permettant d'explorer les APIs par nom.
-        \item[$\circ$] L'utilisateur doit pouvoir accéder à la page de documentation d'une API en cliquant sur son nom dans le catalogue.
-        \item[$\circ$] La page de documentation doit afficher toutes les informations disponibles sur l'API telles qu'elles sont définies dans l'API Manager.
-        \item[$\circ$] La page de documentation doit offrir la possibilité à l'utilisateur de voir les documents et URLs supplémentaires à la documentation de l'API.
-        \item[$\circ$] Les "server URLs" présents dans la documentation de l'API doivent apparaître dans leur version correcte.
-        \item[$\circ$] L'utilisateur doit pouvoir télécharger le fichier de description d'une API aisément depuis la page de documentation de l'API.
-        \item[$\circ$] Le fichier de description téléchargé doit contenir tout les détails déjà présent sur la page de documentation de l'API.
-        \item[$\circ$] Le fichier de description téléchargé doit être au format standard de description d'API OpenAPI.
-        \item[$\circ$] Les administrateurs doivent pouvoir exclure des APIs.
-        \item[$\circ$] Les administrateurs doivent pouvoir consulter les données des APIs stockées dans le répertoire de stockage des données.
-        \item[$\circ$] Les administrateurs doivent pouvoir supprimer un répertoire d'API dans le répertoire de stockage des données.
+        \item[$\circ$] Pour chaque API, la \glslink{page1_catalog}{page de catalogue} doit afficher son nom, sa version, sa révision, sa date de sa dernière mise à jour ainsi que son icône (ou un texte de remplacement si indisponible).
+        \item[$\circ$] L'utilisateur doit pouvoir accéder à la \glslink{page2_api_doc}{page de documentation} d'une API en cliquant sur son nom dans le catalogue.
+        \item[$\circ$] La \glslink{page2_api_doc}{page de documentation} doit afficher toutes les informations disponibles sur l'API telles qu'elles sont définies dans l'\glslink{apim}{API Manager}.
+        \item[$\circ$] La \glslink{page2_api_doc}{page de documentation} doit offrir la possibilité à l'utilisateur de voir les \glslink{api_attachments}{documents et URLs supplémentaires} à la \glslink{api_doc}{documentation} de l'API.
+        \item[$\circ$] Les "server URLs" présents dans la \glslink{api_doc}{documentation} de l'API doivent apparaître dans leur version correcte.
+        \item[$\circ$] L'utilisateur doit pouvoir télécharger le \glslink{api_description}{fichier de description} d'une API depuis la \glslink{page2_api_doc}{page de documentation} de l'API, au format standard d'OpenAPI\footnote{\href{https://swagger.io/specification/v3/}{OpenAPI specification v3}} et avec les "server URLs" corrigés.
+        \item[$\circ$] Les administrateurs doivent pouvoir consulter et supprimer les \glslink{api_data}{données} des APIs stockées dans le \glslink{storage}{répertoire de stockage des données} ainsi que pouvoir exclure des APIs.
         \item[$\circ$] Les administrateurs doivent pouvoir configurer les paramètres de l'application.
-        \item[$\circ$] Le données concernant les APIs doivent se mettrent à jour automatiquement à intervalle régulier.
-        \item[$\circ$] Les administrateurs doivent pouvoir forcer la mise à jour des données d'une API.
+        \item[$\circ$] Le \glslink{api_data}{données} concernant les APIs doivent se mettrent à jour automatiquement à intervalle régulier.
+        \item[$\circ$] Les administrateurs doivent pouvoir forcer la mise à jour des \glslink{api_data}{données} de toutes les APIs à tout moment.
         \item[$\circ$] Les administrateurs doivent pouvoir consulter les logs montrant les erreurs du programme, les connections des administrateurs ainsi que les modifications qu'ils ont effectués.
-        \item[$\circ$] Les logs doivent être descriptifs et pouvoir montrer aux administrateurs l'origine de chaque message présent dans les logs (back-end, front-end, scheduler).
+        \item[$\circ$] Les logs doivent être descriptifs et pouvoir montrer aux administrateurs l'origine de chaque message présent dans les logs (\glslink{back-end}{back-end}, \glslink{front-end}{front-end}, \glslink{scheduler}{scheduler}).
     \end{itemize}
-
-    \item[$\bullet$] Should have : % "should have this if at all possible", c'est-à-dire devrait être fait dans la mesure du possible (essentiel).
+    \item[$\bullet$] Should have : % <==> Nice to have
     \begin{itemize}
+        \item[$\circ$] Le catalogue doit être muni d'une barre de recherche permettant d'explorer les APIs par nom.
         \item[$\circ$] Le catalogue doit être muni d'une liste de tags permettant de filtrer les APIs.
         \item[$\circ$] Le catalogue doit offrir la possibilité à l'utilisateur de trier les APIs par leur nom et leur date de dernière mise à jour.
     \end{itemize}
-
-    \item[$\bullet$] Could have : % "could have this if it does not affect anything else", pourrait être fait dans la mesure où cela n'a pas d'impact sur les autres tâches (confort).
+    \item[$\bullet$] Could have :
     \begin{itemize}
-        \item[$\circ$] Les administrateurs doivent pouvoir faire remonter les statistiques d'utilisation de l'application via Matomo.
-    \end{itemize}
-
-    \item[$\bullet$] Won't have : % "won't have this time but would like in the future", ne sera pas fait cette fois mais sera fait plus tard (luxe).
-    \begin{itemize}
-        \item[$\circ$] L'utilisateur doit pouvoir faire une demande d'accès à une API depuis la page de catalogue et/ou depuis la page de documentation de l'API.
-        \item[$\circ$] La demande d'accès doit pouvoir être reçue par les administrateurs de la plateforme afin d'être traitée et acceptée/refusée.
+        \item[$\circ$] L'utilisateur doit pouvoir faire une demande d'accès à une API depuis la \glslink{page1_catalog}{page de catalogue} et/ou depuis la \glslink{page2_api_doc}{page de documentation} de l'API.
+        \item[$\circ$] Les administrateurs doivent pouvoir faire remonter les statistiques d'utilisation de l'application via Matomo\footnote{\href{https://matomo.org/get/matomo_analytics/}{Matomo Analytics}}.
     \end{itemize}
 \end{itemize}
 
 
 
 \subsection{Exigences Techniques} % Technologies, formats, conventions, etc...
-
 \begin{itemize}
-    \item[$\bullet$] Must have : % "must have this", c'est-à-dire "doit être fait" (vital).
+    \item[$\bullet$] Les différentes parties de l'\glslink{application}{application} doivent être isolées dans des conteneurs docker :
     \begin{itemize}
-        \item[$\circ$] L'application doit être maintenable.
-        \item[$\circ$] L'application doit être très bien documentée tant au niveau de son architecture et organisation qu'au niveau du code et de son utilisation.
-        \item[$\circ$] Les différentes parties de l'application doivent être isolées dans des conteneurs docker :
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=1\textwidth]{img/architecture_diagram.pdf}
-            \caption{Architecture diagram}
-        \end{figure}
-        \item[$\circ$] L'application doit être capable de se mettre à jour automatiquement à intervalle régulier sans aucune intervention.
-        \item[$\circ$] L'application doit stocker les fichiers de méta-données et de documentation des APIs sous format YAML.
-        \item[$\circ$] L'application doit stocker les variables d'environnement sous format texte ou TOML. % TODO: on verra ? juste text pour le moment ? + doit rester inaccessible aux utilisateurs finaux
-        \item[$\circ$] L'application doit suivre la licence open source MIT. % ou GPLv3
+        \item[$\circ$] le \glslink{back-end}{back-end} de l'application qui contient l'\glslink{extractor}{extracteur}, l'\glslink{importer}{importeur} et le \glslink{storage}{répertoire de stockage des données}.
+        \item[$\circ$] le \glslink{front-end}{front-end} de l'application qui contient l'interface utilisateur.
+        \item[$\circ$] le \glslink{scheduler}{scheduler} de l'application qui s'occupe de régénérer automatiquement le catalogue des APIs à intervalle régulier.
     \end{itemize}
-
-    \item[$\bullet$] Should have : % "should have this if at all possible", c'est-à-dire devrait être fait dans la mesure du possible (essentiel).
+    \item[$\bullet$] L'application doit être capable de se mettre à jour automatiquement à intervalle régulier sans aucune intervention.
+    \item[$\bullet$] L'application doit stocker les fichiers de \glslink{api_description}{description} et de \glslink{api_doc}{documentation} des APIs sous format YAML.
+    \item[$\bullet$] L'application doit stocker les variables d'environnement sous format texte.
+    \item[$\bullet$] L'application doit suivre la licence open source MIT. % ou GPLv3
+    \item[$\bullet$] L'application doit utiliser des technologies connues au SGSI.
     \begin{itemize}
-        \item[$\circ$] L'application doit utiliser des technologies connues au SGSI.
-        \begin{itemize}
-            \item L'application doit utiliser le framework Django pour l'interface web.
-            \item L'application doit utiliser le langage Python pour la logique en back-end.
-            \item L'application doit utiliser le scheduler cron pour la planification automatique.
-        \end{itemize}
-        \item[$\circ$] L'application ne doit pas dépendre d'un service externe au SGSI.
+        \item[$\circ$] L'application doit utiliser le framework Django pour l'\glslink{front-end}{interface web}.
+        \item[$\circ$] L'application doit utiliser le langage Python pour la logique en \glslink{back-end}{back-end}.
+        \item[$\circ$] L'application doit utiliser le scheduler cron pour la \glslink{scheduler}{planification automatique}.
     \end{itemize}
-
-    \item[$\bullet$] Could have : % "could have this if it does not affect anything else", pourrait être fait dans la mesure où cela n'a pas d'impact sur les autres tâches (confort).
-    \begin{itemize}
-        \item[$\circ$] La page de catalogue de l'application doit suivre la même interface qu'API Manager :
-        \begin{figure}[H]
-            \centering
-            \includegraphics[width=0.99\textwidth]{img/mock-up_home.pdf} % TODO: update le wireframe
-        \end{figure}
-        \item[$\circ$] L'application doit respecter la charte graphique de l'UCLouvain.
-        \item[$\circ$] L'application doit pouvoir faire remonter des statistiques d'utilisation via Matomo en local.
-    \end{itemize}
-
-    \item[$\bullet$] Won't have : % "won't have this time but would like in the future", ne sera pas fait cette fois mais sera fait plus tard (luxe).
-    \begin{itemize}
-        \item[$\circ$] ...
-    \end{itemize}
+    \item[$\bullet$] L'application ne doit pas dépendre d'un service externe au SGSI.
+    \item[$\bullet$] La \glslink{page1_catalog}{page de catalogue} de l'application doit suivre la même interface qu'\glslink{apim}{API Manager} :
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1.\textwidth]{img/mock-up_home.pdf}
+    \end{figure}
 \end{itemize}
 
 
 
-% \subsection{Technologies et Frameworks}
-% \begin{itemize}
-%     \item[$\bullet$] \textbf{Django} : le framework web sera probablement Django car il est déjà connu et utilisé dans le service et permet de lier facilement les URLs aux différentes vues qui seront générées automatiquement en utilisant la fonctionnalité de template de Django.
-%     \item[$\bullet$] \textbf{Cron} : le scheduler utilisé sera cron car il est déjà connu et fiable. Il permettra de régénérer automatiquement le catalogue des APIs à intervalle régulier.
-%     \item[$\bullet$] \textbf{Python} : le langage permettra de créer facilement les programmes d'importation et d'extraction d'autant plus que le framework Django est déjà lui-même basé sur ce langage, cela facilitera la maintenance de l'application.
-%     \item[$\bullet$] \textbf{Docker} : nous isolerons dans des conteneurs docker les composants suivants :
-%         \begin{itemize}
-%             \item[$\circ$] le framework Django
-%             \item[$\circ$] le scheduler cron
-%             \item[$\circ$] l'application d'importation et d'extraction
-%         \end{itemize}
-% \end{itemize}
+\subsection{Exigences Non-Fonctionnelles}
+\begin{itemize}
+    \item[$\bullet$] L'application doit être très bien documentée tant au niveau de son architecture et organisation qu'au niveau du code et de son utilisation.
+    \item[$\bullet$] L'application doit respecter la charte graphique de l'UCLouvain.
+\end{itemize}
 
-
-% \subsection{Autres Exigences}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                   %
+%                                                                   %
+%                                                                   %
+%                                                                   %
+%                                                                   %
+%                                                                   %
+%                                                                   %
+%                                                                   %
+%===================================================================%
+\section{Architecture et Conception}
+%===================================================================%
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.\textwidth]{img/architecture_diagram.pdf}
+    \caption{Diagramme d'architecture}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                   %
@@ -178,18 +129,7 @@ Nous souhaitons créer un catalogue des \glspl{api} disponibles pour les consult
 \section{Processus de Développement}
 %===================================================================%
 % Qu'est-ce qu'on veut de fonctionnel à montrer au client :
-Le processus de développement se fera de manière itérative semaines par semaines tout au long du stage (méthode Agile). Chaque semaine, nous nous concentrerons sur un ensemble de fonctionnalités à implémenter.
-
-Les fonctionnalités seront priorisées selon la méthode MoSCoW (Must have, Should have, Could have, Won't have) :
-\begin{itemize}
-    \item[\underline{\textbf{S04}}] : mise en place de l'architecture en conteneurs docker (back-end, front-end, scheduler)
-    \item[\underline{\textbf{S05}}] : implémentation de l'importeur, extracteur et mise en place du répertoire de stockage des données
-    \item[\underline{\textbf{S06}}] : implémentation de la page de catalogue
-    \item[\underline{\textbf{S07}}] : mise en place des variables d'environnement pour pouvoir configurer l'application
-    \item[\underline{\textbf{S08}}] : mise en place des statistiques Matomo
-    \item[\underline{\textbf{S09}}] : amélioration de l'interface graphique et de la documentation
-    \item[\underline{\textbf{S10}}] : préparation à une démonstration finale et à la livraison du projet
-\end{itemize}
+Le processus de développement se fera de manière itérative semaines par semaines tout au long du stage (méthode Agile). Chaque semaine, nous nous concentrerons sur un ensemble de fonctionnalités à implémenter afin de pouvoir présenter un prototype fonctionnel au client le vendredi.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                   %
@@ -201,33 +141,3 @@ Les fonctionnalités seront priorisées selon la méthode MoSCoW (Must have, Sho
 %                                                                   %
 %                                                                   %
 %===================================================================%
-% \newpage
-% \section*{Glossaire}\label{glossaire}
-% \addcontentsline{toc}{section}{Glossaire}
-% %===================================================================%
-% \begin{itemize}
-%     \item[$\bullet$] \hypertarget{api}{\textbf{API}} : Application Programming Interface ou Interface de Programmation d'Application est un ensemble normalisé de classes, de méthodes, de fonctions et de constantes qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels.
-%     \item[$\bullet$] \hypertarget{apim}{\textbf{API Manager}} : Outil de gestion des APIs permettant de les créer, de les publier, de les sécuriser et de les surveiller.
-%     \item[$\bullet$] \hypertarget{apictl}{\textbf{API Controller}} : Outil en ligne de commande permettant de communiquer avec API Manager
-%     \item[$\bullet$] \hypertarget{FULL-APP}{\textbf{Application}} : l'application complète au sens général du terme, composée de 3 conteneurs docker : "back-end", "front-end" et "scheduler"
-%     \begin{itemize}
-%         \item[$\square$] \hypertarget{BACK-END}{\textbf{Back-end}} : le back-end de l'application qui contient l'extracteur, l'importeur et le répertoire de stockage des données
-%         \begin{itemize}
-%             \item[$\circ$] \hypertarget{BACK-END:extractor}{\textbf{Extracteur}} : l'extracteur de l'application qui s'occupe de récupérer les données des APIs depuis API Manager en utilisant l'API Controller, de les extraire de l'archive et de les passer à l'importeur
-%             \item[$\circ$] \hypertarget{BACK-END:importer}{\textbf{Importeur}} : l'importeur de l'application qui s'occupe de traiter et préparer les données pour le front-end et de les stocker dans le répertoire de stockage
-%             \item[$\circ$] \hypertarget{BACK-END:storage}{\textbf{Répertoire de stockage des données}} : le répertoire de stockage des données de l'application qui contient les données d'API traitées par l'importeur et prêtes à être utilisées par le front-end ainsi que toutes les données utiles pour faire fonctionner l'application
-%             \begin{itemize}
-%                 \item[$\triangleright$] \textbf{Données d'API} : fichier de méta-données (api.yaml), fichier de documentation (swagger.yaml) et documents attachés (plain text)
-%                 \item[$\triangleright$] \textbf{Configurations} : variables d'environnement, logs, blacklist, etc...
-%             \end{itemize}
-%         \end{itemize}
-%         \item[$\square$] \hypertarget{FRONT-END}{\textbf{Front-end}} : le front-end de l'application qui contient l'interface utilisateur
-%         \begin{itemize}
-%             \item[$\circ$] \hypertarget{FRONT-END:page1_catalog}{}\textbf{Page de catalogue des APIs} : la page de catalogue de l'application qui affiche la liste des APIs disponibles à l'utilisateur
-%             \item[$\circ$] \hypertarget{FRONT-END:page2_api_doc}{\textbf{Page de documentation d'une API}} : la page de documentation d'une API de l'application qui affiche les informations détaillées d'une API à l'utilisateur
-%         \end{itemize}
-%         \item[$\square$] \hypertarget{SCHEDULER}{\textbf{Scheduler}} : le scheduler de l'application qui s'occupe de régénérer automatiquement le catalogue des APIs à intervalle régulier
-%     \end{itemize}
-% \end{itemize}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,8 +1,4 @@
-\newglossaryentry{api}
-{
-    name=API,
-    description={Une Application Programming Interface est un ensemble normalisé de classes, de méthodes, de fonctions et de constantes qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels}
-}
+% `pdflatex --output-directory=out main.tex && makeglossaries -d out/ main && pdflatex --output-directory=out main.tex && pdflatex --output-directory=out main.tex`
 \newglossaryentry{apim}
 {
     name=API Manager,
@@ -11,39 +7,37 @@
 \newglossaryentry{apictl}
 {
     name=API Controller,
-    description={Outil en ligne de commande permettant de communiquer avec API Manager}
+    description={Outil en ligne de commande permettant de communiquer avec \textbf{API Manager}}
 }
-
 \newglossaryentry{application}
 {
     name=Application,
-    description={L'application complète au sens général du terme, composée de 3 conteneurs docker : "back-end", "front-end" et "scheduler"}
+    description={L'application complète au sens général du terme, composée de 3 services : "\textbf{back-end}", "\textbf{front-end}" et "\textbf{scheduler}"}
 }
-
 \newglossaryentry{back-end}
 {
     name=Back-end,
-    description={Le back-end de l'application qui contient l'extracteur, l'importeur et le répertoire de stockage des données}
+    description={Le back-end de l'application qui contient l'\textbf{extracteur}, l'\textbf{importeur} et le \textbf{répertoire de stockage des données}}
 }
 \newglossaryentry{extractor}
 {
     name=Extracteur,
-    description={L'extracteur de l'application qui s'occupe de récupérer les données des APIs depuis API Manager en utilisant l'API Controller, de les extraire de l'archive et de les passer à l'importeur}
+    description={L'extracteur de l'application qui s'occupe de récupérer les \textbf{données d'APIs} passés par l'importeur et de les traiter pour les envoyer au front-end}
 }
 \newglossaryentry{importer}
 {
     name=Importeur,
-    description={L'importeur de l'application qui s'occupe de traiter et préparer les données pour le front-end et de les stocker dans le répertoire de stockage}
+    description={L'importeur de l'application qui s'occupe d'importer les \textbf{données d'APIs} depuis \textbf{API Manager} en utilisant l'\textbf{API Controller} et de les passer à l'\textbf{extracteur}}
 }
 \newglossaryentry{storage}
 {
     name=Répertoire de stockage des données,
-    description={Le répertoire de stockage des données de l'application qui contient les données d'API traitées par l'importeur et prêtes à être utilisées par le front-end ainsi que toutes les données utiles au bon fonctionnement de l'application}
+    description={Le répertoire de stockage des données de l'application qui contient les données d'API traitées par l'\textbf{importeur} et prêtes à être utilisées par le \textbf{front-end} ainsi que toutes les données utiles au bon fonctionnement de l'\textbf{application}}
 }
 \newglossaryentry{api_data}
 {
     name=Données d'API,
-    description={Les fichiers de méta-données, de documentation ainsi que les documents attachés}
+    description={Les \textbf{fichiers de description}, les \textbf{fichiers de documentation} ainsi que les \textbf{documents attachés}}
 }
 \newglossaryentry{api_description}
 {
@@ -53,29 +47,27 @@
 \newglossaryentry{api_doc}
 {
     name=Fichier de documentation d'API,
-    description={Le fichier de documentation (swagger.yaml) qui contient les informations détaillées d'une API telles que ses endpoints, ses paramètres, ses réponses...}
+    description={Le fichier de documentation (swagger.yaml) qui contient les informations détaillées d'une API telles que ses endpoints, ses paramètres, ses réponses... et les server URL corrigés}
 }
 \newglossaryentry{api_attachments}
 {
     name=Documents attachés d'API,
     description={Les documents attachés à la documentation d'une API qui contiennent des informations supplémentaires sur une API}
 }
-\newglossaryentry{configurations}
-{
-    name=Fichiers de configurations,
-    description={Les variables d'environnement, fichiers de logs, blacklist, etc...}
-}
-
+% \newglossaryentry{configurations}
+% {
+%     name=Fichiers de configurations,
+%     description={Les variables d'environnement, fichiers de logs, blacklist, etc...}
+% }
 \newglossaryentry{front-end}
 {
     name=Front-end,
     description={Le front-end de l'application qui s'occupe de l'interface utilisateur et de l'affichage des données}
 }
-
 \newglossaryentry{scheduler}
 {
     name=Scheduler,
-    description={Le scheduler de l'application qui s'occupe de régénérer automatiquement le catalogue des APIs à intervalle régulier}
+    description={Le scheduler de l'application qui s'occupe de régénérer automatiquement le catalogue des APIs/l'\textbf{application} à intervalle régulier}
 }
 \newglossaryentry{page1_catalog}
 {
@@ -85,5 +77,5 @@
 \newglossaryentry{page2_api_doc}
 {
     name=Page de documentation d'une API,
-    description={La page de documentation d'une API de l'application qui affiche les informations détaillées d'une API à l'utilisateur}
+    description={La page de documentation d'une API de l'application qui affiche les \textbf{données d'API} à l'utilisateur}
 }
