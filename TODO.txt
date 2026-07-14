@@ -3,25 +3,48 @@
 --------------------------------------------------------------------
 
 ## TODO Semaine 3 :
-✔ fixer les user stories
-✘ Traduction vocab developpeur <=> utilisateur
-
+-> Traduction vocab developpeur <=> utilisateur
 -> pouvoir splitter les stories en technical stories plus tard avec des étapes + précises
 
 
-
 ## TODO Semaine 4 :
-1. Vérification du cahier des charges (TOML, Glossaire, MoSCoW...)
-2. Pile docker avec importeur => volume partagé avec front end qui liste catalogue <===
+=> Pile docker avec importeur => volume partagé avec front end qui liste catalogue
 
-Rappel : bien faire une branche de developpement sur catalog-app ! + Utiliser Issues et Milestons dans Gitlab
+1. Importer to :
+	* import all data from API Manager using API CTL
+	* store this data in a shared location (local for now)
+2. Extractor to :
+	* extract the data we want to display on the catalog page from the archive in the shared location
+3. Basic Django app to :
+	* Fetch the data from the archive in the shared location
+	* Display a basic catalog page in plain HTML
+4. Set up Docker with :
+	* a container for the importer and extractor
+	* a container for the Django front-end
+	* a container for development purposes
+	while focusing on the way the data is stored so that it :
+		* is shared between containers that need it
+		* survives between restarts
+
+5. Bonus : Start a template for documentation page(s)
 
 
+
+* mieux de release les prototypes sur branche de release ou main ?
+* django à partir de rien (tuto de 0 à appliquer avec les données que j'ai déjà ?)
+
+
+
+
+
+-> jeter les zips après importation et extraction
+-> les dates de créations sont dans 'api.yaml' pas 'swagger.yaml'
 
 
 
 --------------------------------------------------------------------
 ## Notes d'Implémentation :
+-> documentation : la structure des archives venant de wso2 pourraient changer !
 -> pour deletion manuelle / notice de dépreciation : dire dans la doc qu'il faut "supprimer avec commande rm" c'est ok
 -> API Legacy : juste un tag et les cacher
 -> APIs blacklistés : ne même pas les importer
@@ -61,14 +84,23 @@ détecter si il y a eu un chagement dans un api avant d'importer :
 	-> on importe 1 ce qu'il faut importer (seulement qd la révision à changé via apictl)
 
 	```bash
-	$ apictl get apis -e test
+	$ apictl get apis --environment=test -q status:PUBLISHED
 	ID                                     NAME                VERSION             CONTEXT             STATUS              PROVIDER
 	13928432-2fb6-46a6-8b28-376c912bc742   hello               1.0.0               /hello              PUBLISHED           admin
-	54232014-8afe-4a64-bfb3-0b8aa71edf0c   PizzaShackAPI       1.0.0               /pizzashack         RETIRED             admin
 	fdbade72-9b70-4461-8166-ffae9ff2d241   PizzaShackAPI       2.0.0               /pizzashack         PUBLISHED           admin
 
-	$ apictl get api-revisions -n PizzaShackAPI -v 1.0.0 -e test (-r admin)
-	ID                                     REVISION            DESCRIPTION         GATEWAY_ENVS
-	5539aa3e-b893-4bf5-a30a-aa2493f01db9   1                   Initial Revision    [Default]
-	```
+	$ apictl get api-revisions --environment=test --name hello --version 1.0.0
+	ID                                     REVISION            DESCRIPTION               GATEWAY_ENVS
+	826b9a71-0c37-4573-a07d-bf149c7bdf64   1                   Initial Revision          []
+	f2689c66-dec5-4536-abf0-7347db923b26   2                   added applications home   [Default]
 
+	$ apictl get api-products --environment=test -q status:PUBLISHED
+	ID                                     NAME                        CONTEXT             VERSION             STATUS              PROVIDER
+	435970f3-7800-42be-ac8c-0581f335f654   annoying name with spaces   /annoy              1.0.0               PUBLISHED           admin
+	3959657f-ae78-49e9-9611-6c2ee8bef03d   new_ultimate_pizza          /super_pizza        1.0.0               PUBLISHED           admin
+	7e1449ca-c24f-4f8a-ad34-9d744c5f6253   Pizza                       /product_test       1.0.0               PUBLISHED           admin
+
+	$ apictl get api-product-revisions --environment=test --name new_ultimate_pizza --version 1.0.0
+	ID                                     REVISION            DESCRIPTION         GATEWAY_ENVS
+	b232f0dd-e2c2-4002-910a-b2cc17263414   1                   Initial Revision    [Default]
+	```

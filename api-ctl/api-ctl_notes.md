@@ -19,7 +19,7 @@ swagger.json available on Developer Portal
 ### INIT
 
 ```bash
-$ apictl init PizzaShackAPI --oas admin-PizzaShackAPI-1.0.0/PizzaShackAPI-1.0.0/Definitions/swagger.yaml 
+$ apictl init PizzaShackAPI --oas admin-PizzaShackAPI-1.0.0/PizzaShackAPI-1.0.0/Definitions/swagger.yaml
 Initializing a new WSO2 API Manager project in /home/cedric_k/Desktop/PizzaShackAPI_example/PizzaShackAPI
 Project initialized
 Open README file to learn more
@@ -89,7 +89,7 @@ UUID                                   NAME                TYPE
 ```
 
 ```bash
-$ apictl get api-logging -e test 
+$ apictl get api-logging -e test
 API_ID                                 API_CONTEXT           LOG_LEVEL
 54232014-8afe-4a64-bfb3-0b8aa71edf0c   /pizzashack/1.0.0     OFF
 13928432-2fb6-46a6-8b28-376c912bc742   /hello/1.0.0          OFF
@@ -141,7 +141,7 @@ Find the exported Application at /home/cedric_k/.wso2apictl/exported/apps/test/a
 ```
 
 ```bash
-$ apictl export apps -e test --with-keys 
+$ apictl export apps -e test --with-keys
 Exporting Applications...
 Cleaning all the previously exported Apps of the given target tenant, in the given environment if any, and prepare to export Apps from beginning
 Successfully exported Application!
@@ -158,9 +158,9 @@ Command: export-apps execution completed !
 
 ```bash
 $ apictl import api -f .wso2apictl/exported/apis/test/PizzaShackAPI_1.0.0.zip -e test
-Status: 409 
+Status: 409
 Response: {"code":900300,"message":"The API already exists.","description":"The API already exists","moreInfo":"","error":[]}
-apictl: Error importing API Reason: 409 
+apictl: Error importing API Reason: 409
 Exit status 1
 ```
 
@@ -175,7 +175,7 @@ Execute 'apictl add env --help' to see how to add a new environment
 
 ```bash
 $ apictl add env test --apim  https://localhost:9443
-Default token endpoint 'https://localhost:9443/oauth2/token' is added as the token endpoint 
+Default token endpoint 'https://localhost:9443/oauth2/token' is added as the token endpoint
 Successfully added environment 'test'
 ```
 
