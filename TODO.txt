@@ -1,41 +1,32 @@
 # TODO notes / idées / rappels...
 
 --------------------------------------------------------------------
-
-## TODO Semaine 3 :
--> Traduction vocab developpeur <=> utilisateur
--> pouvoir splitter les stories en technical stories plus tard avec des étapes + précises
-
-
 ## TODO Semaine 4 :
-=> Pile docker avec importeur => volume partagé avec front end qui liste catalogue
 
-1. Importer to :
-	* import all data from API Manager using API CTL
-	* store this data in a shared location (local for now)
-2. Extractor to :
-	* extract the data we want to display on the catalog page from the archive in the shared location
-3. Basic Django app to :
-	* Fetch the data from the archive in the shared location
-	* Display a basic catalog page in plain HTML
-4. Set up Docker with :
-	* a container for the importer and extractor
-	* a container for the Django front-end
-	* a container for development purposes
-	while focusing on the way the data is stored so that it :
-		* is shared between containers that need it
-		* survives between restarts
+=> Django :
+	* templates sont biens ( '{{ }}' for variables, '{% %}') for logical elements)
+	* héritage de templates (garder le même barre de navigation entre plusieurs pages par exemple)
+	* aller chercher des données externes -> facile
+	* facile d'importer .env
 
-5. Bonus : Start a template for documentation page(s)
+	* TRES TRES lourd en termes de fichiers
 
+=> Flask :
+	* templates sont biens ( '{{ }}' for variables, '{% %}') for logical elements)
+	* héritage de templates (garder le même barre de navigation entre plusieurs pages par exemple)
+	* aller chercher des données externes -> facile
+	* facile d'importer .env
 
-
-* mieux de release les prototypes sur branche de release ou main ?
-* django à partir de rien (tuto de 0 à appliquer avec les données que j'ai déjà ?)
+	* structure de projet minuscule => beaucoup plus facile à comprendre/documenter/maintenir
+	* securité doit être implémentée manuellement (MAIS il y a pleins de rss en lignes déjà trouvé cfr bookmarks)
 
 
 
 
+
+
+-> mieux de release les prototypes sur branche de release ou main ?
+-> django à partir de rien (tuto de 0 à appliquer avec les données que j'ai déjà ?)
 
 -> jeter les zips après importation et extraction
 -> les dates de créations sont dans 'api.yaml' pas 'swagger.yaml'
