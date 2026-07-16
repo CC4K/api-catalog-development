@@ -4,7 +4,7 @@
 ## TODO Semaine 4 :
 
 => Django :
-	* templates sont biens ( '{{ }}' for variables, '{% %}') for logical elements)
+	* templates sont biens ('{{ }}' for variables, '{% %}') for logical elements)
 	* héritage de templates (garder le même barre de navigation entre plusieurs pages par exemple)
 	* aller chercher des données externes -> facile
 	* facile d'importer .env
@@ -12,7 +12,7 @@
 	* TRES TRES lourd en termes de fichiers
 
 => Flask :
-	* templates sont biens ( '{{ }}' for variables, '{% %}') for logical elements)
+	* templates sont biens ('{{ }}' for variables, '{% %}') for logical elements)
 	* héritage de templates (garder le même barre de navigation entre plusieurs pages par exemple)
 	* aller chercher des données externes -> facile
 	* facile d'importer .env
@@ -21,12 +21,16 @@
 	* securité doit être implémentée manuellement (MAIS il y a pleins de rss en lignes déjà trouvé cfr bookmarks)
 
 
+=> DEMO :
+# in background
+./wso2am-4.7.0/bin/api-manager.sh
+# in 2 terminal tabs
+source venv/bin/activate
+python frontend/manage.py runserver
+python frontend_flask/app.py
 
 
 
-
--> mieux de release les prototypes sur branche de release ou main ?
--> django à partir de rien (tuto de 0 à appliquer avec les données que j'ai déjà ?)
 
 -> jeter les zips après importation et extraction
 -> les dates de créations sont dans 'api.yaml' pas 'swagger.yaml'
