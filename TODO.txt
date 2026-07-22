@@ -1,76 +1,39 @@
 # TODO notes / idées / rappels...
 
 --------------------------------------------------------------------
-## TODO Semaine 4 :
+## TODO Semaine 5 :
 
-=> Django :
-	* templates sont biens ('{{ }}' for variables, '{% %}') for logical elements)
-	* héritage de templates (garder le même barre de navigation entre plusieurs pages par exemple)
-	* aller chercher des données externes -> facile
-	* facile d'importer .env
+ ✔ tuiles avec les infos d'APIM
+ ✔ importeur + extracteur en Python
+-> .env.sample (credentials + endpoint API-CTL, paths, Server URLs, mode Debug)
+-> une variable CSS pour debugging ?
+-> améliorer recherche dans api.yaml
+-> barre de recherche + tags
 
-	* TRES TRES lourd en termes de fichiers
-
-=> Flask :
-	* templates sont biens ('{{ }}' for variables, '{% %}') for logical elements)
-	* héritage de templates (garder le même barre de navigation entre plusieurs pages par exemple)
-	* aller chercher des données externes -> facile
-	* facile d'importer .env
-
-	* structure de projet minuscule => beaucoup plus facile à comprendre/documenter/maintenir
-	* securité doit être implémentée manuellement (MAIS il y a pleins de rss en lignes déjà trouvé cfr bookmarks)
-
-
-=> DEMO :
-# in background
-./wso2am-4.7.0/bin/api-manager.sh
-# in 2 terminal tabs
-source venv/bin/activate
-python frontend/manage.py runserver
-python frontend_flask/app.py
+-> blacklisting
+-> triage ALPHABETIQUE ou dernière MAJ
 
 
 
-
--> jeter les zips après importation et extraction
--> les dates de créations sont dans 'api.yaml' pas 'swagger.yaml'
 
 
 
 --------------------------------------------------------------------
-## Notes d'Implémentation :
--> documentation : la structure des archives venant de wso2 pourraient changer !
--> pour deletion manuelle / notice de dépreciation : dire dans la doc qu'il faut "supprimer avec commande rm" c'est ok
+## Notes pour plus tard :
+-> Gunicorn : Logs + Workers pour multithreading
 -> API Legacy : juste un tag et les cacher
--> APIs blacklistés : ne même pas les importer
+-> attention à l'adaptation des formats tablette et mobile
 -> l'administration du catalogue ce fera sur la même machine qu'avec les autres services
--> logs : erreurs de django + succès de l'importation + login d'un admin et potentiels écritures par un admin
--> stockage des "api.yaml" et "swagger.json" directement dans des dossiers/répertoires; fichiers nommés après {nom}-{version} et pas révision !
--> .env avec les variables d'environnement (à créer manuellement)
--> SQLite (de Django par exemple) is ok to use
--> FastAPI pour l'appel à l'application depuis conteneur cron avec un curl ?
--> quand page est rafraichie => il faut garder les critères de recherche sinon frustrant pour l'utilisateur
--> pour les anciennes APIs il faudra reconstruire les URL dans le swagger (dans servers>urls à vérifier)
-	Dans api.yaml :
-	```yaml
-		context: /employees
-		version: v1
-	```
-	-> URL de base à vérifier/reconstruire pour production ET sandbox = `https://gw.api.uclouvain.be/${context}/${version}`
-	(url de base préférablement configurable dans 1 fichier de config pour l'extracteur si on veut changer de gw.api à autre chose)
-
-
-
-
+-> pour deletion manuelle / notice de dépreciation : dire dans la doc qu'il faut "supprimer avec commande rm" c'est ok
+-> tests unitaires en local : vérifier l'output de l'importeur et que **blacklisting** soit bien fonctionnel
 
 
 --------------------------------------------------------------------
 ## Contraintes bonus :
--> respecter charte graphique / theme UCLouvain (bords arrondis, couleurs, polices et tt et tt)
--> différencier api et api product
+-> respecter charte graphique / theme UCLouvain (bords arrondis, polices, couleurs [#00214E, #5DB3E6, #9CB7D4])
 -> Licence MIT
--> Matomo analytics
--> attirer sur les nouveautés/API mises à jour récemment quand on arrive sur l'application (pr le moment sur date de dernière màj)
+-> Matomo analytics (ça prends 5 minutes LOL)
+-> attirer l'attention sur les nouveautés/API mises à jour récemment quand on arrive sur l'application (pr le moment sur date de dernière màj)
 
 
 ## BONUS BONUS :
