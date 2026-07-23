@@ -5,13 +5,59 @@
 
  ✔ tuiles avec les infos d'APIM
  ✔ importeur + extracteur en Python
--> .env.sample (credentials + endpoint API-CTL, paths, Server URLs, mode Debug)
--> une variable CSS pour debugging ?
--> améliorer recherche dans api.yaml
+ ✔ .env.sample (credentials + endpoint API-CTL, paths, Server URLs, mode Debug)
+ ✔ SURPRISE!! : Redoc ne fonctionne pas avec Bootstrap : Bootstrap retiré et remplacé par CSS
+ ✔ améliorer recherche dans api.yaml
 -> barre de recherche + tags
-
 -> blacklisting
 -> triage ALPHABETIQUE ou dernière MAJ
+
+-> fixer les Server URLs dans le swagger.yaml
+-> importation et extraction via un serveur (soit FastAPI soit guvicorn)
+
+
+
+
+
+
+=> DevPortal :
+> endpoint :
+https://localhost:9443/devportal
+> credentials :
+admin/admin
+
+=> apictl :
+> apictl get envs --format "{{ jsonPretty . }}"
+{
+  "AdminEndpoint": "",
+  "ApiManagerEndpoint": "https://localhost:9443",
+  "ApplicationEndpoint": "",
+  "MiManagementEndpoint": "",
+  "Name": "test",
+  "PublisherEndpoint": "",
+  "RegistrationEndpoint": "",
+  "TokenEndpoint": "https://localhost:9443/oauth2/token"
+}
+> path to .wso2apictl ? (as it can be modified to a different location by the user)
+~/.wso2apictl
+> environment name and endpoint
+apictl add env <test|sandbox|production> --apim  https://localhost:9443
+OR all the flags
+apictl add env production \
+	--registration https://idp.com:9444 \
+	--admin https://apim.com:9444 \
+	--publisher https://apim.com:9444 \
+	--devportal https://apps.com:9444 \
+	--token https://apim.com:9444/oauth2/token
+OR some flags
+apictl add env production \
+	--registration https://idp.com:9444 \
+	--apim https://apim.com:9444 \
+	--token https://apim.com:9444/oauth2/token
+> login without passing with --password (unsafe) :
+apictl login dev --username admin --password admin
+cat ~/.mypassword | ./apictl login dev --username admin --password-stdin
+apictl login dev --token 45ab5790-aa3f-3ebb-882b-37b81f585976
 
 
 

@@ -44,13 +44,13 @@ Logged out from APIM in  test  environment
 ```bash
 $ apictl get envs
 NAME                API MANAGER ENDPOINT     REGISTRATION ENDPOINT   TOKEN ENDPOINT                        PUBLISHER ENDPOINT   DEVPORTAL ENDPOINT   ADMIN ENDPOINT      MI MANAGEMENT ENDPOINT
-test                https://localhost:9443                           https://localhost:9443/oauth2/token                                                                 
+test                https://localhost:9443                           https://localhost:9443/oauth2/token
 ```
 
 ```bash
 $ apictl get apps -e test
 ID                                     NAME                 OWNER               STATUS              GROUP ID
-b6b3d463-0972-473a-b053-4118b2dd5a4c   DefaultApplication   admin               APPROVED            
+b6b3d463-0972-473a-b053-4118b2dd5a4c   DefaultApplication   admin               APPROVED
 ```
 
 ```bash
