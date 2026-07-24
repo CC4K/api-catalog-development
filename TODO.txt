@@ -8,18 +8,24 @@
  ✔ .env.sample (credentials + endpoint API-CTL, paths, Server URLs, mode Debug)
  ✔ SURPRISE!! : Redoc ne fonctionne pas avec Bootstrap : Bootstrap retiré et remplacé par CSS
  ✔ améliorer recherche dans api.yaml
--> barre de recherche + tags
--> blacklisting
--> triage ALPHABETIQUE ou dernière MAJ
+ ✔ blacklisting
+ ✔ filtrer api.yaml avec les informations utiles
+ ✔ fixer les Server URLs dans le swagger.yaml
+ ✔ merge request
++- triage par tags
++- triage ALPHABETIQUE ou dernière MAJ
++- barre de recherche
 
--> fixer les Server URLs dans le swagger.yaml
--> importation et extraction via un serveur (soit FastAPI soit guvicorn)
+Questions :
+-> pour Server URLs dans swagger : quid s'il y a plusieurs Server URLs ? (juste la 1ère alors ?)
+-> montrer les fichiers de documentations supplémentaires dans la documentation : onglet au-dessus ? ou alors sur le côté ?
 
 
+TODO Semaine 6 :
+-> FastAPI ou Guvicorn pour appeler importeur + extracteur
 
 
-
-
+===> .env :
 => DevPortal :
 > endpoint :
 https://localhost:9443/devportal
