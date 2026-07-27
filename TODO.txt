@@ -1,28 +1,48 @@
 # TODO notes / idées / rappels...
 
 --------------------------------------------------------------------
-## TODO Semaine 5 :
-
- ✔ tuiles avec les infos d'APIM
- ✔ importeur + extracteur en Python
- ✔ .env.sample (credentials + endpoint API-CTL, paths, Server URLs, mode Debug)
- ✔ SURPRISE!! : Redoc ne fonctionne pas avec Bootstrap : Bootstrap retiré et remplacé par CSS
- ✔ améliorer recherche dans api.yaml
- ✔ blacklisting
- ✔ filtrer api.yaml avec les informations utiles
- ✔ fixer les Server URLs dans le swagger.yaml
- ✔ merge request
-+- triage par tags
-+- triage ALPHABETIQUE ou dernière MAJ
-+- barre de recherche
-
-Questions :
--> pour Server URLs dans swagger : quid s'il y a plusieurs Server URLs ? (juste la 1ère alors ?)
--> montrer les fichiers de documentations supplémentaires dans la documentation : onglet au-dessus ? ou alors sur le côté ?
-
 
 TODO Semaine 6 :
--> FastAPI ou Guvicorn pour appeler importeur + extracteur
+-> on met des morceaux complets terminés dans les MR
+-> un .env pr déploiement
+-> features séparés sur des branches qu'on merge sur dev avant de MR sur main
+-> retirer features pas prêtes
+
+-> data/ sera fixe donc pas besoin de variable
+-> Montserrat font
+-> retirer recherche Redoc
+-> fichiers de documentation supplémentaires => onglet dans la navbar à la place de la recherche
+-> navbar dynamic
+-> format de logs doit être valeur par défaut [27/Jul/2026 09:14:20] + format modifiable dans .env/config
+-> Importer & Extractor en Orienté-Objet (1 classe Importer, 1 classe Extractor)
+-> requirements.txt pour frontend et backend SEPARES
+
+
+S6
+=> Copy and clean dev
+=> Liste des tâches à partir des taĉhes des User Stories => catalog_dev README
+=> MR de S6 "as Draft"
+=> Finir Importer-Extracteur pour préparer avec Cron + FastAPI
+=> Séparer Front/Back
+
+
+S7
+=> Finir le Front-End (Doc/Tabs/Search (cacher tags))
+=> Préparer mise en container
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ===> .env :
@@ -64,9 +84,6 @@ apictl add env production \
 apictl login dev --username admin --password admin
 cat ~/.mypassword | ./apictl login dev --username admin --password-stdin
 apictl login dev --token 45ab5790-aa3f-3ebb-882b-37b81f585976
-
-
-
 
 
 
