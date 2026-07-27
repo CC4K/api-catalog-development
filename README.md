@@ -2,15 +2,13 @@
 
 ## Liste des tickets
 
-### TODO now
-- [ ] Police Montserrat en local
-- [ ] Répertoire `data/` fixe (pas besoin de variable d'environnement)
-- [ ] Retirer la barre de recherche Redoc
-- [ ] Format de log comme Flask par défaut et accessible via les variables d'environnement
-
 ### TODO S6
 
-- [ ] Importer/Extractor sous forme de classes pour pouvoir les appeler via FastAPI
+- [x] Police Montserrat en local
+- [x] Répertoire `data/` fixe (pas besoin de variable d'environnement)
+- [x] Retirer la barre de recherche Redoc
+- [x] Format de log comme Flask par défaut et accessible via les variables d'environnement
+- [x] Importer/Extractor sous forme de classes pour pouvoir les appeler via FastAPI
 - [ ] Importer/Extractor appelable via FastAPI automatiquement par Cron / manuellement
 
 ### TODO maybe

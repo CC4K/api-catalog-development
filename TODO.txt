@@ -4,8 +4,7 @@
 
 
 TODO Semaine 6 :
--> Préparer Importer-Extracteur avec FastAPI pour lancer avec Cron
--> Séparer fichers de Front-end/Back-end
+-> Préparer serveur pour tourner crontab
 
 -> Fichiers de documentation supplémentaires => onglet dans la navbar à la place de la recherche
 
