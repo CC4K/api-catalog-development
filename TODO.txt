@@ -2,33 +2,17 @@
 
 --------------------------------------------------------------------
 
+
 TODO Semaine 6 :
--> on met des morceaux complets terminés dans les MR
--> un .env pr déploiement
--> features séparés sur des branches qu'on merge sur dev avant de MR sur main
--> retirer features pas prêtes
+-> Préparer Importer-Extracteur avec FastAPI pour lancer avec Cron
+-> Séparer fichers de Front-end/Back-end
 
--> data/ sera fixe donc pas besoin de variable
--> Montserrat font
--> retirer recherche Redoc
--> fichiers de documentation supplémentaires => onglet dans la navbar à la place de la recherche
--> navbar dynamic
--> format de logs doit être valeur par défaut [27/Jul/2026 09:14:20] + format modifiable dans .env/config
--> Importer & Extractor en Orienté-Objet (1 classe Importer, 1 classe Extractor)
--> requirements.txt pour frontend et backend SEPARES
-
-
-S6
-=> Copy and clean dev
-=> Liste des tâches à partir des taĉhes des User Stories => catalog_dev README
-=> MR de S6 "as Draft"
-=> Finir Importer-Extracteur pour préparer avec Cron + FastAPI
-=> Séparer Front/Back
+-> Fichiers de documentation supplémentaires => onglet dans la navbar à la place de la recherche
 
 
 S7
-=> Finir le Front-End (Doc/Tabs/Search (cacher tags))
-=> Préparer mise en container
+-> Finir le Front-End (Doc/Tabs/Search)
+-> Préparer mise en container
 
 
 
@@ -95,7 +79,12 @@ apictl login dev --token 45ab5790-aa3f-3ebb-882b-37b81f585976
 -> l'administration du catalogue ce fera sur la même machine qu'avec les autres services
 -> pour deletion manuelle / notice de dépreciation : dire dans la doc qu'il faut "supprimer avec commande rm" c'est ok
 -> tests unitaires en local : vérifier l'output de l'importeur et que **blacklisting** soit bien fonctionnel
+-> `apictl` MUST be downloaded and installed via the project (just move the project somewhere and link to its executable as 'apictl')
 
+-> on met des morceaux complets terminés dans les MR
+-> features séparés sur des branches qu'on merge sur dev avant de MR sur main
+-> retirer features pas prêtes
+-> 1 seul .env pr déploiement
 
 --------------------------------------------------------------------
 ## Contraintes bonus :
