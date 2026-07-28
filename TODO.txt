@@ -4,16 +4,23 @@
 
 
 TODO Semaine 6 :
--> Préparer serveur pour tourner crontab
 
+==> code Backend (import/extract)
+-> pour le grep => tjs le même path ? => passer ça en .env ?
+-> enlever les paramètres/méthodes redondant (ressource/label, méthode de 2-3 lignes)
+-> nettoyer la double exception dans import_resource()
+
+-> renommer les utils d'APICTL "apictl_xxxx" / renommer tt les paramètres et méthodes avec des noms plus standardisés
+-> documenter les trucs bizarre genre grep_path() + tt les paramètres en respectant les standards Python Pydoc
+-> méthodes privées : `__<method_name>`
+
+
+
+
+
+S7 ? :
 -> Fichiers de documentation supplémentaires => onglet dans la navbar à la place de la recherche
-
-
-S7
--> Finir le Front-End (Doc/Tabs/Search)
--> Préparer mise en container
-
-
+-> Finir le Front-End (Tabs/Search)
 
 
 
