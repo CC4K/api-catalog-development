@@ -2,78 +2,51 @@
 
 --------------------------------------------------------------------
 
+TODO Semaine 7 :
 
-TODO Semaine 6 :
-
-==> code Backend (import/extract)
--> pour le grep => tjs le même path ? => passer ça en .env ?
--> enlever les paramètres/méthodes redondant (ressource/label, méthode de 2-3 lignes)
--> nettoyer la double exception dans import_resource()
-
--> renommer les utils d'APICTL "apictl_xxxx" / renommer tt les paramètres et méthodes avec des noms plus standardisés
 -> documenter les trucs bizarre genre grep_path() + tt les paramètres en respectant les standards Python Pydoc
--> méthodes privées : `__<method_name>`
+-> documenter les responsabilités de chaque classe
+-> importer / extractor logs, backend pas log (fastapi => just succès ou pas)
+
+-> Exception handling :
+	-> Format :
+		try:
+			<code>
+		except Exception as e:
+			log.exception()
+			raise Exception(f"{e}")
+		else:
+			log.info("Successfully ...")
+			<cleanup folder>
+	-> CREER PLUS D'EXCEPTIONS CUSTOMS (limite une nouvelle pour chaque différente erreur)
+	-> sous classes => JUSTE "raise" les exceptions (pas grave si on retourne pas un False ou quoi)
+	-> root classe 	=> JUSTE "catch/except" les exceptions et gère les (comme ça au niveau de FastAPI on peut return erreur 500)
 
 
 
 
 
-S7 ? :
+
+=> Commandes utiles :
+	Path.home() <=> os.getenv("HOME")
+	os.path.dirname(src)  # left part
+	os.path.basename(src) # right part
+	os.path.split()       # (left part, right part)
+	os.path.join()        # part1/part2
+
+
+
+
+
+
+
+
+
+
+
+TODO Front-end :
 -> Fichiers de documentation supplémentaires => onglet dans la navbar à la place de la recherche
--> Finir le Front-End (Tabs/Search)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-===> .env :
-=> DevPortal :
-> endpoint :
-https://localhost:9443/devportal
-> credentials :
-admin/admin
-
-=> apictl :
-> apictl get envs --format "{{ jsonPretty . }}"
-{
-  "AdminEndpoint": "",
-  "ApiManagerEndpoint": "https://localhost:9443",
-  "ApplicationEndpoint": "",
-  "MiManagementEndpoint": "",
-  "Name": "test",
-  "PublisherEndpoint": "",
-  "RegistrationEndpoint": "",
-  "TokenEndpoint": "https://localhost:9443/oauth2/token"
-}
-> path to .wso2apictl ? (as it can be modified to a different location by the user)
-~/.wso2apictl
-> environment name and endpoint
-apictl add env <test|sandbox|production> --apim  https://localhost:9443
-OR all the flags
-apictl add env production \
-	--registration https://idp.com:9444 \
-	--admin https://apim.com:9444 \
-	--publisher https://apim.com:9444 \
-	--devportal https://apps.com:9444 \
-	--token https://apim.com:9444/oauth2/token
-OR some flags
-apictl add env production \
-	--registration https://idp.com:9444 \
-	--apim https://apim.com:9444 \
-	--token https://apim.com:9444/oauth2/token
-> login without passing with --password (unsafe) :
-apictl login dev --username admin --password admin
-cat ~/.mypassword | ./apictl login dev --username admin --password-stdin
-apictl login dev --token 45ab5790-aa3f-3ebb-882b-37b81f585976
+-> Search bar & Tags
 
 
 

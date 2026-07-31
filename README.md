@@ -4,13 +4,10 @@
 
 ### TODO S6
 
-- [x] Police Montserrat en local
-- [x] Répertoire `data/` fixe (pas besoin de variable d'environnement)
-- [x] Retirer la barre de recherche Redoc
-- [x] Format de log comme Flask par défaut et accessible via les variables d'environnement
-- [x] Importer/Extractor sous forme de classes pour pouvoir les appeler via FastAPI
-- [x] Importer/Extractor appelable via FastAPI automatiquement par Cron / manuellement
-- [ ] Refactorer le code (retirer redondance, améliorer documentation et msgs d'erreurs...)
+- [ ] Refactorer le Backend (retirer redondance, améliorer documentation et msgs d'erreurs...)
+	- [ ] Exceptions
+	- [ ] Logs
+	- [ ] Documentation
 
 
 - [ ] Onglet de fichiers de documentation supplémentaires dans la page de documentation d'une API dans la barre de navigation
