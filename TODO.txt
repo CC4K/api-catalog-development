@@ -2,37 +2,11 @@
 
 --------------------------------------------------------------------
 
-TODO Semaine 7 :
+TODO Semaine 8 :
 
--> documenter les trucs bizarre genre grep_path() + tt les paramètres en respectant les standards Python Pydoc
--> documenter les responsabilités de chaque classe
--> importer / extractor logs, backend pas log (fastapi => just succès ou pas)
+-> backend : laisser dossiers Docs/ et Icon/ ? plus facile niveau frontend + moins de risque de conflit de nom avec api, icon et swagger ?
 
--> Exception handling :
-	-> Format :
-		try:
-			<code>
-		except Exception as e:
-			log.exception()
-			raise Exception(f"{e}")
-		else:
-			log.info("Successfully ...")
-			<cleanup folder>
-	-> CREER PLUS D'EXCEPTIONS CUSTOMS (limite une nouvelle pour chaque différente erreur)
-	-> sous classes => JUSTE "raise" les exceptions (pas grave si on retourne pas un False ou quoi)
-	-> root classe 	=> JUSTE "catch/except" les exceptions et gère les (comme ça au niveau de FastAPI on peut return erreur 500)
-
-
-
-
-
-
-=> Commandes utiles :
-	Path.home() <=> os.getenv("HOME")
-	os.path.dirname(src)  # left part
-	os.path.basename(src) # right part
-	os.path.split()       # (left part, right part)
-	os.path.join()        # part1/part2
+-> tester viewer avec fichiers bizarres : Word, Excel...
 
 
 
@@ -44,18 +18,19 @@ TODO Semaine 7 :
 
 
 
-TODO Front-end :
--> Fichiers de documentation supplémentaires => onglet dans la navbar à la place de la recherche
--> Search bar & Tags
+
+
+
+
+
+
 
 
 
 --------------------------------------------------------------------
 ## Notes pour plus tard :
--> Gunicorn : Logs + Workers pour multithreading
--> API Legacy : juste un tag et les cacher
--> attention à l'adaptation des formats tablette et mobile
--> l'administration du catalogue ce fera sur la même machine qu'avec les autres services
+-> (API Legacy : juste un tag et les cacher)
+-> l'administration du catalogue ce fera sur la même machine qu'avec les autres services => même localhost ?
 -> pour deletion manuelle / notice de dépreciation : dire dans la doc qu'il faut "supprimer avec commande rm" c'est ok
 -> tests unitaires en local : vérifier l'output de l'importeur et que **blacklisting** soit bien fonctionnel
 -> `apictl` MUST be downloaded and installed via the project (just move the project somewhere and link to its executable as 'apictl')
@@ -64,6 +39,13 @@ TODO Front-end :
 -> features séparés sur des branches qu'on merge sur dev avant de MR sur main
 -> retirer features pas prêtes
 -> 1 seul .env pr déploiement
+
+=> Commandes utiles pour manips de fichiers en Python :
+	Path.home() <=> os.getenv("HOME")
+	os.path.dirname(src)  # left part
+	os.path.basename(src) # right part
+	os.path.split()       # (left part, right part)
+	os.path.join()        # part1/part2
 
 --------------------------------------------------------------------
 ## Contraintes bonus :
@@ -74,6 +56,8 @@ TODO Front-end :
 
 
 ## BONUS BONUS :
+-> HTTP header "X-rows-affected" pour les réponses 200
+-> Erreurs moins granulaires par classes d'exceptions
 -> si la doc est lourde est-ce qu'il est vrmt utile de régénérer des APIs inutilement (régénérer SEULEMENT si le numéro de version / révision ? à changé par exemple)
 détecter si il y a eu un chagement dans un api avant d'importer :
 	-> on importe 1 ce qu'il faut importer (seulement qd la révision à changé via apictl)
