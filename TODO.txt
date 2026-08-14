@@ -2,23 +2,20 @@
 
 --------------------------------------------------------------------
 
-TODO Semaine 8 :
+TODO Semaine 9 :
 
--> backend : laisser dossiers Docs/ et Icon/ ? plus facile niveau frontend + moins de risque de conflit de nom avec api, icon et swagger ?
+-> Présentation 1ère version finalisée à l'équipe
 
--> tester viewer avec fichiers bizarres : Word, Excel...
+=> Frontend code refactoring (variables, documentation, methods...)
+-> retirer modification document.yaml dans backend
+-> simplifier résolveur/validateur frontend
+-> changer les dossier de backend en minuscule pour faire moins mal aux yeux
 
-
-
-
-
-
-
+-> Dark mode ?
 
 
-
-
-
+-> (Matomo)
+-> (Tag filtering)
 
 
 
