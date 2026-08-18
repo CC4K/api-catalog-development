@@ -1,0 +1,620 @@
+type: api
+version: v4.6.0
+data:
+  id: 1c84e5af-f91b-4881-a25d-6353a7d7596c
+  name: Employees
+  displayName: Employees
+  description: Employ??s de l'UCL (source SAP HR)
+  context: /employees
+  version: v1
+  provider: olivier.perdaens
+  lifeCycleStatus: PUBLISHED
+  responseCachingEnabled: false
+  cacheTimeout: 300
+  hasThumbnail: true
+  isDefaultVersion: true
+  isRevision: false
+  revisionId: 0
+  enableSchemaValidation: false
+  enableSubscriberVerification: false
+  type: HTTP
+  audiences:
+   - all
+  transport:
+   - http
+   - https
+  tags: []
+  policies:
+   - Bronze
+   - Gold
+   - Silver
+  organizationPolicies: []
+  authorizationHeader: Authorization
+  apiKeyHeader: ApiKey
+  securityScheme:
+   - oauth_basic_auth_api_key_mandatory
+   - oauth2
+  visibility: RESTRICTED
+  visibleRoles:
+   - api-employees
+  visibleTenants: []
+  visibleOrganizations:
+   - none
+  mediationPolicies: []
+  subscriptionAvailability: CURRENT_TENANT
+  subscriptionAvailableTenants: []
+  additionalProperties: []
+  additionalPropertiesMap: {}
+  accessControl: NONE
+  accessControlRoles: []
+  businessInformation: {}
+  corsConfiguration:
+    corsConfigurationEnabled: true
+    accessControlAllowOrigins:
+     - '*'
+    accessControlAllowCredentials: false
+    accessControlAllowHeaders:
+     - authorization
+     - Access-Control-Allow-Origin
+     - Content-Type
+     - SOAPAction
+     - apikey
+     - Internal-Key
+    accessControlAllowMethods:
+     - GET
+     - PUT
+     - POST
+     - DELETE
+     - PATCH
+     - OPTIONS
+  websubSubscriptionConfiguration:
+    enable: false
+    secret: ""
+    signingAlgorithm: SHA1
+    signatureHeader: x-hub-signature
+  createdTime: "1777363280553"
+  lastUpdatedTimestamp: "1781613207006"
+  lastUpdatedTime: 2026-06-16 14:33:27.006
+  endpointConfig:
+    endpoint_type: http
+    sandbox_endpoints:
+      url: https://esb-qa.sipr.ucl.ac.be:8243/employees/v1
+    endpoint_security:
+      production:
+        tokenUrl: ""
+        connectionTimeoutDuration: -1
+        type: BASIC
+        socketTimeoutDuration: -1
+        enabled: true
+        proxyConfigs:
+          proxyEnabled: false
+          proxyPort: ""
+          proxyProtocol: ""
+          proxyUsername: ""
+          proxyPassword: ""
+          proxyHost: ""
+        password: y6J-5v8-Hob-osm
+        connectionTimeoutConfigType: GLOBAL
+        proxyConfigType: GLOBAL
+        customParameters: {}
+        additionalProperties: {}
+        grantType: ""
+        connectionRequestTimeoutDuration: -1
+        username: api_manager
+      sandbox:
+        tokenUrl: ""
+        connectionTimeoutDuration: -1
+        type: BASIC
+        socketTimeoutDuration: -1
+        enabled: true
+        proxyConfigs:
+          proxyEnabled: false
+          proxyPort: ""
+          proxyProtocol: ""
+          proxyUsername: ""
+          proxyPassword: ""
+          proxyHost: ""
+        password: y6J-5v8-Hob-osm
+        connectionTimeoutConfigType: GLOBAL
+        proxyConfigType: GLOBAL
+        customParameters: {}
+        additionalProperties: {}
+        grantType: ""
+        connectionRequestTimeoutDuration: -1
+        username: api_manager
+    production_endpoints:
+      url: https://esb.sgsi.ucl.ac.be:8243/employees/v1
+  endpointImplementationType: ENDPOINT
+  subtypeConfiguration:
+    subtype: DEFAULT
+  scopes:
+   -
+    scope:
+      name: sc-Employees_Admin
+      displayName: sc-Employees_Admin
+      description: ""
+      bindings: []
+    shared: false
+   -
+    scope:
+      name: sc-FormHR
+      displayName: sc-FormHR
+      description: ""
+      bindings: []
+    shared: false
+   -
+    scope:
+      name: sc-Person-Changed
+      displayName: sc-Person-Changed
+      description: ""
+      bindings: []
+    shared: false
+   -
+    scope:
+      name: sc-SAPHR
+      displayName: sc-SAPHR
+      description: ""
+      bindings: []
+    shared: false
+   -
+    scope:
+      name: sc-Security
+      displayName: sc-Security
+      description: ""
+      bindings: []
+    shared: false
+  operations:
+   -
+    id: ""
+    target: /lists/emails
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: /lists
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/lists/enseignants/{anac}/{fac_ou_site}"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/photo"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/departments"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/lineManagers"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/mandates"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/detail"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/businessContacts"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/businessAddress"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/contracts"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/eft"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/eftByContracts"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/departmentsByContracts"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/assignments/{year}/learningUnits"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/groups"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/degrees"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes:
+     - sc-Employees_Admin
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/privateData"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes:
+     - sc-Security
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/collaborateurs"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes:
+     - sc-FormHR
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/formations"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: 10KPerMin
+    scopes:
+     - sc-FormHR
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/{matric_fgs}/changed"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes:
+     - sc-Person-Changed
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: /SAP/natureActiviteSet
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes:
+     - sc-SAPHR
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: /SAP/typeActiviteSet
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes:
+     - sc-SAPHR
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: /SAP/collaborateurSet
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: 10KPerMin
+    scopes:
+     - sc-FormHR
+     - sc-SAPHR
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: /SAP/formationSet
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: 10KPerMin
+    scopes:
+     - sc-FormHR
+     - sc-SAPHR
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/SAP/{matric_sap}/matriculeLieSet"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes:
+     - sc-SAPHR
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/SAP/{matric_sap}/responsablePersSet"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes:
+     - sc-SAPHR
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/SAP/{matric_sap}/contratSet"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes:
+     - sc-SAPHR
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/SAP/{matric_sap}/activiteExtSet"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes:
+     - sc-SAPHR
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/SAP/{matric_sap}/collaborateurSet"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes:
+     - sc-SAPHR
+     - sc-FormHR
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/SAP/{matric_sap}/formationSet"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: 10KPerMin
+    scopes:
+     - sc-FormHR
+     - sc-SAPHR
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/SAP/{matric_fgs}/heureAcaGlobale"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes:
+     - sc-SAPHR
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/SAP/{matric_fgs}/mandatGEAC"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes:
+     - sc-SAPHR
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+   -
+    id: ""
+    target: "/SAP/{matric_sap}/affectations"
+    verb: GET
+    authType: Application & Application User
+    throttlingPolicy: Unlimited
+    scopes: []
+    usedProductIds: []
+    operationPolicies:
+      request: []
+      response: []
+      fault: []
+  categories: []
+  keyManagers:
+   - all
+  advertiseInfo:
+    advertised: false
+    apiOwner: olivier.perdaens
+    vendor: WSO2
+  gatewayVendor: wso2
+  gatewayType: wso2/synapse
+  initiatedFromGateway: false
+  asyncTransportProtocols: []
+  egress: false
+  organizationId: carbon.super

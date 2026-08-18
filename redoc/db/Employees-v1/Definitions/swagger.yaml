@@ -1,0 +1,1636 @@
+openapi: 3.0.1
+info:
+  title: Employees
+  description: Employés de l'UCL (source SAP HR)
+  contact: {}
+  version: v1
+servers:
+ -
+  url: https://gateway-dev.api.uclouvain.be/qfmt/employees/v1.0
+ -
+  url: https://gateway.api.uclouvain.be/qfmt/employees/v1.0
+security:
+ -
+  default: []
+paths:
+  /lists/emails:
+    get:
+      tags:
+       - Lists
+      summary: liste d'adresses email suivant critères
+      parameters:
+       -
+        name: category_id
+        in: query
+        description: type de population (from/digit/v1/md/groups)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: group_id
+        in: query
+        description: group_id (from/digit/v1/md/groups)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: idms_list
+        in: query
+        description: numéros IDM séparés par une virgule
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: site_id
+        in: query
+        description: code du site
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+           - Ch
+           - Na
+           - SG
+           - To
+           - LN
+           - Mi
+           - Mo
+           - Wo
+           - SL
+           - MH
+       -
+        name: build_id
+        in: query
+        description: code du bâtiment
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: wing_id
+        in: query
+        description: aile du bâtiment (si build_id fourni)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: acronym
+        in: query
+        description: sigle d'entité
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: addBudgetaire
+        in: query
+        description: "si =1 : ajoute les rattachements budgétaires"
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: affectation
+        in: query
+        description: "si =1 : ne prend que les affectations"
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: enseignant
+        in: query
+        description: année académique d'enseignement
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: accept
+        in: query
+        description: "format de sortie (json, xml, plain)"
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          default: plain
+      responses:
+        "200":
+          description: ""
+          content: {}
+        "400":
+          description: Invalid acronym supplied
+          content: {}
+        "500":
+          description: Validation error
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /lists:
+    get:
+      tags:
+       - Lists
+      summary: liste de personnes suivant critères
+      description: |
+        "Onglet Documentation (onglet persons) documente le format des résultats"
+      parameters:
+       -
+        name: matric_sap
+        in: query
+        description: matricule SAP
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: firstname
+        in: query
+        description: prénom
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: lastname
+        in: query
+        description: nom
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: acronym
+        in: query
+        description: sigle d'entité
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: directory
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: idms_list
+        in: query
+        description: numéros IDM séparés par une virgule
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: group_id
+        in: query
+        description: group_id (from /groups)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: enseignant
+        in: query
+        description: année académique d'enseignement
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: site_id
+        in: query
+        description: code du site
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+           - Ch
+           - Na
+           - SG
+           - To
+           - LN
+           - Mi
+           - Mo
+           - Wo
+           - SL
+           - MH
+       -
+        name: build_id
+        in: query
+        description: code du bâtiment
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: wing_id
+        in: query
+        description: aile du bâtiment (si build_id fourni)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: extension
+        in: query
+        description: extension téléphonique (5 chiffres)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: page
+        in: query
+        description: numéro de page
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          default: "1"
+       -
+        name: pageSize
+        in: query
+        description: nombre de personnes par page
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          default: "5"
+      responses:
+        "200":
+          description: ""
+          headers:
+            X-Pagination-Limit:
+              description: Number of people by page
+              style: simple
+              explode: false
+              schema:
+                type: integer
+            X-Pagination-Count:
+              description: Number of people in request
+              style: simple
+              explode: false
+              schema:
+                type: integer
+            X-Pagination-Page:
+              description: Page number
+              style: simple
+              explode: false
+              schema:
+                type: integer
+          content: {}
+        "400":
+          description: Invalid acronym supplied
+          content: {}
+        "500":
+          description: Validation error
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /lists/enseignants/{anac}/{fac_ou_site}:
+    get:
+      tags:
+       - Lists
+      summary: liste des enseignants suivant critères
+      description: |
+        "Onglet Documentation (onglet enseignants) documente le format"
+      parameters:
+       -
+        name: anac
+        in: path
+        description: année académique
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+          format: int32
+       -
+        name: fac_ou_site
+        in: path
+        description: sigle de faculté ou référence de site
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+        "400":
+          description: "Invalid academic year, faculty acronym or site supplied"
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}:
+    get:
+      tags:
+       - Employee
+      summary: identité
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+       -
+        name: email
+        in: query
+        description: recherche sur l'email (mettre '-' pour matricule_fgs)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/photo:
+    get:
+      tags:
+       - Employee
+      summary: URL de la photo
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/departments:
+    get:
+      tags:
+       - Employee
+      summary: rattachements structurels
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/lineManagers:
+    get:
+      tags:
+       - Employee
+      summary: responsables structurels
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/mandates:
+    get:
+      tags:
+       - Employee
+      summary: mandats
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+       -
+        name: directory
+        in: query
+        description: "mandat affiché dans le répertoire {0, 1}"
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+          default: "1"
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/detail:
+    get:
+      tags:
+       - Employee
+      summary: information détaillée
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/businessContacts:
+    get:
+      tags:
+       - Employee
+      summary: coordonnées professionnelles
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/businessAddress:
+    get:
+      tags:
+       - Employee
+      summary: adresse postale professionnelle
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/contracts:
+    get:
+      tags:
+       - Employee
+      summary: "données liées au contrat (grade, idm)"
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/eft:
+    get:
+      tags:
+       - Employee
+      summary: taux d'occupation au cadre
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        description: matricule FGS
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/eftByContracts:
+    get:
+      tags:
+       - Employee
+      summary: taux d'occupation au cadre par contrat
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        description: matricule FGS
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/departmentsByContracts:
+    get:
+      tags:
+       - Employee
+      summary: rattachements structurels par contrat
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        description: matricule FGS
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/assignments/{year}/learningUnits:
+    get:
+      tags:
+       - Employee
+      summary: attributions de cours pour un enseignant
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        description: matricule FGS
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+       -
+        name: year
+        in: path
+        description: année académique
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/groups:
+    get:
+      tags:
+       - Employee
+      summary: groupes de population
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        description: matricule FGS
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+       -
+        name: group_id
+        in: query
+        description: Ne renvoie que le groupe demandé
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+       -
+        name: type
+        in: query
+        description: ne renvoie que les groupe de type demandé
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+       -
+        name: ldap
+        in: query
+        description: ne renvoie que les groupes identifiés dans le LDAP
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: integer
+          default: 1
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/degrees:
+    get:
+      tags:
+       - Employee
+      summary: dipômes
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default:
+         - sc-Employees_Admin
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/privateData:
+    get:
+      tags:
+       - Employee
+      summary: diplômes
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default:
+         - sc-Security
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/collaborateurs:
+    get:
+      tags:
+       - Employee
+      summary: Collaborateurs
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default:
+         - sc-FormHR
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/formations:
+    get:
+      tags:
+       - Employee
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+       -
+        name: year
+        in: query
+        description: Annee de formation (AnneeForm). Optionnel.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+      security:
+       -
+        default:
+         - sc-FormHR
+      x-auth-type: Application & Application User
+      x-throttling-tier: 10KPerMin
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /{matric_fgs}/changed:
+    get:
+      tags:
+       - Employee
+      summary: Signale un changement dans la signalétique de la personne
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+       -
+        name: action
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+          enum:
+           - insert
+           - update
+           - delete
+       -
+        name: information
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default:
+         - sc-Person-Changed
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /SAP/natureActiviteSet:
+    get:
+      tags:
+       - OData
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default:
+         - sc-SAPHR
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /SAP/typeActiviteSet:
+    get:
+      tags:
+       - OData
+      parameters:
+       -
+        name: activity
+        in: query
+        description: Le code de la nature d'activité
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default:
+         - sc-SAPHR
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /SAP/collaborateurSet:
+    get:
+      tags:
+       - OData
+      parameters:
+       -
+        name: matric_sap
+        in: query
+        description: Matricule(s) SAP (PernrResp). Multiple valeurs autorisees. Exclusif avec matric_fgs.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+       -
+        name: matric_fgs
+        in: query
+        description: Matricule(s) FGS (Fgs). Multiple valeurs autorisees. Exclusif avec matric_sap.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        default:
+          description: Default response
+      security:
+       -
+        default:
+         - sc-FormHR
+         - sc-SAPHR
+      x-auth-type: Application & Application User
+      x-throttling-tier: 10KPerMin
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /SAP/formationSet:
+    get:
+      tags:
+       - OData
+      parameters:
+       -
+        name: matric_sap
+        in: query
+        description: Matricule(s) SAP (PernrResp). Multiple valeurs autorisees. Exclusif avec matric_fgs.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+       -
+        name: matric_fgs
+        in: query
+        description: Matricule(s) FGS (Fgs). Multiple valeurs autorisees. Exclusif avec matric_sap.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+       -
+        name: year
+        in: query
+        description: Annee(s) de formation (AnneeForm). Multiple valeurs autorisees.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        default:
+          description: Default response
+      security:
+       -
+        default:
+         - sc-FormHR
+         - sc-SAPHR
+      x-auth-type: Application & Application User
+      x-throttling-tier: 10KPerMin
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /SAP/{matric_sap}/matriculeLieSet:
+    get:
+      tags:
+       - OData
+      parameters:
+       -
+        name: matric_sap
+        in: path
+        description: matricule maitre SAP
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+       -
+        name: date
+        in: query
+        description: date (YYYY-MM-DDTHH:MM:SS)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: company
+        in: query
+        description: sociétés (p.ex. UCL)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: category
+        in: query
+        description: "catégories de personnel (p.ex. 1,3,7)"
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: status
+        in: query
+        description: "statut de salarié•e (p.ex. PC,PX)"
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default:
+         - sc-SAPHR
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /SAP/{matric_sap}/responsablePersSet:
+    get:
+      tags:
+       - OData
+      parameters:
+       -
+        name: matric_sap
+        in: path
+        description: matricule maitre SAP
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+       -
+        name: date
+        in: query
+        description: date (YYYY-MM-DDTHH:MM:SS)
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: resptype
+        in: query
+        description: Type de responsable
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default:
+         - sc-SAPHR
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /SAP/{matric_sap}/contratSet:
+    get:
+      tags:
+       - OData
+      parameters:
+       -
+        name: matric_sap
+        in: path
+        description: matricule maitre SAP
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+       -
+        name: date
+        in: query
+        description: date (YYYY-MM-DDTHH:MM:SS)
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default:
+         - sc-SAPHR
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /SAP/{matric_sap}/activiteExtSet:
+    get:
+      tags:
+       - OData
+      parameters:
+       -
+        name: matric_sap
+        in: path
+        description: matricule maitre SAP
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+       -
+        name: startDate
+        in: query
+        description: date (YYYY-MM-DDTHH:MM:SS)
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+       -
+        name: endDate
+        in: query
+        description: date (YYYY-MM-DDTHH:MM:SS)
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default:
+         - sc-SAPHR
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /SAP/{matric_sap}/collaborateurSet:
+    get:
+      tags:
+       - OData
+      parameters:
+       -
+        name: matric_sap
+        in: path
+        description: matricule maitre SAP
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default:
+         - sc-SAPHR
+         - sc-FormHR
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /SAP/{matric_sap}/formationSet:
+    get:
+      tags:
+       - OData
+      parameters:
+       -
+        name: matric_sap
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+       -
+        name: year
+        in: query
+        description: Annee de formation (AnneeForm). Optionnel.
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        default:
+          description: Default response
+      security:
+       -
+        default:
+         - sc-FormHR
+         - sc-SAPHR
+      x-auth-type: Application & Application User
+      x-throttling-tier: 10KPerMin
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /SAP/{matric_fgs}/heureAcaGlobale:
+    get:
+      tags:
+       - OData
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        description: identification de la personne FGS
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+       -
+        name: date
+        in: query
+        description: date (YYYY-MM-DDTHH:MM:SS)
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default:
+         - sc-SAPHR
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /SAP/{matric_fgs}/mandatGEAC:
+    get:
+      tags:
+       - OData
+      parameters:
+       -
+        name: matric_fgs
+        in: path
+        description: identification de la personne FGS
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default:
+         - sc-SAPHR
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /SAP/{matric_sap}/affectations:
+    get:
+      tags:
+       - SAP
+      summary: SAP Affectations
+      parameters:
+       -
+        name: matric_sap
+        in: path
+        description: matricule SAP
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+       -
+        name: date_ref
+        in: query
+        description: Date ("YYYYMMDD")
+        required: false
+        style: form
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: ""
+          content: {}
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-throttling-limit:
+        requestCount: -1
+        unit: MINUTE
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+components:
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https:///authorize
+          scopes:
+            sc-SAPHR: ""
+            sc-FormHR: ""
+            sc-Security: ""
+            sc-Person-Changed: ""
+            sc-Employees_Admin: ""
+          x-scopes-bindings:
+            sc-Person-Changed: ""
+            sc-FormHR: ""
+            sc-SAPHR: ""
+            sc-Security: ""
+            sc-Employees_Admin: ""
+x-wso2-disable-security: "false"
+x-wso2-api-key-header: ApiKey
+x-wso2-auth-header: Authorization
+x-wso2-cors:
+  corsConfigurationEnabled: true
+  accessControlAllowOrigins:
+   - '*'
+  accessControlAllowCredentials: false
+  accessControlAllowHeaders:
+   - authorization
+   - Access-Control-Allow-Origin
+   - Content-Type
+   - SOAPAction
+   - apikey
+   - Internal-Key
+  accessControlAllowMethods:
+   - GET
+   - PUT
+   - POST
+   - DELETE
+   - PATCH
+   - OPTIONS
+x-wso2-production-endpoints:
+  urls:
+   - https://esb.sgsi.ucl.ac.be:8243/employees/v1
+  type: http
+x-wso2-sandbox-endpoints:
+  urls:
+   - https://esb-qa.sipr.ucl.ac.be:8243/employees/v1
+  type: http
+x-wso2-basePath: /employees/v1
+x-wso2-transports:
+ - http
+ - https
+x-wso2-application-security:
+  security-types:
+   - oauth2
+  optional: false
+x-wso2-response-cache:
+  enabled: false
+  cacheTimeoutInSeconds: 300
