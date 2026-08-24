@@ -1,15 +1,11 @@
 # API Catalog dépôt de développement
 
-## Liste des tickets
+Ici sont stockés des tests et projets variés de "découverte" des outils utilisés durant le développement d'API Catalog tels que:
+- Django
+- WSO2 Publisher Portal
+- WSO2 Developer Portal
+- apictl
+- FastAPI
+- Redoc
 
-### TODO S6
-
-- [ ] Refactorer le Backend (retirer redondance, améliorer documentation et msgs d'erreurs...)
-	- [ ] Exceptions
-	- [ ] Logs
-	- [ ] Documentation
-
-
-- [ ] Onglet de fichiers de documentation supplémentaires dans la page de documentation d'une API dans la barre de navigation
-- [ ] Le catalogue doit être muni d’une barre de recherche permettant d’explorer les APIs par nom.
-- [ ] Le catalogue doit être muni d’une liste de tags permettant de filtrer les APIs.
+Le dépôt contient également les fichiers LaTeX pour l'écriture des rapports du projets et des documents de référence.
