@@ -1,0 +1,71 @@
+# TODO notes / idées / rappels...
+
+---------------------------------
+
+=> Repo des documents :
+	- Architecture
+	- Documentation technique (structure du projet, explications dans les grandes lignes)
+	- Limitations (e.g. pas de bootstrap)
+
+=> Remove tmp/ ? (a bit useless in prod AND in dev)
+
+=> Système de cache :
+-> .maintenance file pour bloquer le frontend le tps du refresh
+-> OU ALORS frontend qui affiche "veuillez patienter" lorsqu'il y a un refresh (lorsqu'il y a des dossiers qui commencent avec un '.' par exemple)
+-> on peut pas "juste" trouver quelles APIs sont à retirer et overwrite les autres ?
+
+
+=> Caching system :
+hello-1.0.0/
+Pizza-1.0.0/
+
+
+1) Create .lock
+hello-1.0.0/
+Pizza-1.0.0/
+.lock
+
+
+2) Prefix all old apis with a '.'
+.hello-1.0.0/
+.Pizza-1.0.0/
+.lock
+
+
+3) Refresh normally (without the purge_directory)
+.hello-1.0.0/
+hello-1.0.0/
+.Pizza-1.0.0/
+.lock
+
+
+4.1) If there is any failure
+.hello-1.0.0/
+.Pizza-1.0.0/
+.lock
+
+Remove the '.' prefix
+hello-1.0.0/
+Pizza-1.0.0/
+.lock
+
+Finally delete the .lock
+hello-1.0.0/
+Pizza-1.0.0/
+
+
+4.2) If all goes well
+.hello-1.0.0/
+.Pizza-1.0.0/
+hello-1.0.0/
+Pizza-1.0.0/
+.lock
+
+Delete the '.' prefix
+hello-1.0.0/
+Pizza-1.0.0/
+.lock
+
+Finally delete the .lock
+hello-1.0.0/
+Pizza-1.0.0/
