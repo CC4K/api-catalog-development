@@ -4,41 +4,10 @@
 
 => Repo des documents :
 	- Architecture
-	- Documentation technique
+	- Documentation technique (structure du projet, explications dans les grandes lignes)
 	- Limitations (e.g. pas de bootstrap)
-	- Idées en plus à développer (TODO.md)
 
 => Système de cache :
 -> .maintenance file pour bloquer le frontend le tps du refresh
 -> OU ALORS frontend qui affiche "veuillez patienter" lorsqu'il y a un refresh (lorsqu'il y a des dossiers qui commencent avec un '.' par exemple)
 -> on peut pas "juste" trouver quelles APIs sont à retirer et overwrite les autres ?
-
-
-=> Système de nouveautés :
--> date de màj ds APIM (déjà existant)
--> date d'importation dans le catalogue (quand on a fait un refresh)
--> date de dernière modif de la dernière révision (à écrire dans la "DB" lorsqu'on voit un nouveau num de révision)
--> affichage de nouveautés + dernièrement màj (doivent être affichés pendant une durée X fixé dans le .env)
-
-
-
-"BONUS" :
-=> Système de .lock pour ne pas pouvoir spammer les requêtes sur le backend
-=> CSS plus propre (template avec les arguments dans un ordre donnée: padding;background;display;color... ?)
-=> Dark mode comme généré par l'extension Dark Reader / comme fixé sur uclouvain.be
-=> Matomo analytics
-
-=> Optimisation des performances en important uniquement les nouvelles révisions :
-	-> on peut vérifier le numéro de révision avec apictl mais cela nécessite une "DB" contenant le num de révision de chaque API pour comparer et décider l'importation
-	```
-	$ apictl get apis -e test -q status:PUBLISHED
-	ID                                     NAME                VERSION             CONTEXT             STATUS              PROVIDER
-	13928432-2fb6-46a6-8b28-376c912bc742   hello               1.0.0               /hello              PUBLISHED           admin
-	fdbade72-9b70-4461-8166-ffae9ff2d241   PizzaShackAPI       2.0.0               /pizzashack         PUBLISHED           admin
-
-	$ apictl get api-revisions -e test -n hello -v 1.0.0
-	ID                                     REVISION            DESCRIPTION               GATEWAY_ENVS
-	826b9a71-0c37-4573-a07d-bf149c7bdf64   1                   Initial Revision          []
-	f2689c66-dec5-4536-abf0-7347db923b26   2                   added applications home   [Default]
-	```
-	-> la màj devrait tt de même pouvoir être forcé (via une nouvelle route '/refresh/force' ?)
