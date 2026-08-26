@@ -26,46 +26,43 @@ Pizza-1.0.0/
 .lock
 
 
-2) Prefix all old apis with a '.'
-.hello-1.0.0/
-.Pizza-1.0.0/
-.lock
-
-
-3) Refresh normally (without the purge_directory)
-.hello-1.0.0/
+2) Refresh normally (without the purge_directory) but prefix new directories with '.'
 hello-1.0.0/
-.Pizza-1.0.0/
-.lock
-
-
-4.1) If there is any failure
+Pizza-1.0.0/
 .hello-1.0.0/
-.Pizza-1.0.0/
+....
 .lock
 
-Remove the '.' prefix
+
+3.1) If there is any failure
+hello-1.0.0/
+Pizza-1.0.0/
+.hello-1.0.0/
+.lock
+
+Remove the '.' prefixed directories
 hello-1.0.0/
 Pizza-1.0.0/
 .lock
 
-Finally delete the .lock
+Finally delete the .lock to resume normal operation
 hello-1.0.0/
 Pizza-1.0.0/
 
 
-4.2) If all goes well
+3.2) If all goes well
+hello-1.0.0/
+Pizza-1.0.0/
 .hello-1.0.0/
 .Pizza-1.0.0/
+.lock
+
+Move '.' prefixed directories over normal ones
+Don't forget to remove ALL leftover '.' prefixed directories (maybe 1 was blacklisted and now the old one is leftover)
 hello-1.0.0/
 Pizza-1.0.0/
 .lock
 
-Delete the '.' prefix
-hello-1.0.0/
-Pizza-1.0.0/
-.lock
-
-Finally delete the .lock
+Finally delete the .lock to resume normal operation
 hello-1.0.0/
 Pizza-1.0.0/
