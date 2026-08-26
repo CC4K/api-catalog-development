@@ -7,62 +7,37 @@
 	- Documentation technique (structure du projet, explications dans les grandes lignes)
 	- Limitations (e.g. pas de bootstrap)
 
-=> Remove tmp/ ? (a bit useless in prod AND in dev)
 
 => Système de cache :
--> .maintenance file pour bloquer le frontend le tps du refresh
--> OU ALORS frontend qui affiche "veuillez patienter" lorsqu'il y a un refresh (lorsqu'il y a des dossiers qui commencent avec un '.' par exemple)
--> on peut pas "juste" trouver quelles APIs sont à retirer et overwrite les autres ?
-
-
-=> Caching system :
+0)
 hello-1.0.0/
 Pizza-1.0.0/
 
 
-1) Create .lock
-hello-1.0.0/
-Pizza-1.0.0/
-.lock
-
-
-2) Refresh normally (without the purge_directory) but prefix new directories with '.'
+1) Refresh normally (without the purge_directory) but prefix new directories with '.'
 hello-1.0.0/
 Pizza-1.0.0/
 .hello-1.0.0/
 ....
-.lock
 
 
-3.1) If there is any failure
+2.1) If there is any failure
 hello-1.0.0/
 Pizza-1.0.0/
 .hello-1.0.0/
-.lock
 
 Remove the '.' prefixed directories
 hello-1.0.0/
 Pizza-1.0.0/
-.lock
-
-Finally delete the .lock to resume normal operation
-hello-1.0.0/
-Pizza-1.0.0/
 
 
-3.2) If all goes well
+2.2) If all goes well
 hello-1.0.0/
 Pizza-1.0.0/
 .hello-1.0.0/
 .Pizza-1.0.0/
-.lock
 
 Move '.' prefixed directories over normal ones
 Don't forget to remove ALL leftover '.' prefixed directories (maybe 1 was blacklisted and now the old one is leftover)
-hello-1.0.0/
-Pizza-1.0.0/
-.lock
-
-Finally delete the .lock to resume normal operation
 hello-1.0.0/
 Pizza-1.0.0/
