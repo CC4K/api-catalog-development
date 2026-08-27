@@ -4,29 +4,23 @@
 % ce qu'on veut permettre
 API Catalog est une application web permettant de parcourir les APIs publiées sur une instance WSO2 API Manager, d'afficher leur documentation et de la régénérer automatiquement de manière régulière. Son usage est destiné aux informaticiens du SGSI, des utilisateurs et/ou consultants externes de l'UCLouvain qui souhaitent consulter les APIs publiées sur l'instance API Manager du SGSI afin de faire savoir leur intérêt d'avoir accès à des APIs particulières.\bigskip
 
-% fonctionnalités utilisateurs
-Les utilisateurs du catalogue peuvent parcourir les APIs disponibles sur l'instance, les filtrer, les trier, les consulter et télécharger leur documentation.
-% ce que ça fait (fonctionnalités)
-% elle offre bcp de contrôle aux administrateurs (fontionnalités de gestion)
-Cette application offre également aux administrateurs différentes fonctionnalités afin de faciliter sa gestion, notamment :
-\begin{itemize}
-    \item[$\bullet$] Les données peuvent être rafraîchies manuellement
-    \item[$\bullet$] Les APIs peuvent être blacklistées afin de les exclure des rafraîchissements de données
-    \item[$\bullet$] Le rythme de rafraîchissement automatique peut être configuré par l'administrateur
-\end{itemize}
-et tout cela sans avoir à redéployer l'application.\bigskip
+Dans ce document nous décrirons l'architecture, la structure, le fonctionnement et les limitations de l'application. Nous terminerons par des points d'amélioration et une conclusion. Pour plus de détails concernant des méthodes privées particulières, le code est documentée avec des docstrings et des commentaires pour expliquer certains choix spécifiques mais trop détaillés pour être inclus ici où nous resterons sur une description "dans les grandes lignes".
 
-% comment c'est fait (Docker Compose, Scheduler, API Manager et apictl) au niveau des technologies elles-mêmes
-Le catalogue est déployée en conteneurs via Docker Compose et est constituée de quatre services :
+\subsection{Fonctionnalités clés}
+\subsubsection{Fonctionnalités utilisateurs}
 \begin{itemize}
-    \item[$\bullet$] \textbf{backend} : une application \href{https://fastapi.tiangolo.com/}{FastAPI} recevant des requêtes afin d'importer les APIs publiées sur l'API Manager (via l'outil en ligne de commande fourni par WSO2 : \href{https://apim.docs.wso2.com/en/latest/reference/apictl/wso2-api-controller/}{APICTL}) et de les extraire dans un répertoire de données partagé.
-    \item[$\bullet$] \textbf{frontend} : une application \href{https://flask.palletsprojects.com/en/stable/}{Flask} chargée d'afficher le catalogue et la documentation de chaque API à partir du répertoire de données partagé.
-    \item[$\bullet$] \textbf{scheduler} : un lanceur de tâches automatique \href{https://github.com/aptible/supercronic}{Supercronic} lançant automatique le rafraîchissement automatique en appelant le backend à horaire régulier.
-    \item[$\bullet$] \textbf{proxy} : un proxy \href{https://nginx.org/}{Nginx} pour le frontend et le backend permettant d'exposer les services en HTTPS.
+    \item[$\bullet$] Consulter la liste de toutes les APIs publiées sur l'instance API Manager du SGSI (à l'exception des APIs blacklistées par les administrateurs)
+    \item[$\bullet$] Consulter les spécifications OpenAPI de chaque API (\texttt{swagger.yaml}) ainsi que les documents potentiellement associés
+    \item[$\bullet$] Télécharger la documentation de chaque API ainsi que les documents potentiellement associés
 \end{itemize}
-\bigskip
 
-Dans ce document nous irons plus en détail dans l'architecture, la structure, le fonctionnement et les limitations de l'application. Nous terminerons par des points d'amélioration et une conclusion.
+\subsubsection{Fonctionnalités administrateurs}
+\begin{itemize}
+    \item[$\bullet$] Consulter et modifier le répertoire de stockage partagé des APIs actuellement présents sur le catalogue
+    \item[$\bullet$] Rafraîchir les données des APIs sur le catalogue manuellement via une requête HTTP
+    \item[$\bullet$] Blacklister des APIs afin de les exclure du répertoire de stockage partagé (et donc également de l'affichage sur le catalogue) lors le prochain rafraîchissement
+    \item[$\bullet$] Ajuster la fréquence de rafraîchissement automatique du catalogue
+\end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                   %
 %                                                                   %
@@ -37,18 +31,25 @@ Dans ce document nous irons plus en détail dans l'architecture, la structure, l
 %                                                                   %
 %                                                                   %
 %===================================================================%
-\newpage
-\section{Diagramme d'architecture}
+\section{Architecture de l'application}
 %===================================================================%
-API Catalog suit la structure suivante :
+\subsection{Vue globale}
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1.\textwidth]{img/architecture_diagram.pdf}
+    \includegraphics[width=1.0\textwidth]{img/architecture_diagram.pdf}
     \caption{Diagramme d'architecture}
 \end{figure}
-\bigskip
 
-Les trois services \textbf{backend}, \textbf{frontend} et \textbf{scheduler} communiquent ensemble via le réseau interne de Docker (\texttt{bridge}) et ne sont pas exposés à l'extérieur sauf par l'hôte qui a également accès à ce réseau.
+\subsection{Services}
+Le catalogue est déployée en conteneurs via Docker Compose et est constituée de trois services :
+\begin{itemize}
+    \item[$\bullet$] \textbf{backend} : une application \href{https://fastapi.tiangolo.com/}{FastAPI} recevant des requêtes afin d'importer les APIs publiées sur l'API Manager (via l'outil en ligne de commande fourni par WSO2 : \href{https://apim.docs.wso2.com/en/latest/reference/apictl/wso2-api-controller/}{apictl}) et de les extraire dans un répertoire de données partagé.
+    \item[$\bullet$] \textbf{frontend} : une application \href{https://flask.palletsprojects.com/en/stable/}{Flask} chargée d'afficher le catalogue et la documentation de chaque API à partir du répertoire de données partagé.
+    \item[$\bullet$] \textbf{scheduler} : un lanceur de tâches automatique \href{https://github.com/aptible/supercronic}{Supercronic} lançant automatique le rafraîchissement automatique en appelant le backend à horaire régulier.
+\end{itemize}
+
+\subsection{Communication entre les services}
+Les trois services \textbf{backend}, \textbf{frontend} et \textbf{scheduler} communiquent ensemble via le réseau interne de Docker (\texttt{bridge}) et ne sont pas exposés à l'extérieur sauf par l'hôte qui a également accès à ce réseau. Le backend et frontend sont également connectés au proxy Nginx. Le serveur de production n'étant pas disponible pour ce projet, une configuration supplémentaire est fournie afin de déployer un proxy avec des certificats auto-signés pour faciliter le développement. Plus de détails dans la section \textit{Conteneurisation et déploiement}\textsuperscript{\ref{sec:deployment}}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                   %
 %                                                                   %
@@ -60,71 +61,65 @@ Les trois services \textbf{backend}, \textbf{frontend} et \textbf{scheduler} com
 %                                                                   %
 %===================================================================%
 \newpage
-\section{Structure du projet}
+\section{Organisation du projet}
 %===================================================================%
-\begin{lstlisting}[caption={Structure du projet}]
+\begin{lstlisting}[caption={Structure du projet}, frame=single]
 apictl/
-    apictl
-    login.sh
-    keys.json.example
+    login.sh                        # generates login key from credentials
     ...
 backend/
+    backend.py
+    importation_manager.py
     api_archive_extractor.py
     apictl_client.py
     api_manager_client_interface.py
-    backend.py
-    blacklist.txt
-    importation_manager.py
     utils.py
-    ...
-data/
-docker/
+    blacklist.txt                   # API blacklisting file
+    requirements_backend.txt        # Python dependencies
+    uvicorn_logging.json            # Uvicorn logging configuration
+data/                               # shared data directory
+docker/                             # Docker images
     Dockerfile.backend
     Dockerfile.frontend
     Dockerfile.scheduler
 frontend/
     static/
-        font/...
-        icon/...
+        font/Montserrat.woff2       # web font
+        icon/...                    # static icons (PNG, SVG)
         redoc/
-            redoc.standalone.js
+            redoc.standalone.js     # Redoc standalone script
             ...
-        filter.js
-        style.css
+        filter.js                   # sorting and filtering logic
+        style.css                   # frontend styling
     templates/
-        403.html
-        404.html
-        415.html
-        base.html
-        card.html
-        contact.html
-        documentation.html
-        footer.html
-        index.html
-        navbar.html
-        redoc.html
-        viewer.html
-    api_metadata_extractor.py
+        403.html                    # HTTP 403 error page
+        404.html                    # HTTP 404 error page
+        415.html                    # HTTP 415 error page
+        base.html                   # base for all pages (navbar + footer)
+        card.html                   # card template for index page
+        contact.html                # static contact page
+        documentation.html          # documentation page for an API
+        footer.html                 # global page footer
+        index.html                  # index page listing all APIs
+        navbar.html                 # global page navigation bar
+        redoc.html                  # Redoc template for Swagger rendering
+        viewer.html                 # standalone text/md/html viewer
     frontend.py
-    ...
+    api_metadata_extractor.py
+    requirements_frontend.txt       # Python dependencies
+    gunicorn_logging.json           # Gunicorn logging configuration
 proxy/
     deploy/
-        certs/...
-        proxy.conf
-    snakeoil.sh
-scheduler/crontab
+        certs/...                   # self-signed certificates
+        proxy.conf                  # proxy configuration file
+    snakeoil.sh                     # generates self-signed certificates
+scheduler/crontab                   # task frequency configuration
 compose.yaml
 compose.proxy.yaml
-.editorconfig
-.env.example
+.editorconfig                       # editor style auto-configuration
+.env.example                        # example environment variables
 ...
 \end{lstlisting}
-\bigskip
-
-
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                   %
 %                                                                   %
@@ -135,12 +130,108 @@ compose.proxy.yaml
 %                                                                   %
 %                                                                   %
 %===================================================================%
-\section{Service backend}
+\section{Service backend (FastAPI)}
 %===================================================================%
-Le backend FastAPI peut recevoir des requêtes HTTP afin de lancer le processus de rafraîchissement des données à la requête de l'administrateur via l'hôte ou automatiquement depuis le scheduler via le réseau interne de Docker (\verb|bridge|).
+\subsection{\texttt{backend.py}}
+Le backend FastAPI est le point d'entrée du backend. C'est ici que les requêtes HTTP pour rafraîchir les APIs sont reçues et traitées. Il est responsable de :
 
+\begin{itemize}
+    \item[$\bullet$] Charge la configuration via des variables d'environnement (\texttt{.env}), notamment \texttt{DEBUG} (niveau de log), \texttt{APIM\_ENVIRONMENT} (environnement API Manager) et \texttt{SERVER\_URL} (URL de base utilisée pour réécrire les serveurs dans les fichiers Swagger)
+    \item[$\bullet$] Initialise les répertoires \texttt{tmp/} (à priori existant dans le conteneur donc redondant) et \texttt{data/} au même niveau que \texttt{backend/}
+    \item[$\bullet$] Instancie le logger et les classes : \texttt{ApiCtlClient}, \texttt{ApiArchiveExtractor} et\\ \texttt{ImportationManager}
+    \item[$\bullet$] Expose deux routes pour rafraîchir les données d'APIs :
+    \begin{itemize}
+        \item[$\circ$] \texttt{POST /refresh} : rafraîchit toutes les APIs publiées
+        \item[$\circ$] \texttt{POST /refresh/\{api\_type\}/\{api\_name\}-\{api\_version\}} : rafraîchit une API spécifique via son type, son nom et sa version
+        \item[$\circ$] Gestionnaire d'erreurs FastAPI pour retourner des exceptions HTTP appropriés selon les réponses de l'ImportationManager ou de l'entrée utilisateur (\texttt{400 Bad\\ Request}, \texttt{404 Not Found}, \texttt{500 Internal Server Error})
+    \end{itemize}
+\end{itemize}
 
+%===================================================================%
 
+\subsection{\texttt{ImportationManager}}
+L'ImportationManager est la "super classe" qui organise l'ensemble du processus de rafraîchissement en coordonnant le client API Manager et \texttt{ApiArchiveExtractor}.
+
+\begin{itemize}
+    \item[$\bullet$] \texttt{refresh\_all()} : rafraîchit toutes les APIs publiées et retourne la liste des APIs traitées
+        \begin{enumerate}
+            \item Purge intégralement \texttt{data/} (à l'exception de \texttt{.gitkeep} qui permet de conserver un répertoire vide dans git)
+            \item Récupère la liste des APIs actuellement publiées sur API Manager
+            \item Importe et extrait chaque API une à une
+            \item Retourne la liste des APIs traitées (une entrée \texttt{None} signalant une API blacklistée)
+        \end{enumerate}
+    \item[$\bullet$] \texttt{refresh\_single(api\_type, api\_name, api\_version)} : rafraîchit une seule API à la demande par son type, nom et version et retourne le nom et version de l'API si le rafraîchissement a réussi ou \texttt{None} si l'API est blacklistée
+        \begin{enumerate}
+            \item Vérifie si l'API est blacklistée (et retourne \texttt{None} le cas échéant)
+            \item Crée le sous-répertoire temporaire nécessaire
+            \item Importe l'archive depuis API Manager vers \texttt{tmp/}
+            \item Extrait l'archive vers \texttt{data/}
+            \item Purge \texttt{tmp/} dans un bloc \texttt{finally} que l'opération réussisse ou échoue (cela évite l'accumulation d'archives dans un cas ou l'importation réussi mais l'extraction échoue)
+        \end{enumerate}
+\end{itemize}
+
+%===================================================================%
+
+\subsection{\texttt{ApiArchiveExtractor}}
+L'ApiArchiveExtractor est responsable de l'extraction et de la normalisation des archives \texttt{.zip} exportées par \texttt{apictl} depuis API Manager. Il est appelé par l'ImportationManager pour traiter les archives après leur importation.
+
+\begin{itemize}
+    \item[$\bullet$] \texttt{extract\_api\_archive(api\_type, api\_name, api\_version)} : extrait l'archive de l'API dans \texttt{tmp/} dans \texttt{data/} en filtrant et réécrivant certains fichiers selon le type d'API (API ou API product)
+        \begin{enumerate}
+            \item Localise l'archive dans \texttt{tmp/apis/} ou \texttt{tmp/api-products/}
+            \item Extrait le contenu dans \texttt{data/} en excluant certains fichiers selon le type (\texttt{api\_meta*} pour les APIs, \texttt{api\_product\_meta*} et \texttt{APIs/*} pour les API products)
+            \item Renomme \texttt{api\_product.yaml} en \texttt{api.yaml} pour les API products, afin d'uniformiser le format entre les deux types d'APIs (on ne fait pas leur différence dans le catalogue mais API Manager créé des structures assez différentes selon que l'API est un produit ou non)
+            \item Filtre les métadonnées de \texttt{api.yaml} pour ne conserver que les champs utiles (\texttt{name}, \texttt{provider}, \texttt{context}, \texttt{version}, \texttt{tags}, \texttt{lastUpdatedTime})
+            \item Réécrit l'URL du serveur dans \texttt{Definitions/swagger.yaml} en combinant\\ \texttt{SERVER\_URL} avec le contexte et la version de l'API
+            \item Ajoute un suffixe aux fichiers de documentation inline dans \texttt{Docs/} (\texttt{INLINE} $\rightarrow$ \texttt{.html}, \texttt{MARKDOWN} $\rightarrow$ \texttt{.md}) afin de permettre leur visualisation directe dans le catalogue
+        \end{enumerate}
+\end{itemize}
+
+%===================================================================%
+
+\subsection{\texttt{ApiManagerClientInterface} et \texttt{ApiCtlClient}}
+ApiManagerClientInterface est une interface abstraite définissant les méthodes qu'un client d'API Manager devrait implémenter et fournir. Elle est utilisée par l'ImportationManager pour interagir avec API Manager.
+
+La classe qui l'implémente actuellement est ApiCtlClient, un outil en ligne de commande permettant d'interagir avec API Manager mais celui-ci pourrait aisément être remplacé par un autre outil (ce sera d'ailleurs le cas avec Admin API v4) sans avoir à modifier le reste de l'application puisque c'est bien l'interface qui est appelée par l'ImportationManager.
+
+\subsubsection{\texttt{ApiManagerClientInterface}}
+
+Une interface définissant le contrat que doit respecter tout client d'interaction avec API Manager :
+
+\begin{itemize}
+    \item[$\bullet$] \texttt{get\_published\_apis()} : liste toutes les APIs publiées (nom, version, type)
+    \item[$\bullet$] \texttt{import\_single\_archive(api\_type, api\_name, api\_version)} : importe une archive unique et retourne son chemin
+\end{itemize}
+
+\subsubsection{\texttt{ApiCtlClient}}
+
+Implémente l'interface ci-dessus en s'appuyant sur l'outil en ligne de commande de WSO2 \texttt{apictl} (API Controller) :
+
+\begin{itemize}
+    \item[$\bullet$] \texttt{get\_published\_apis()} : liste toutes les APIs publiées (nom, version, type)
+        \begin{enumerate}
+            \item Exécute \texttt{apictl get apis}/\texttt{apictl get api-products} en filtrant les APIs publiées
+            \item Reconstitue et parse la sortie JSON ligne par ligne
+            \item Retourne une liste de dictionnaires avec \texttt{name}, \texttt{version} et \texttt{type} pour chaque API
+        \end{enumerate}
+    \item[$\bullet$] \texttt{import\_single\_archive(api\_type, api\_name, api\_version)} : importe une archive unique et retourne son chemin
+        \begin{enumerate}
+            \item Vérifie d'abord que l'API demandée existe et est bien publiée (vérification si il s'agit d'un rafraîchissement ciblé)
+            \item Exécute ensuite \texttt{apictl export} pour générer l'archive
+            \item Reconstruit le chemin d'export attendu (\texttt{\textasciitilde/.wso2apictl/exported/...}) où le répertoire \texttt{.wso2apictl} est toujours créé dans le répertoire racine \texttt{\$HOME} du système y compris en conteneur ou cela se trouve dans \texttt{/root}
+        \end{enumerate}
+\end{itemize}
+
+%===================================================================%
+
+\subsection{\texttt{utils.py}}
+Un simple module utilitaire permettant de faire des opérations sur les fichiers et répertoires ainsi que lire et écrire des fichiers YAML. Il est utilisé à plusieurs endroits du backend pour éviter la duplication de code.
+
+\begin{itemize}
+    \item[$\bullet$] \texttt{copy()} / \texttt{move()} : opérations sur les fichiers et répertoires
+    \item[$\bullet$] \texttt{purge\_directory()} : vide un répertoire en excluant certains motifs (par exemple \texttt{.git*} pour ne pas supprimer tous les fichiers commençant par \texttt{.git})
+    \item[$\bullet$] \texttt{yaml\_to\_dict()} / \texttt{dict\_to\_yaml()} : lecture et écriture de fichiers YAML
+\end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                   %
 %                                                                   %
@@ -151,11 +242,48 @@ Le backend FastAPI peut recevoir des requêtes HTTP afin de lancer le processus 
 %                                                                   %
 %                                                                   %
 %===================================================================%
-\section{Service frontend}
+\section{Service frontend (Flask)}
+%===================================================================%
+\subsection{\texttt{frontend.py}}
+Le frontend Flask est le point d'entrée du frontend. C'est ici que les requêtes HTTP pour afficher le catalogue et la documentation des APIs sont reçues, traitées et l'utilisateur servi selon sa requête.
+
+\begin{itemize}
+    \item[$\bullet$] Charge la configuration via des variables d'environnement (\texttt{.env}), notamment \texttt{DEBUG} (niveau de log)
+    \item[$\bullet$] Initialise le répertoire \texttt{data/} au même niveau que \texttt{frontend/}
+    \item[$\bullet$] Instancie le logger
+    \item[$\bullet$] \texttt{validate\_api\_file\_path(api\_dir\_name, relative\_path)} : vérifie que le chemin d'accès à un fichier de l'API est valide et ne permet pas d'accéder à des fichiers en dehors du répertoire de l'API. Cela évite que les utilisateurs ne puisse aller lire l'entiereté du système de fichiers du conteneur via des chemins relatifs (ex: \texttt{../../../../etc/...})
+    \item[$\bullet$] Expose plusieurs routes pour afficher l'index du catalogue et la documentation des APIs ainsi que les documents associés :
+    \begin{itemize}
+        \item[$\circ$] \texttt{GET /} : redirige vers \texttt{/index}
+        \item[$\circ$] \texttt{GET /index} : affiche la page d'accueil listant toutes les APIs (triées par nom)
+        \item[$\circ$] \texttt{GET /contact} : affiche la page de contact statique
+        \item[$\circ$] \texttt{GET /documentation/<api\_name>-<api\_version>/} : affiche la page de documentation d'une API (Swagger + documents associés)
+        \item[$\circ$] \texttt{GET /documentation/<api\_dir\_name>/<relative\_path>} : sert un fichier statique de l'API (document, swagger, icône)
+        \item[$\circ$] \texttt{GET /documentation/inline/<api\_dir\_name>/<relative\_path>} : affiche un rendu pour les formats supportés (\texttt{.md}/\texttt{.html}/\texttt{.txt})
+        \item[$\circ$] Gestionnaire d'erreurs Flask pour afficher des pages d'erreur personnalisées pour \texttt{403 Forbidden}, \texttt{404 Not Found} et \texttt{415 Unsupported Media Type}
+    \end{itemize}
+\end{itemize}
+
 %===================================================================%
 
+\subsection{\texttt{api\_metadata\_extractor.py}}
+Un module utilitaire qui permet d'extraire les métadonnées utiles des répertoires de chaque API afin de les passer au frontend pour utilisation.
 
-
+\begin{itemize}
+    \item[$\bullet$] \texttt{get\_api\_metadata(api\_dir, logger)} : lit le répertoire de l'API spécifié et retourne un dictionnaire contenant ses métadonnées :
+    \begin{itemize}
+        \item[$\circ$] \texttt{name} : nom de l'API
+        \item[$\circ$] \texttt{version} : version de l'API
+        \item[$\circ$] \texttt{context} : contexte de l'API
+        \item[$\circ$] \texttt{provider} : fournisseur de l'API
+        \item[$\circ$] \texttt{tags} : tags associées à l'API (actuellement obsolète car inutilisé dans l'instance API Manager de production du SGSI)
+        \item[$\circ$] \texttt{last\_updated} : date de la dernière mise à jour
+        \item[$\circ$] \texttt{icon\_url} : URL de l'icône de l'API
+        \item[$\circ$] \texttt{fallback\_bg} : couleur de fond de substitution
+        \item[$\circ$] \texttt{swagger\_url} : URL du fichier Swagger
+        \item[$\circ$] \texttt{documents} : documents associés à l'API
+    \end{itemize}
+\end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                   %
 %                                                                   %
@@ -166,11 +294,15 @@ Le backend FastAPI peut recevoir des requêtes HTTP afin de lancer le processus 
 %                                                                   %
 %                                                                   %
 %===================================================================%
-\section{Service scheduler}
+\section{Service scheduler (Supercronic)}
 %===================================================================%
+Supercronic est un outil permettant de planifier l'exécution automatique de tâches spécifiquement développé afin de tourner en conteneur. Il est basé sur cron, le même système présent sur les systèmes Linux ("\texttt{man cron}" dans un terminal pour en savoir plus sur l'outil). Il est utilisé dans ce projet pour déclencher automatiquement le rafraîchissement des APIs à intervalle régulier.
 
-
-
+\begin{itemize}
+    \item[$\bullet$] Sa configuration se fait via le fichier \texttt{scheduler/crontab} synchronisé en temps que fichier de configuration dans Docker Compose
+    \item[$\bullet$] Par défaut, un rafraîchissement complet du catalogue est déclenché toutes les heures (à la minute 0) en appelant la route \texttt{POST /refresh} du backend
+    \item[$\bullet$] Les logs de debug (affichant la prochaine exécution planifiée) sont activés par défaut, ils peuvent être désactivés en dé-commentant la commande sans le flag de debug dans \texttt{compose.yaml}
+\end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                   %
 %                                                                   %
@@ -181,11 +313,76 @@ Le backend FastAPI peut recevoir des requêtes HTTP afin de lancer le processus 
 %                                                                   %
 %                                                                   %
 %===================================================================%
-\section{Service proxy}
+\section{Conteneurisation et déploiement}\label{sec:deployment}
+%===================================================================%
+L'application est conteneurisée et déployée via Docker Compose. \texttt{compose.yaml} définit les trois services principaux (\textbf{backend}, \textbf{frontend}, \textbf{scheduler}) et leurs configurations. Un fichier optionnel \texttt{compose.proxy.yaml} permet de déployer avec un service proxy Nginx utilisant des certificats auto-signés pour faciliter le développement et les tests (un script \texttt{proxy/snakeoil.sh} est fourni pour générer ces certificats).
+
 %===================================================================%
 
+\subsection{Image backend}
+Basée sur une image \texttt{python:3.14-slim} (évite l'installation manuelle de Python dans l'image)
 
+\begin{enumerate}
+    \item Installe et initialise apictl (attention que les clés de connexion doivent avoir été générées avant avec le script \texttt{apictl/login.sh})
+    \item Copie les fichiers sources du backend et installe les dépendances Python nécessaires
+    \item Définit le point d'entrée et la commande de lancement du backend FastAPI via Uvicorn
+\end{enumerate}
 
+%===================================================================%
+
+\subsection{Image frontend}
+Basée sur une image \texttt{python:3.14-slim} (évite l'installation manuelle de Python dans l'image)
+
+\begin{enumerate}
+    \item Copie les fichiers sources du frontend et installe les dépendances Python nécessaires
+    \item Définit le point d'entrée et la commande de lancement du frontend Flask via Gunicorn
+\end{enumerate}
+
+%===================================================================%
+
+\subsection{Image scheduler}
+Basée sur une image \texttt{alpine:3.21}.
+
+\begin{itemize}
+    \item[$\bullet$] Télécharge et installe le binaire Supercronic
+    \item[$\bullet$] Copie le fichier de configuration \texttt{crontab} dans l'image
+    \item[$\bullet$] Définit le point d'entrée et la commande de lancement de Supercronic avec le fichier de configuration
+\end{itemize}
+
+%===================================================================%
+\subsection{Configuration des services}
+
+\subsubsection{Réseaux}
+% internal (bridge): backend + frontend + scheduler
+% nginx-proxy (external): backend + frontend + proxy
+Deux réseaux Docker sont utilisés pour permettre la communication entre les services ainsi qu'avec l'extérieur :
+\begin{itemize}
+    \item[$\bullet$] \texttt{internal} : réseau interne de type \texttt{bridge} utilisé pour la communication entre les services backend, frontend et scheduler. Il n'est pas exposé à l'extérieur
+    \item[$\bullet$] \texttt{nginx-proxy} : réseau externe utilisé pour la communication entre les services backend, frontend et le proxy Nginx, le service scheduler n'a pas besoin d'y être connecté puisqu'il ne doit pas y être accédé depuis l'extérieur
+\end{itemize}
+
+\subsubsection{Volumes et fichiers de configuration}
+% volumes: data/ (backend + frontend + hôte) ; docker.sock + proxy.conf + certs/ (nginx)
+% configs : blacklist.txt (backend + hôte) ; crontab (scheduler + hôte)
+\begin{itemize}
+    \item[$\bullet$] \texttt{data/} : \textbf{volume} partagé entre le backend, le frontend et l'hôte pour stocker les données des APIs. Le backend y écrit les nouvelles données d'API, le frontend les lit (lecture seule du côté frontend) et l'hôte peut y lire et écrire les données sans avoir à redéployer les services.
+    \item[$\bullet$] \texttt{blacklist.txt} : \textbf{fichier de configuration} partagé entre le backend et l'hôte pour stocker la liste des APIs blacklistées. Le backend y lit les APIs à exclure lors du rafraîchissement et l'hôte peut y écrire pour ajouter ou retirer des APIs de la liste sans avoir à redéployer le service.
+    \item[$\bullet$] \texttt{crontab} : \textbf{fichier de configuration} partagé entre le scheduler et l'hôte pour définir la fréquence des rafraîchissement automatique. Le scheduler y lit la configuration et l'hôte peut y écrire pour modifier la planification sans avoir à redéployer le service.
+    \item[$\bullet$] \texttt{docker.sock} : \textbf{volume} partagé entre le proxy Nginx et l'hôte pour permettre au proxy de détecter automatiquement les services et de configurer les hôtes virtuels. Il est utilisé par le proxy pour intercepter les requêtes HTTP et les rediriger vers les services backend et frontend appropriés. Uniquement présent lorsque le proxy de développement est déployé via \texttt{compose.proxy.yaml}.
+    \item[$\bullet$] \texttt{proxy.conf} : \textbf{volume} partagé entre le proxy Nginx et l'hôte pour paramétrer le proxy. Uniquement présent lorsque le proxy de développement est déployé via \texttt{compose.proxy.\\yaml}.
+    \item[$\bullet$] \texttt{certs/} : \textbf{volume} partagé entre le proxy Nginx et l'hôte pour stocker les certificats TLS utilisés par le proxy. Uniquement présent lorsque le proxy de développement est déployé via \texttt{compose.proxy.yaml}.
+\end{itemize}
+
+\subsubsection{Variables d'environnement}
+% transmis depuis le .env
+% variables additionnels : VIRTUAL_PORT + VIRTUAL_HOST pour le proxy Nginx ; TZ pour le fuseau horaire
+Docker compose utilise des variables d'environnement supplémentaires que celles déjà définies dans le fichier \texttt{.env} pour configurer les services :
+
+\begin{itemize}
+    \item[$\bullet$] \texttt{VIRTUAL\_PORT} : port interne sur lequel le service écoute (\texttt{5000} pour Flask et \texttt{8000} pour FastAPI)
+    \item[$\bullet$] \texttt{VIRTUAL\_HOST} : nom d'hôte associé au service et utilisé par le proxy pour déterminer le routage des requêtes
+    \item[$\bullet$] \texttt{TZ} : fuseau horaire utilisé par les services
+\end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                   %
 %                                                                   %
@@ -196,44 +393,17 @@ Le backend FastAPI peut recevoir des requêtes HTTP afin de lancer le processus 
 %                                                                   %
 %                                                                   %
 %===================================================================%
-\section{Limitations}
+\section{Notes, limitations et améliorations}
 %===================================================================%
-\subsection{Style du Frontend}
-% pas de bootstrap à cause du Redoc
+\subsection{Limitations connues}
+\subsubsection{Redoc et Bootstrap 5+}
+Les spécifiaction OpenAPI des APIs sont affichées via Redoc qui offre un rendu très complet mais qui semble avoir des problèmes de compatibilité avec Bootstrap 5+ (qui permet de styliser les pages web sans avoir besoin d'un CSS complexe) où la barre de navigation sur la gauche ne réagit plus du tout. Une des solutions serait apparemment de passer à une version antérieure de Bootstrap (non-testé et pourrait casser si Bootstrap est mis à jour) ou d'override le CSS de Redoc (non-testé et pourrait casser si Redoc est mis à jour).
 
+\subsubsection{Disparition temporaire des APIs sur l'index lors du rafraîchissement}
+Le rafraîchissement complet du catalogue peut prendre un moment (surout en production où il y a beaucoup d'APIs publiées) et la majorité du temps de rafraîchissement est dû à l'importation des archives depuis API Manager alors que l'extraction des archives est très rapide. Cela signifie que pendant quelques secondes les catalogue apparaît incomplet à un utilisateur qui consulterait le catalogue à ce moment là. Une idée pour contourner ce problème serait de garder en cache les anciennes données et ne remplacer le répertoire de données que lorsque le rafraîchissement est terminé (en extrayant d'abord les nouvelles données dans \texttt{tmp/} par exemple).
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                   %
-%                                                                   %
-%                                                                   %
-%                                                                   %
-%                                                                   %
-%                                                                   %
-%                                                                   %
-%                                                                   %
-%===================================================================%
-\section{Points d'amélioration}
-%===================================================================%
-% cfr TODO.md
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                                                                   %
-%                                                                   %
-%                                                                   %
-%                                                                   %
-%                                                                   %
-%                                                                   %
-%                                                                   %
-%                                                                   %
-%===================================================================%
-\section{Conclusion}
-%===================================================================%
-% ça marche, ça rempli les objectifs mais pas parfait et reste bcp à améliorer même en dehors des fonctionnalités supplémentaires
-
-
+\subsection{Objectifs futurs et améliorations}
+Le fichier \texttt{TODO.md} contient une liste de points d'amélioration et de bugs à fixer.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                                                                   %
 %                                                                   %
