@@ -16,6 +16,8 @@ servers:
   url: https://localhost:9443/am/sample/pizzashack/v1/api
   description: Production API server
   x-internal: false
+ -
+  url: https://localhost:87978997977/pm/sample/pizzashack/v1/api
 security:
  -
   default: []

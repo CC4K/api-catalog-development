@@ -1,6 +1,5 @@
 import json
 import yaml
-from yaml import SafeLoader
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -9,10 +8,13 @@ args = parser.parse_args()
 path = args.files
 
 yaml_file = open(path, "r")
-python_dict = yaml.load(yaml_file, Loader=SafeLoader)
+yaml_stream = yaml.safe_load(yaml_file)
+
+print(yaml_stream["servers"])
+yaml_stream["servers"] = [{"url": "HAHAHAHA"}]
 
 json_file = open(path.replace(".yaml", ".json"), "w")
-json.dump(python_dict, json_file, indent=2)
+json.dump(yaml_stream, json_file, indent=2)
 
 yaml_file.close()
 json_file.close()
