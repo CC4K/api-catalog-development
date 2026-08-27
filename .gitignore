@@ -4,28 +4,3 @@ venv/
 
 # VS Code
 .vscode/
-
-# Drawio
-*.bkp
-
-# LaTeX
-_minted-main/
-svg-inkscape/
-*.aux
-*.fdb_latexmk
-*.fls
-*.log
-*.out
-*.synctex.gz
-*.glg
-*.glo
-*.gls*
-*.ist
-*.toc
-
-# main.glg
-# main.glo
-# main.gls
-# main.glsdefs
-# main.ist
-# main.toc
